@@ -34,8 +34,8 @@ plugins             :
 - jekyll-remote-theme
 
 # Content
-title               : "100x :: Product Experiments with GenAI"
-description         : "Track Todd's progress producing one AI prototype each week and the learnings from it"
+title               : "100x"
+description         : "Product Experiments with GenAI"
 
 # Conversion
 markdown            : kramdown
