@@ -1,5 +1,6 @@
 ---
 layout: default
+title: 100x
 ---
 
 # Welcome to my weird experiment
