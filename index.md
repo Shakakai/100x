@@ -24,9 +24,14 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
 
 # Prototype Updates
 
+{% raw %}
+~~~html
+<ul>
   {% for post in site.posts %}
-* [{{ post.title }}]({{ post.url }})
+<li><a href="{{ post.url }}">{{ post.title }}</a></li>
   {% endfor %}
+</ul>
+{% endraw %}
 
 # Caveats
 

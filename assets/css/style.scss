@@ -2,3 +2,11 @@
 ---
 
 @import "{{ site.theme }}";
+
+p:has(img) {
+  text-align: center;
+}
+
+#main_content img {
+  border: 8px solid #fff;
+}
