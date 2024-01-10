@@ -22,6 +22,21 @@ A prototype may evolve into a full product but that's not necessarily the goal.
 Most of you got here via a social media post. 
 If you have an idea for a prototype, toss a comment on the post and I'll see if it fits into the format and schedule.
 
+# Prototype Updates
+
+  {% for post in site.posts %}
+* [{{ post.title }}]({{ post.url }})
+  {% endfor %}
+
+# Caveats
+
+* These prototypes are scoped down to be achievable in a week. If you want me to expand on a concept, let me know.
+* I'm not a designer. These builds are going to prioritize functionality over aesthetics.
+* I'm using a webapp that I previously built to jumpstart all these projects. I'll share the details of that in a future post.
+* Each of the prototypes will require some form of API key to cover the cost of the GenAI system. **I DO NOT log those API keys.** After the request to the GenAI system is complete, the API key no longer exists in my backend system. The key is stored in the frontend React application for as long as your browser window is open.
+
+If you have any questions, reach out to my via my contact information below.
+
 # Who is this guy?
 
 Hi, I'm Todd Cullen. I've been a fullstack developer and serial entrepreneur for the last 20 years.
@@ -33,21 +48,6 @@ I'm using this project to rehone my skills and scratch my creative itch.
 ![Todd Cullen](/assets/images/todd-profile.jpg)
 
 Thanks for joining me on this journey.
-
-# Caveats
-
-* These prototypes are scoped down to be achievable in a week. If you want me to expand on a concept, let me know.
-* I'm not a designer. These builds are going to prioritize functionality over aesthetics.
-* I'm using a webapp that I previously built to jumpstart all these projects. I'll share the details of that in a future post.
-* Each of the prototypes will require some form of API key to cover the cost of the GenAI system. **I DO NOT log those API keys.** After the request to the GenAI system is complete, the API key no longer exists in my backend system. The key is stored in the frontend React application for as long as your browser window is open.
-
-If you have any questions, reach out to my via my contact information below.
-
-# Prototype Updates
-
-  {% for post in site.posts %}
-* [{{ post.title }}]({{ post.url }})
-  {% endfor %}
 
 # Get in Touch
 Want to talk about GenAI or perhaps you have a specific project and need feedback?
