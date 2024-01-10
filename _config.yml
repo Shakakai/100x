@@ -15,7 +15,7 @@ collections:
 # Handling Reading
 safe                : false
 include             : [".htaccess"]
-exclude             : ["Gemfile", "Gemfile.lock", "node_modules", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/"]
+exclude             : ["Gemfile", "Gemfile.lock", "node_modules", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/", "docker-compose.yml"]
 keep_files          : [".git", ".svn"]
 encoding            : "utf-8"
 markdown_ext        : "markdown,md"
@@ -33,6 +33,7 @@ plugins             :
 - jekyll-remote-theme
 
 remote_theme        : pages-themes/tactile@v0.2.0
+
 # Content
 title               : "100x"
 description         : "Product Experiments with GenAI"
@@ -43,13 +44,6 @@ highlighter         : rouge
 lsi                 : false
 excerpt_separator   : "\n\n"
 incremental         : false
-
-# Serving
-detach              : false
-port                : 4000
-host                : 127.0.0.1
-baseurl             : "" # does not include hostname
-show_dir_listing    : false
 
 # Outputting
 permalink           : date
