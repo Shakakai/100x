@@ -1,6 +1,7 @@
 ---
 layout: default
 title: React Component Generator
+published: true
 ---
 
 # First Prototype
