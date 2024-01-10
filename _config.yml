@@ -1,7 +1,11 @@
+# Github Things
+domain: www.100-x.ai       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
+url: https://www.100-x.ai  # the base hostname and protocol for your site, e.g. http://example.com
+
 # Where things are
 source              : .
 destination         : ./_site
-collections_dir     : git collections
+collections_dir     : collections
 plugins_dir         : _plugins # takes an array of strings and loads plugins in that order
 layouts_dir         : _layouts
 data_dir            : _data
