@@ -3,7 +3,8 @@ layout: default
 title: React Component Generator
 description: The specification for the first prototype, a react component generator.
 author: Todd Cullen
-category: experiment
+tags:
+  - experiment  
 published: true
 ---
 

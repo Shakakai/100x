@@ -3,7 +3,8 @@ layout: default
 title: First Post
 description: Test Post
 author: Todd Cullen
-category: blog
+tags:
+  - blog
 published: true
 ---
 
