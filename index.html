@@ -41,26 +41,21 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
                 <div class="prototype-dates">
                     <table>
                         <tr>
-                            <th>Prototype Timeline</th>
-                            <th>Specification</th>
-                            <th>Result</th>
+                            <th>Timeline</th>
+                            <th>Deadline</th>
+                            <th>Completed?</th>
                         </tr>
                         <tr>
-                            <td>Deadline</td>
+                            <td>Specification</td>
                             <td>{{ prototype.specification_date }}</td>
+                            <td>{% if prototype.specification_date %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>Result</td>
                             <td>{{ prototype.result_date }}</td>
+                            <td>{% if prototype.result_date %}Yes{% else %}No{% endif %}</td>
                         </tr>
                     </table>
-                    <!--
-                    <div class="prototype-date">
-                        <span class="prototype-date-label">Specification Deadline:</span>
-                        <span class="prototype-date-value">{{ prototype.specification_date }}</span>
-                    </div>
-                    <div class="prototype-date">
-                        <span class="prototype-date-label">Result Deadline:</span>
-                        <span class="prototype-date-value">{{ prototype.result_date }}</span>
-                    </div>
-                    -->
                 </div>
                 {% if prototype.specification %}
                 <div class="prototype-btn-bar">
