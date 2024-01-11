@@ -40,12 +40,12 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
                 <p>{{ prototype.description }}</p>
                 <ul>
                     {% if prototype.specification %}
-                    <li><a href="{{prototype.specification}}">Specification Available</a></li>
+                    <li>{% include button.html url=prototype.specification text="Specification Available" %}</li>
                     {% else %}
                     <li>Specification due on {{prototype.result_date}}</li>
                     {% endif %}
                     {% if prototype.result %}
-                    <li><a href="{{prototype.result}}">Result Available</a></li>
+                    <li>{% include button.html url=prototype.result text="Result Available" %}</li>
                     {% else %}
                     <li>Result due on {{prototype.result_date}}</li>
                     {% endif %}
