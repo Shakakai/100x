@@ -16,8 +16,9 @@ p:has(img) {
 }
 
 .prototype-btn-bar{
-  float:left;
-  height: 60px;
+    float:left;
+    height: 69px;
+    width: 100%;
 }
 
 .prototype-btn-bar a{
@@ -30,4 +31,12 @@ span.spec {
 
 span.result {
   background: transparent url(../images/result-icon.png) 12px 50% no-repeat;
+}
+
+.prototype-dates{
+  width: 100%;
+}
+
+.prototype-dates table{
+  border: 1px solid #333;
 }
