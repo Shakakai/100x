@@ -35,7 +35,7 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
     {% for prototype in site.prototypes %}
         {% if prototype.published %}
             <div class="prototype">
-                <h3>{{ prototype.name }}</h3>
+                <h3>Prototype #{{forloop.index}}: {{ prototype.name }}</h3>
                 <img src="{{ prototype.image_url }}" />
                 <p>{{ prototype.description }}</p>
                 <div class="prototype-dates">

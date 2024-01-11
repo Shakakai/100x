@@ -1,4 +1,4 @@
-<a class="button" href="{{include.url}}">
+<a class="button" href="{% post_url include.url %}">
     <span {% if include.icon %}class="{{include.icon}}"{% endif %}}>
         {{include.text}}
     </span>
