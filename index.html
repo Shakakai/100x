@@ -31,7 +31,7 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
 
 <h2>Prototype Updates</h2>
 
-<div id="prototypes"></div>
+<div id="prototypes">
     {% for prototype in site.prototypes %}
         {% if prototype.published %}
             <div class="prototype">
@@ -40,12 +40,12 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
                 <p>{{ prototype.description }}</p>
                 <ul>
                     {% if prototype.specification %}
-                    <li><a href="{{prototype.specification}}">Specification</a></li>
+                    <li><a href="{{prototype.specification}}">Specification Available</a></li>
                     {% else %}
                     <li>Specification due on {{prototype.result_date}}</li>
                     {% endif %}
                     {% if prototype.result %}
-                    <li><a href="{{prototype.result}}">Result</a></li>
+                    <li><a href="{{prototype.result}}">Result Available</a></li>
                     {% else %}
                     <li>Result due on {{prototype.result_date}}</li>
                     {% endif %}
