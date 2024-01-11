@@ -39,6 +39,19 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
                 <img src="{{ prototype.image_url }}" />
                 <p>{{ prototype.description }}</p>
                 <div class="prototype-dates">
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Specification</th>
+                            <th>Result</th>
+                        </tr>
+                        <tr>
+                            <td>Deadline</td>
+                            <td>{{ prototype.specification_date }}</td>
+                            <td>{{ prototype.result_date }}</td>
+                        </tr>
+                    </table>
+                    <!--
                     <div class="prototype-date">
                         <span class="prototype-date-label">Specification Deadline:</span>
                         <span class="prototype-date-value">{{ prototype.specification_date }}</span>
@@ -47,13 +60,14 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
                         <span class="prototype-date-label">Result Deadline:</span>
                         <span class="prototype-date-value">{{ prototype.result_date }}</span>
                     </div>
+                    -->
                 </div>
                 {% if prototype.specification %}
                 <div class="prototype-btn-bar">
-                    {% include button.html url=prototype.specification text="Spec Available" %}
+                    {% include button.html icon="spec" url=prototype.specification text="Spec Available" %}
 
                     {% if prototype.result %}
-                        {% include button.html url=prototype.result text="Result Available" %}
+                        {% include button.html icon="result" url=prototype.result text="Result Available" %}
                     {% endif %}
                 </div>
                 {% endif %}
