@@ -38,19 +38,25 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
                 <h3>{{ prototype.name }}</h3>
                 <img src="{{ prototype.image_url }}" />
                 <p>{{ prototype.description }}</p>
+                <div class="prototype-dates">
+                    <div class="prototype-date">
+                        <span class="prototype-date-label">Specification Deadline:</span>
+                        <span class="prototype-date-value">{{ prototype.specification_date }}</span>
+                    </div>
+                    <div class="prototype-date">
+                        <span class="prototype-date-label">Result Deadline:</span>
+                        <span class="prototype-date-value">{{ prototype.result_date }}</span>
+                    </div>
+                </div>
+                {% if prototype.specification %}
                 <div class="prototype-btn-bar">
-                    {% if prototype.specification %}
                     {% include button.html url=prototype.specification text="Spec Available" %}
-                    {% else %}
-                    {% include disabled_button.html text="Spec due on {{prototype.specification_date}}" %}
-                    {% endif %}
 
                     {% if prototype.result %}
-                    {% include button.html url=prototype.result text="Result Available" %}
-                    {% else %}
-                    {% include disabled_button.html text="Result due on {{prototype.result_date}}" %}
+                        {% include button.html url=prototype.result text="Result Available" %}
                     {% endif %}
                 </div>
+                {% endif %}
             </div>
         {% endif %}
     {% endfor %}
