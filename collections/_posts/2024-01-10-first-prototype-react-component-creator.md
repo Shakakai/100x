@@ -8,7 +8,7 @@ tags:
 published: true
 ---
 
-# First Prototype
+# First Prototypes
 
 ## Summary
 I've selected a project that I've been wanting to do for a while. 
@@ -17,6 +17,8 @@ Like many fullstack developers, I've spent plenty of time working with React ove
 Regardless of the countless UIs that I've built, I've never loved the process of pixel pushing to match designs.
 I've always wanted to create a tool that would help me generate the starting point for a component with styling already baked in.
 So that's what I'm going to build for the week of Jan 15th, 2024.
+
+This is part of my GenAI prototype series, more on that over [here](/).
 
 ## User Stories
 In this instance, a user is either a frontend developer or fullstack developer.
@@ -38,15 +40,15 @@ I'm going to use the following mockups as the basis for the prototype.
 
 ## GenAI Approach
 
-I'll be using GPT-4 for this prototype. 
-That won't be the case for every prototype (I want to try a few things out on Llama and Mistral) but I'm going to use it for this one.
-There are three separate LLM requests that I'll be making for this prototype.
+I'll be using OpenAI's `gpt-4-vision-preview` model for this prototype.
+I won't be using OpenAI for every prototype, in the future I expect to use Llama and Mistral as well.
+There are two separate GPT-4 requests that I'll be making for this prototype.
 
-### LLM Request 1: Initial Creation
+### Request 1: Initial Creation
 
 This is the request triggered by submitting the form on the landing page.
 Please note the outputs are provided to GPT-4 as an OpenAPI spec for function_call'ing purposes.
-As a result, you won't see the outputs listed explicitly in the template.
+As a result, you won't see the outputs requested explicitly in the template.
 
 #### Inputs
 
@@ -60,12 +62,13 @@ As a result, you won't see the outputs listed explicitly in the template.
 
 #### Outputs
 
-* Props for Component in Typescript
+* Props for Component as Typescript code
 * Test Props for Component as a JSON Object
 * Component Code
 
 #### LLM Template
-This is just my initial guess at what the template will look like.
+This is just my initial guess at what the template will look like. 
+It will almost certainly change with experimentation and I'll share the final version.
 
 ```django
 You are an AI-powered React component generator. 
@@ -74,22 +77,22 @@ Your goal is to provide well styled React components to help developers build UI
 Please use the attached component mockup to generate a React component. 
 You must pay close attention to the styling in the mockup and make sure to generate a component that matches the mockup.
 When generated code make sure you use the following developer preferences:
-* Component Name: {{ component_name }}
-* Language: {{ language }}
-* UI Component Library: {{ ui_component_library }}
-* Styling System: {{ styling_system }}
+* Component Name: [[ component_name ]]
+* Language: [[ language ]]
+* UI Component Library: [[ ui_component_library ]]
+* Styling System: [[ styling_system ]]
 
-{% if user_notes %}
+[% if user_notes %]
 Please use the following notes to help you generate the component:
-{{ user_notes }}
-{% endif %}
+[[ user_notes ]]
+[% endif %]
 ```
 
 ### LLM Request 2: Component Update
 
 This is the request triggered by updates once the user is in the editor view. 
 Please note the outputs are provided to GPT-4 as an OpenAPI spec for function_call'ing purposes.
-As a result, you won't see the outputs listed explicitly in the template.
+As a result, you won't see the outputs requested explicitly in the template.
 
 #### Inputs
 * OpenAI API Key (Required)
@@ -114,19 +117,44 @@ Your goal is to provide well styled React components to help developers build UI
 Please use the attached component mockup to generate a React component. 
 You must pay close attention to the styling in the mockup and make sure to generate a component that matches the mockup.
 When generated code make sure you use the following developer preferences:
-* Component Name: {{ component_name }}
-* Language: {{ language }}
-* UI Component Library: {{ ui_component_library }}
-* Styling System: {{ styling_system }}
+* Component Name: [[ component_name ]]
+* Language: [[ language ]]
+* UI Component Library: [[ ui_component_library ]]
+* Styling System: [[ styling_system ]]
 
 Use the following props for the component:
-{{ props }}
+[[ props ]]
 
-{% if user_notes %}
+[% if user_notes %]
 Please use the following notes to help you generate the component:
-{{ user_notes }}
-{% endif %}
+[[ user_notes ]]
+[% endif %]
 ```
+
+## Tech Stack
+
+I'm using a stack that I'm very familiar with. 
+YMMV with these frameworks.
+Use whatever gets the job done.
+
+### Backend
+
+* Python 3
+* FastAPI
+* SQLModel
+* SQLAlchemy
+* Postgres
+
+### Frontend
+
+* React
+* Ant Design
+* TanQuery
+
+### Tools
+
+* Github: CI/CD
+* Agent (a 100x joint): LLM Observability and Fine-Tuning
 
 ## Prototype Timeline
 

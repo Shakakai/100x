@@ -31,11 +31,29 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
 
 <h2>Prototype Updates</h2>
 
-<ol>
-  {% for post in site.tags.experiment %}
-    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ol>
+<div id="prototypes"></div>
+    {% for prototype in site.prototypes %}
+        {% if prototype.published %}
+            <div class="prototype">
+                <h3>{{ prototype.name }}</h3>
+                <img src="{{ prototype.image_url }}" />
+                <p>{{ prototype.description }}</p>
+                <ul>
+                    {% if prototype.specification %}
+                    <li><a href="{{prototype.specification}}">Specification</a></li>
+                    {% else %}
+                    <li>Specification due on {{prototype.result_date}}</li>
+                    {% endif %}
+                    {% if prototype.result %}
+                    <li><a href="{{prototype.result}}">Result</a></li>
+                    {% else %}
+                    <li>Result due on {{prototype.result_date}}</li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
 
 <h2>Caveats</h2>
 
