@@ -18,3 +18,11 @@ p:has(img) {
 .prototype-btn-bar a{
   margin: 10px;
 }
+
+span.spec {
+  background: transparent url(../images/spec-icon.png) 12px 50% no-repeat;
+}
+
+span.result {
+  background: transparent url(../images/result-icon.png) 12px 50% no-repeat;
+}

@@ -42,13 +42,13 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
                     {% if prototype.specification %}
                     {% include button.html url=prototype.specification text="Spec Available" %}
                     {% else %}
-                    {% include disabled_button.html text="Spec due on {{prototype.specification_date}" %}
+                    {% include disabled_button.html text="Spec due on {{prototype.specification_date}}" %}
                     {% endif %}
 
                     {% if prototype.result %}
                     {% include button.html url=prototype.result text="Result Available" %}
                     {% else %}
-                    {% include disabled_button.html text="Result due on {{prototype.result_date}" %}
+                    {% include disabled_button.html text="Result due on {{prototype.result_date}}" %}
                     {% endif %}
                 </div>
             </div>
