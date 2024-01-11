@@ -6,6 +6,7 @@ author: Todd Cullen
 tags:
   - experiment  
 published: true
+permalink: /2024-01-15-first-prototype-react-component-creator
 ---
 
 # First Prototypes
