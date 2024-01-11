@@ -13,16 +13,22 @@ p:has(img) {
 
 .prototype{
   width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.prototype img{
+  max-width: 600px;
 }
 
 .prototype-btn-bar{
-    float:left;
     height: 69px;
     width: 100%;
 }
 
 .prototype-btn-bar a{
   margin: 10px;
+  float: left;
 }
 
 span.spec {
