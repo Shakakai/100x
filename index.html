@@ -70,10 +70,14 @@ If you have an idea for a prototype, toss a comment on the post and I'll see if 
                 </div>
                 {% if prototype.specification %}
                 <div class="prototype-btn-bar">
-                    {% include button.html icon="spec" url=prototype.specification text="Spec Available" %}
+                    {% include button.html icon="spec" url=prototype.specification text="Specification" %}
 
                     {% if prototype.result %}
-                        {% include button.html icon="result" url=prototype.result text="Result Available" %}
+                        {% include button.html icon="result" url=prototype.result text="Results" %}
+                    {% endif %}
+
+                    {% if prototype.demo %}
+                        {% include button.html icon="demo" url=prototype.demo text="Demo" %}
                     {% endif %}
                 </div>
                 {% endif %}
