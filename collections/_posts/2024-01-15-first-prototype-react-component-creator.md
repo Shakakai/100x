@@ -132,30 +132,13 @@ Please use the following notes to help you generate the component:
 [% endif %]
 ```
 
-## Tech Stack
+## Open Questions
 
-I'm using a stack that I'm very familiar with. 
-YMMV with these frameworks.
-Use whatever gets the job done.
+* How to I prompt the GPT-4 vision model to get accurately styled components?
+  * Can a basic single request do the job? or will I need to use a multi-step approach (e.g. Chain of Thought)?
+* Is there an easy way to see if the generated component matches the mockup?
+  * Should I think about using a LVM or computer vision library to compare the mockup to the generated component?
 
-### Backend
-
-* Python 3
-* FastAPI
-* SQLModel
-* SQLAlchemy
-* Postgres
-
-### Frontend
-
-* React
-* Ant Design
-* TanQuery
-
-### Tools
-
-* Github: CI/CD
-* Agent (a 100x joint): LLM Observability and Fine-Tuning
 
 ## Prototype Timeline
 
