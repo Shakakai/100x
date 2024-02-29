@@ -1,7 +1,7 @@
 [
   {
-    "title": "Free 30min Consultation",
-    "description": "New clients receive an obligation free 30 minute consultation.",
+    "title": "Free Consultation",
+    "description": "New clients receive a free 30 minute consultation.",
     "image": {
       "url": "images/features/noun_branding_1885335.svg",
       "width": 80,
@@ -10,7 +10,7 @@
   },
   {
     "title": "Deep CTO Experience",
-    "description": "All the members of our team have multiple stints at CTO in companies ranging in size from startup to public companies.",
+    "description": "We've managed engineering from startup to IPO and beyond.",
     "image": {
       "url": "images/features/noun_The Process_1885341.svg",
       "width": 80,
@@ -19,7 +19,7 @@
   },
   {
     "title": "Broad Industry Expertise",
-    "description": "Our team has worked across a wide range of industries, including finance, marketing, gaming, healthcare, and developer tooling.",
+    "description": "Finance, marketing, gaming, healthcare...We can hit the ground running.",
     "image": {
       "url": "images/features/noun_3d modeling_1885342.svg",
       "width": 80,
