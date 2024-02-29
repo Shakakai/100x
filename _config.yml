@@ -1,75 +1,51 @@
-# Github Things
-domain: www.100-x.ai       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
-url: https://www.100-x.ai  # the base hostname and protocol for your site, e.g. http://example.com
+baseurl: '/'
+permalink: pretty
+title: 'Jekyll Serif'
 
-# Where things are
-source              : .
-destination         : ./_site
-collections_dir     : collections
-plugins_dir         : _plugins # takes an array of strings and loads plugins in that order
-layouts_dir         : _layouts
-data_dir            : _data
-includes_dir        : _includes
+logo:
+  mobile: "images/logo/logo-mobile.svg"
+  mobile_height: "32px"
+  mobile_width: "32px"
+  desktop: "images/logo/logo.svg"
+  desktop_height: "32px"
+  desktop_width: "120px"
+
+home: 
+  limit_services: 6
+
 collections:
-  posts:
-    output          : true
-  prototypes:
-    output          : false
+  services:
+    output: true
+    sort_by: weight
+  team:
+    output: true
 
-# Handling Reading
-safe                : false
-include             : [".htaccess"]
-exclude             : ["Gemfile", "Gemfile.lock", "node_modules", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/", "docker-compose.yml", "README.md"]
-keep_files          : [".git", ".svn"]
-encoding            : "utf-8"
-markdown_ext        : "markdown,md"
-strict_front_matter : true
+defaults:
+  - scope:
+      path: ""
+      type: "services"
+    values:
+      layout: "service"
+  - scope:
+      path: ""
+      type: "team"
+    values:
+      layout: "team"
 
-# Filtering Content
-show_drafts         : null
-limit_posts         : 0
-future              : true
-unpublished         : false
+sass:
+  style: compressed # possible values: nested expanded compact compressed
 
-# Plugins
-whitelist           : []
-plugins             :
-- jekyll-remote-theme
+plugins:
+  - jekyll-environment-variables
 
-remote_theme        : "zerostaticthemes/jekyll-serif-theme"
-
-# Content
-title               : "100x"
-description         : "The Future is AI"
-
-# Conversion
-markdown            : kramdown
-highlighter         : rouge
-lsi                 : false
-excerpt_separator   : "\n\n"
-incremental         : false
-
-# Outputting
-permalink           : date
-paginate_path       : /page:num
-timezone            : null
-
-quiet               : false
-verbose             : true
-defaults            : []
-
-liquid:
-  error_mode        : warn
-  strict_filters    : false
-  strict_variables  : false
-
-# Markdown Processors
-kramdown:
-  auto_ids          : true
-  entity_output     : as_char
-  toc_levels        : [1, 2, 3, 4, 5, 6]
-  smart_quotes      : lsquo,rsquo,ldquo,rdquo
-  input             : GFM
-  hard_wrap         : false
-  footnote_nr       : 1
-  show_warnings     : false
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - LICENSE.md
+  - LICENSE
+  - README.md
