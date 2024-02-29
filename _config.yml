@@ -36,7 +36,7 @@ whitelist           : []
 plugins             :
 - jekyll-remote-theme
 
-remote_theme        : "jekyll-serif-theme"
+remote_theme        : "zerostaticthemes/jekyll-serif-theme"
 
 # Content
 title               : "100x"
