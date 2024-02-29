@@ -1,12 +1,13 @@
 ---
-title: Services
+title: Consulting Services
 layout: services
-description: Services
+description: Consulting Services
 intro_image: "images/illustrations/reading.svg"
 intro_image_absolute: true
 intro_image_hide_on_mobile: true
 ---
 
-# Services that grow with your business
+# Engineering Consulting to Propel Your Business Ahead
 
-Aliquam erat volutpat. Morbi nisl tortor, dignissim eget efficitur vel, auctor non felis. Fusce quis viverra mi. Aenean quis massa pretium, ullamcorper nisi eget, hendrerit odio.
+In the rapidly evolving landscape of artificial intelligence, staying ahead means leveraging the most innovative technologies and strategies. 
+100x offers comprehensive services designed to transform your business, drive growth, and build a sustainable competitive advantage.

@@ -1,16 +1,19 @@
 ---
-title: Contact
+title: Get in Touch
 layout: contact
-description: Contact
+description: Get in Touch
 ---
 
-Lorem markdownum aequalis strigis. Saetigeri iubeas, vultu huic alvum nondum de obside ut laniavit arbor palmis, cum quin. Rupes vetat videndo, armigerae crimen habet Priamum nec.
+We're excited about the opportunity to work with you and explore how our AI expertise can help propel your business forward. If you're interested in any of our services or have questions about how we can tailor our solutions to meet your unique needs, we'd love to hear from you.
 
-| Day       | Opening Hours   |
-| --------- | --------------- |
-| Tuesday   | 8:30am - 5:00pm |
-| Wednesday | 8:30am - 5:00pm |
-| Thursday  | 8:30am - 5:00pm |
-| Friday    | 8:30am - 5:00pm |
-| Saturday  | 10:am - 4:00pm  |
-| Saturday  | Closed          |
+Contact Details
+Email: contact@100x.ai
+Phone: +1 (123) 456-7890
+
+For specific inquiries regarding our services, please use the contact form below. We aim to respond to all queries within 24 hours.
+
+We're also active on social media! Follow us to stay updated on the latest AI trends, our contributions to open source projects, and insights from our team of experts.
+
+[Social Media Icons: LinkedIn, Twitter, GitHub]
+
+Let's build the future of AI together. Contact us today to start the conversation.
