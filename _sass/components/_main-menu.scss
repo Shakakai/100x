@@ -24,6 +24,9 @@
         > a {
           font-weight: bold;
           text-decoration: none;
+          background-color: $primary;
+          color: #ffffff;
+
           &:hover {
             text-decoration: none;
             transition: all 225ms ease-in 0s;
