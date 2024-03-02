@@ -1,7 +1,7 @@
 ---
-title: "Fractional CTO"
+title: "Fractional Chief AI Officer"
 date: 2024-02-29T12:33:46+10:00
-weight: 1
+weight: 2
 ---
 
 Unlock the full potential of your technology and product initiatives with experienced leadership. 
