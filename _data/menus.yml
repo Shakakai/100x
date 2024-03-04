@@ -5,15 +5,18 @@ main:
   - name: "Services"
     url: "/services/"
     weight: 2
+  - name: "Blog"
+    url: "/blog/"
+    weight: 3
   - name: "Team"
     url: "/team/"
-    weight: 3
+    weight: 4
   - name: "About"
     url: "/about/"
-    weight: 4
-  - name: "Contact"
-    url: "/contact/"
     weight: 5
+  - name: "Let's Talk"
+    url: "/contact/"
+    weight: 6
 
 footer:
   - name: "Home"

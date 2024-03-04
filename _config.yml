@@ -19,6 +19,11 @@ collections:
     sort_by: weight
   team:
     output: true
+  posts:
+    output: true
+    permalink: /blog/:title
+    sort_by: date
+    reverse: true
 
 defaults:
   - scope:
