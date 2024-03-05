@@ -5,6 +5,7 @@ image: "images/team/todd-cullen.jpg"
 jobtitle: "Founder"
 linkedinurl: "https://www.linkedin.com/in/toddcullen/"
 weight: 7
+promoted: true
 ---
 
 Todd Cullen brings a wealth of experience as a Chief Technology Officer and an innovator in the realm of Large Language Models (LLMs) and technology leadership. With a track record of spearheading technological transformations and modernizing cloud infrastructure across several organizations, Todd has effectively reduced operational costs while enhancing compliance and security measures. His leadership in driving project delivery excellence is exemplified by his successful deployment of emergency department applications and leading real estate marketing intelligence startups from conception to market leadership.

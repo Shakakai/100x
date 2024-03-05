@@ -17,7 +17,8 @@
         text-decoration: none;
         color: #e5261f;
         &:hover {
-          text-decoration: underline;
+          background-color: #f88379;
+          color: #ffffff;
         }
       }
       &.active {
