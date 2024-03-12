@@ -81,7 +81,7 @@ const replayText = (element, values) => {
 window.onload = () => {
     const elements = document.querySelectorAll('h1');
     elements.forEach((element) => {
-        const values = element.textContent.split();
+        const values = element.textContent.split("");
         let result = [];
         let t = 0;
         values.forEach((value, index) => {
