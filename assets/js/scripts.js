@@ -11,19 +11,7 @@ menuTrigger.onclick = function() {
 // Provides a typewriter effect
 const compressData = (values) => {
     const toCompressedItem = (lastValue, item) => {
-        if (lastValue.length === item.value.length) {
-            return null;
-        }
-
-        if (lastValue === item.value.slice(0, -1)) {
-            return { op: 'a', v: item.value.slice(-1), t: item.time };
-        }
-
-        if (lastValue.length - 1 === item.value.length && lastValue.slice(0, -1) === item.value) {
-            return { op: 'd', t: item.time };
-        }
-
-        return { op: 'r', v: item.value, t: item.time };
+        return { op: 'a', v: item.value, t: item.time };
     }
 
     const compressed = [];
@@ -63,16 +51,7 @@ const replayText = (element, values) => {
             return;
         }
 
-        switch (value.op) {
-            case 'a':
-                element.textContent = element.textContent + value.v;
-                break;
-            case 'd':
-                element.textContent = element.textContent.slice(0, -1);
-                break;
-            default:
-                element.textContent = value.v;
-        }
+        element.textContent = element.textContent + value.v;
     }, 20);
 
     return localInterval;
