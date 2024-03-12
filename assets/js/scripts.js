@@ -82,7 +82,13 @@ window.onload = () => {
     const elements = document.querySelectorAll('h1');
     elements.forEach((element) => {
         const values = element.textContent;
-        const compressed = compressData(values);
+        let result = [];
+        let t = 0;
+        values.forEach((value, index) => {
+            result.push({ value, time: t });
+            t = t + 50 + (Math.random() * 100);
+        });
+        const compressed = compressData(result);
         replayText(element, compressed);
     });
 }
