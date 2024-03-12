@@ -4,7 +4,7 @@ date: 2024-02-29T12:33:46+10:00
 image: "images/team/todd-cullen.jpg"
 jobtitle: "Founder"
 linkedinurl: "https://www.linkedin.com/in/toddcullen/"
-weight: 7
+weight: 1
 promoted: true
 ---
 
