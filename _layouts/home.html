@@ -17,7 +17,7 @@ bodyClass: "page-home"
         <!--
         <img alt="{{ page.title }}" class="intro-image{% if page.intro_image_absolute %} intro-image-absolute{% endif %}{% if page.intro_image_hide_on_mobile %} intro-image-hide-mobile{% endif %}" src="{{ page.intro_image | relURL }}" />
         -->
-        <video autoplay loop muted playsinline>
+        <video autoplay loop muted playsinline title="Visual Created with Img2Video">
           <source src="/images/homepage-video.mp4" type="video/mp4">
         </video>
       </div>
@@ -28,6 +28,11 @@ bodyClass: "page-home"
 
 <div class="strip">
   <div class="container pt-6 pb-6 pb-md-10">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <h1 class="section-title">Services</h1>
+      </div>
+    </div>
     <div class="row justify-content-start">
       {% assign services = site.services | sort: "weight" %}
       {% for service in services %}

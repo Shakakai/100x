@@ -11,9 +11,6 @@ main:
   - name: "Team"
     url: "/team/"
     weight: 4
-  - name: "About"
-    url: "/about/"
-    weight: 5
   - name: "Let's Talk"
     url: "/contact/"
     weight: 6

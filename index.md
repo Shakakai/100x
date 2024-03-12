@@ -8,7 +8,16 @@ intro_image_hide_on_mobile: true
 show_call_box: true
 ---
 
-# Build the Future with AI
+# Let's Build the Future
 
-In the rapidly evolving landscape of artificial intelligence, staying ahead means leveraging the most innovative technologies and strategies. 
-100x offers comprehensive services designed to transform your business, drive growth, and build a sustainable competitive advantage.
+Artificial intelligence is dramatically shifting the way software is built. 
+
+You need to make decisions today that will evolve with these rapid innovations.
+
+At 100x, we help you navigate the complexities of AI and provide the strategic guidance you need to succeed in an AI-driven world.
+
+<br /> 
+<br />
+
+<em>When the outlook is uncertain, the best strategy is to define the future yourself.</em>
+
