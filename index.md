@@ -2,13 +2,14 @@
 title: 100x
 layout: home
 description: Fractional CTO & AI Engineering Services
-intro_image: "images/illustrations/pointing.svg"
+intro_image: "images/team/todd-cullen.jpg"
 intro_image_absolute: true
 intro_image_hide_on_mobile: true
 show_call_box: true
 ---
 
-# Let's Build the Future
+# Hi, I'm Todd
 
-Artificial intelligence is dramatically shifting the way software is built. You need to make decisions today that will evolve with these rapid innovations. At 100x, we help you navigate the complexities of AI and provide the strategic guidance you need to succeed in an AI-driven world.
+I'm a software engineer with a passion for AI and machine learning, currently based in Seattle, WA. This site serves as my digital playground, showcasing my blog and a curated list of projects that reflect my explorations in AI, engineering, and life. Join me as I share insights, experiments, and discoveries from the intersection of technology and everyday experiences.
+
 
