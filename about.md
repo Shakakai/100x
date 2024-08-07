@@ -1,7 +1,7 @@
 ---
 title: About Me
 layout: page
-intro_image: "images/team/starbuck-profile.jpg"
+intro_image: "/images/team/starbuck-profile.jpg"
 description: About
 bodyClass: page-about
 ---
