@@ -11,8 +11,10 @@ bodyClass: "page-basic"
                 <div class="content">{{content}}</div>
             </div>
         </div>
+        {% if page.intro_image %}
         <div class="col-12 col-md-4 order-2 order-md-3 position-relative">
-            <img src="/images/team/starbuck-profile.png" alt="Photo of Starbuck" class="img-fluid">
+            <img src="{{page.intro_image}}" class="img-fluid">
         </div>
+        {% endif %}
     </div>
 </div>
