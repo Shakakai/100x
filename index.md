@@ -2,7 +2,7 @@
 title: 100x
 layout: home
 description: Fractional CTO & AI Engineering Services
-intro_image: "images/team/todd-cullen.jpg"
+intro_image: "images/team/todd-profile.jpg"
 intro_image_absolute: false
 intro_image_hide_on_mobile: false
 show_call_box: true
