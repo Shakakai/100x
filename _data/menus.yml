@@ -5,12 +5,15 @@ main:
   - name: "Blog"
     url: "/blog/"
     weight: 2
+  - name: "About"
+    url: "/about/"
+    weight: 3
   - name: "Services"
     url: "/services/"
-    weight: 3
+    weight: 4
   - name: "Contact"
     url: "/contact/"
-    weight: 6
+    weight: 5
 
 footer:
   - name: "Home"
