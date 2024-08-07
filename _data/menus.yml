@@ -4,10 +4,10 @@ main:
     weight: 1
   - name: "Blog"
     url: "/blog/"
-    weight: 3
+    weight: 2
   - name: "Services"
     url: "/services/"
-    weight: 2
+    weight: 3
   - name: "Contact"
     url: "/contact/"
     weight: 6

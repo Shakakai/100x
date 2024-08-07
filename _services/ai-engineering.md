@@ -7,7 +7,7 @@ weight: 3
 
 Leverage the power of Large Language Models (LLMs), Large Vision Models (LVMs), and the latest Image & Video Generation systems to enhance your products and services. 
 Our AI Engineering services encompass everything from selecting the right models to creating robust data pipelines and developing custom models tailored to your needs. 
-With expertise in Langchain, LlamaIndex, and many more, we ensure your AI initiatives are built on a solid foundation.
+With expertise in Instructor, Langchain, LlamaIndex, and many more, we ensure your AI initiatives are built on a solid foundation.
 
 
 ## AI Model Selection
