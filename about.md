@@ -1,13 +1,10 @@
 ---
-title: About
+title: About Me
 layout: page
 intro_image: "images/team/starbuck-profile.jpg"
 description: About
 bodyClass: page-about
 ---
-
-
-# About Me
 
 Hi there! I'm Todd Cullen, an AI Product Consultant based in Shoreline, Washington. With over two decades of experience in tech and engineering, I'm passionate about pushing the boundaries of AI and machine learning to create innovative product experiences.
 
