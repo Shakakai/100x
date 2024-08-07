@@ -8,7 +8,7 @@ main:
   - name: "About"
     url: "/about/"
     weight: 3
-  - name: "Services"
+  - name: "Consulting"
     url: "/services/"
     weight: 4
   - name: "Contact"
