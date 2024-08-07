@@ -1,7 +1,7 @@
 ---
 title: "Fractional Chief AI Officer"
 date: 2024-02-29T12:33:46+10:00
-weight: 2
+weight: 3
 ---
 
 Our Fractional Chief AI Officer service is designed for businesses looking to integrate AI into their operations without the overhead of a full-time executive role. 
