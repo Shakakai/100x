@@ -11,5 +11,12 @@ bodyClass: "page-service"
         <div class="content">{{content}}</div>
       </div>
     </div>
+    {% if page.image_url %}
+    <div class="col-12 col-md-4">
+      <div class="post-image">
+        <img src="{{ page.image_url | relative_url }}" alt="{{ page.title }}" class="img-fluid">
+      </div>
+    </div>
+    {% endif %}
   </div>
 </div>
