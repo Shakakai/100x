@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Apple Research LLM Reasoning Study
+title: Has LLM Reasoning Been Overstated?
 date: 2024-10-11
 image: /images/posts/Apple-Reasoning-Drop.png
 ---
