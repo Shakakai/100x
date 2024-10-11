@@ -6,17 +6,15 @@ bodyClass: "page-service"
 <div class="container pb-6 pt-6 pt-md-10 pb-md-10">
   <div class="row justify-content-start">
     <div class="col-12 col-md-8">
+      {% if page.image_url %}
+      <div class="post-image">
+        <img src="{{ page.image_url | relative_url }}" alt="{{ page.title }}" class="img-fluid">
+      </div>
+      {% endif %}
       <div class="service service-single">
         <h1 class="title">{{page.title}}</h1>
         <div class="content">{{content}}</div>
       </div>
     </div>
-    {% if page.image_url %}
-    <div class="col-12 col-md-4">
-      <div class="post-image">
-        <img src="{{ page.image_url | relative_url }}" alt="{{ page.title }}" class="img-fluid">
-      </div>
-    </div>
-    {% endif %}
   </div>
 </div>

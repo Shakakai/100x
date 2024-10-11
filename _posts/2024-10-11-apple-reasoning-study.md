@@ -5,9 +5,11 @@ date: 2024-10-11
 image_url: /images/posts/Apple-Reasoning-Drop.png
 ---
 
-Apple research just published a remarkable study about the reasoning capabilities of LLM's including GPT-4o, Llama, Mistral, and others. Their results found that LLM's are not capable of advanced reasoning and their behavior is better explained by sophisticated pattern matching. Furthermore, additional compute or larger models won't improve the reasoning of LLM's.
+A recent study published by Apple Research has provided significant insights into the reasoning capabilities of Large Language Models (LLMs), including GPT-4o, Llama, Mistral, and others. The findings suggest that LLMs are not capable of advanced reasoning, and their behavior is more accurately described as sophisticated pattern matching. Importantly, the research indicates that simply increasing computational power or model size is unlikely to improve the reasoning capabilities of LLMs. This implies that even future iterations, such as GPT-5, may not resolve this fundamental limitation.
 
-If you are planning to deploy LLM-based products or services, this highlights the need to understand what capabilities in LLMs are required and whether those attributes need to or will improve over time. As a general rule, features that rely on LLMs for pattern matching purposes with reasoning encoded in traditional programming languages will fair the best when being deployed into production.
+The image above illustrates the decline in performance when LLMs are presented with additional information to answer a question. Specifically, the study introduced one extra clause to a question. While the smallest models experienced the most significant impact on their response accuracy, even the o1-preview model saw a 17.5% decrease. It's worth noting that OpenAI's o1-preview is a Chain of Thought LLM system, unlike the other systems tested. It employs multiple LLM calls behind the scenes to generate a final response, making direct comparisons with other LLM systems challenging and potentially misleading.
+
+For organizations planning to implement LLM-based products or services, these findings underscore the importance of clearly understanding the required LLM capabilities and whether these attributes are likely to improve over time. As a general principle, features that leverage LLMs for pattern matching purposes, with reasoning logic implemented in traditional programming languages, are likely to be more robust and reliable when deployed into production.
 
 ## Sources
 - [Originial Study](https://arxiv.org/pdf/2410.05229)
