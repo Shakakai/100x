@@ -2,7 +2,7 @@
 layout: post
 title: How well can LLMs reason?
 date: 2024-10-11
-image_url: /images/posts/Apple-Reasoning-Drop.png
+image: /images/posts/Apple-Reasoning-Drop.png
 ---
 
 A recent study published by Apple Research has provided significant insights into the reasoning capabilities of Large Language Models (LLMs), including GPT-4o, Llama, Mistral, and others. The findings suggest that LLMs are not capable of advanced reasoning, and their behavior is more accurately described as sophisticated pattern matching. Importantly, the research indicates that simply increasing computational power or model size is unlikely to improve the reasoning capabilities of LLMs. This implies that even future iterations, such as GPT-5, may not resolve this fundamental limitation.
