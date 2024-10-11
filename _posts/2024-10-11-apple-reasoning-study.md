@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How well can LLMs reason?
+title: Apple Research LLM Reasoning Study
 date: 2024-10-11
 image: /images/posts/Apple-Reasoning-Drop.png
 ---
