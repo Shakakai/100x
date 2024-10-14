@@ -1,7 +1,7 @@
 ---
 title: "AI Product Engineering"
 date: 2024-02-29T12:33:46+10:00
-weight: 6
+weight: 1
 ---
 
 

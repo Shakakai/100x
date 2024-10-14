@@ -10,6 +10,6 @@ show_call_box: true
 
 # Deliver magical experiences for your customers
 
-100x is a collective of designers, engineers, and industry veterans who work to make sci-fi a reality.
+100x is a collective of designers, engineers, and industry veterans who apply the latest techniques in Artifical Intelligence to make sci-fi products a reality.
 
 
