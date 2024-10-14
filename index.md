@@ -10,6 +10,6 @@ show_call_box: true
 
 # Deliver magical experiences for your customers
 
-100x is a product engineering consultancy based in Seattle, Washington. We are a collective of designers, engineers, and industry veterans who work to make sci-fi a reality.
+100x is a collective of designers, engineers, and industry veterans who work to make sci-fi a reality.
 
 
