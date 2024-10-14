@@ -8,6 +8,10 @@ intro_image_absolute: true
 intro_image_hide_on_mobile: false
 ---
 
+# About 100x
+
+Founded in 2023 by Todd Cullen as an outgrowth of his LLM consulting projects. 100x is freelancer collective of designers, engineers, and industry veterans who colloborate on AI-centric projects for the Fortune 500 and VC-backed startups.
+
 # Meet The Team
 
 The 100x team is distinguished by its deep expertise in AI and technological innovation, led by professionals like Todd Cullen, who have a proven track record in leveraging Large Language Models (LLMs) and serving in pivotal roles such as Chief Technology Officer. 

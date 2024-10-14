@@ -2,7 +2,7 @@
 title: "Todd Cullen"
 date: 2024-02-29T12:33:46+10:00
 image: "images/team/todd-cullen.jpg"
-jobtitle: "Founder"
+jobtitle: "Founder & AI Product Engineer"
 linkedinurl: "https://www.linkedin.com/in/toddcullen/"
 weight: 1
 promoted: true
