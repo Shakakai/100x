@@ -3,7 +3,7 @@ layout: post
 title: The Future is Domain Specific Data
 date: 2024-10-14
 image: /images/posts/blog-domain-specific-data.png
-description: A recent study published by Apple Research has provided significant insights into the reasoning capabilities of Large Language Models (LLMs), including GPT-4o, Llama, Mistral, and others. The findings suggest that LLMs are not capable of advanced reasoning, and their behavior is more accurately described as sophisticated pattern matching.
+description: Domain specific data can be used to fix reasoning flaws in LLMs.
 ---
 
 In the rapidly advancing world of artificial intelligence (AI), one of the key challenges is enabling large language models (LLMs) to provide authoritative answers across diverse domains. While LLMs like GPT-4 can perform remarkably well in various general knowledge tasks, their effectiveness is significantly enhanced when trained on domain-specific datasets. This capability, as proven in fields such as theorem proving, demonstrates how specialized data allows AI models to excel beyond general applications.
