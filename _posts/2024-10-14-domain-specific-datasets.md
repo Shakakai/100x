@@ -2,7 +2,7 @@
 layout: post
 title: The Future is Domain Specific Data
 date: 2024-10-14
-image: /images/posts/Apple-Reasoning-Drop.png
+image: /images/posts/blog-domain-specific-data.png
 description: A recent study published by Apple Research has provided significant insights into the reasoning capabilities of Large Language Models (LLMs), including GPT-4o, Llama, Mistral, and others. The findings suggest that LLMs are not capable of advanced reasoning, and their behavior is more accurately described as sophisticated pattern matching.
 ---
 
