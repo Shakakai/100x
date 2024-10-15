@@ -1,6 +1,5 @@
 ---
 title: The Hidden Vulnerability in Helpdesk Software: Lessons from a Zendesk Exploit
-layout: campaign
 description: A recent exploit showed how a masked email address used for helpdesk software allowed a hacker access to all of the companies SaaS software connected via single sign-on (e.g. Slack, Dropbox, Twilio, etc)
 image: /images/posts/help-desk-google-2fa.png
 ---
@@ -21,4 +20,4 @@ To safeguard your systems, ensure:
 - Rigorous authentication and access control mechanisms.
 - Regular security testing, especially for third-party integrations.
 
-In a world where customer support tools are essential for business, vulnerabilities like this can have devastating effects. Don’t wait until your system is compromised—take action now. 100x can help with customized AI-powered email scanning and filtering solutions. 
+In a world where customer support tools are essential for business, vulnerabilities like this can have devastating effects. Don’t wait until your system is compromised—take action now. 100x can help with customized AI-powered email scanning and filtering solutions.
