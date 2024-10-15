@@ -1,8 +1,8 @@
 ---
-title: The Hidden Vulnerability in Helpdesk Software: Lessons from a Zendesk Exploit
+title: "The Hidden Vulnerability in Helpdesk Software: Lessons from a Zendesk Exploit"
 date: 2024-10-15
-description: A recent exploit showed how a masked email address used for helpdesk software allowed a hacker access to all of the companies SaaS software connected via single sign-on (e.g. Slack, Dropbox, Twilio, etc)
-image: /images/posts/help-desk-google-2fa.png
+description: "A recent exploit showed how a masked email address used for helpdesk software allowed a hacker access to all of the companies SaaS software connected via single sign-on (e.g. Slack, Dropbox, Twilio, etc)"
+image: "/images/posts/help-desk-google-2fa.png"
 layout: campaigns
 ---
 
