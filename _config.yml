@@ -24,6 +24,9 @@ collections:
     permalink: /blog/:title
     sort_by: date
     reverse: true
+  campaigns:
+    output: true
+    permalink: /campaigns/:title
 
 defaults:
   - scope:

@@ -6,15 +6,15 @@ bodyClass: "page-contact"
 
 <div class="container pb-6 pt-6 pt-md-10 pb-md-10">
     <div class="row justify-content-start">
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-7 col-lg-6 order-2 order-md-1">
             <div class="service service-single">
                 <h1 class="title">{{page.title}}</h1>
                 {% include call.html show_button=false %}
                 <div class="content mt-4">{{content}}</div>
-                <div class="content mt-4">
-                    <iframe src="https://calendly.com/100x-consult/meeting-w-todd" style="width:100%; height:1000px;" />
-                </div>
             </div>
         </div>
+      <div class="col-12 col-md-5 col-lg-6 order-1 order-md-2 position-relative clip">
+        <iframe src="https://calendly.com/100x-consult/meeting-w-todd" style="width:100%; height:1000px;" />
+      </div>
     </div>
 </div>
