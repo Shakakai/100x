@@ -22,4 +22,11 @@ To safeguard your systems, ensure:
 - Rigorous authentication and access control mechanisms.
 - Regular security testing, especially for third-party integrations.
 
-In a world where customer support tools are essential for business, vulnerabilities like this can have devastating effects. Don’t wait until your system is compromised—take action now. 100x can help with customized AI-powered email scanning and filtering solutions.
+## How 100x Can Help
+
+100x can help build custom AI-powered security systems to combat a wide range of exploits including email, SMS, and phone. Here's a few things our team has built:
+- AI-powered email monitoring for some of the largest healthcare organizations in the US
+- a Voice Assistant platform for a Fortune 500 company with integrated fraud prevention
+- Advanced email phishing protection using fine-tuned open source LLM models
+
+We can help you identify and solve your hardest business challenges using the latest AI technology.
