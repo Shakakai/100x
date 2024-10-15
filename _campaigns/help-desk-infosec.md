@@ -2,6 +2,7 @@
 title: The Hidden Vulnerability in Helpdesk Software: Lessons from a Zendesk Exploit
 description: A recent exploit showed how a masked email address used for helpdesk software allowed a hacker access to all of the companies SaaS software connected via single sign-on (e.g. Slack, Dropbox, Twilio, etc)
 image: /images/posts/help-desk-google-2fa.png
+layout: campaigns
 ---
 
 Recently, a 15-year-old hacker, Daniel, uncovered a significant security flaw in Zendesk, one of the most widely used customer service tools by Fortune 500 companies. His discovery revealed a serious vulnerability that should be a wake-up call for all businesses running helpdesk software.
