@@ -6,7 +6,7 @@ image: "/images/posts/help-desk-google-2fa.png"
 layout: campaign
 ---
 
-Recently, a 15-year-old hacker, Daniel, uncovered a significant security flaw in Zendesk, one of the most widely used customer service tools by Fortune 500 companies. His discovery revealed a serious vulnerability that should be a wake-up call for all businesses running helpdesk software.
+Recently, a 15-year-old hacker, Daniel, uncovered a [significant security flaw in Zendesk](https://gist.github.com/hackermondev/68ec8ed145fcee49d2f5e2b9d2cf2e52), one of the most widely used customer service tools by Fortune 500 companies. His discovery revealed a serious vulnerability that should be a wake-up call for all businesses running helpdesk software.
 
 ## What Happened?
 Daniel found a bug in how Zendesk handled email forwarding, a core feature that links a company’s support email (like support@company.com) to the Zendesk platform. This bug allowed attackers to bypass email validation, gaining unauthorized access to sensitive customer interactions and internal communications.
