@@ -8,18 +8,19 @@ bodyClass: "page-service"
     <div class="col-12 col-md-8">
       <div class="service service-single">
         <h1 class="title">{{page.title}}</h1>
-        {% if page.image %}
-        <div class="post-image" style="padding: 10px 0px 20px 0px">
-          <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="img-fluid">
+        {% for campaign in page.campaign %}
+        <div class="col-12 col-md-6 mb-3">
+          <div class="service service-summary">
+            <div class="service-content">
+              <h2 class="service-title">
+                <a href="{{ campaign.url | relative_url }}">{{ campaign.title }}</a>
+              </h2>
+              <p>{{ campaign.excerpt | markdownify | strip_html | truncate: 100 }}</p>
+            </div>
+          </div>
         </div>
-        {% endif %}
-        <div class="content">{{content}}</div>
+        {% endfor %}
       </div>
-    </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-auto">
-      <a class="button button-primary" href="{{ "contact" | relative_url }}">You Should Get in Touch</a>
     </div>
   </div>
 </div>
