@@ -39,6 +39,11 @@ defaults:
       type: "team"
     values:
       layout: "team"
+  - scope:
+      path: ""
+      type: "campaigns"
+    values:
+      layout: "campaign"
 
 sass:
   style: compressed # possible values: nested expanded compact compressed
