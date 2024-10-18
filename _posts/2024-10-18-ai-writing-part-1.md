@@ -1,19 +1,19 @@
 ---
 layout: post
-title: "Using AI to Write: The Setup (Part 1)"
+title: "AI-Assisted Writing: Foundations and Setup (Part 1)"
 date: 2024-10-18
 image: /images/posts/ai-writing-part-1.png
 description: A guide to setting up AI-generated text, covering writing style, rules for LLMs, and document structure.
 ---
 
-In this series, I'll be covering a range of topics to help you generate high-quality AI-generated text for various uses, including blog posts, social media updates, press releases, product announcements, and more. Here's a breakdown of the series:
+In this series, I'll show you how to generate high-quality AI-generated text for various use cases from code. You'll need to be familiar with Python 3.9+ to follow along. Here's an outline of the series:
 
-1. **The Setup:** What do you need to get started?
-2. **Naive Social Post Generator**
+1. **Foundations & Setup:**
+2. **Naive Social Media Post Generator**
 3. **Basic Writing Agent**
 4. **Advanced Writing Agent**
 
-Before we dive into code, it's crucial to gather some foundational information about the document you're aiming to create. This involves considering the writing style, defining the rules for the AI language model (LLM), structuring the document, and identifying the criteria you'll use to evaluate the results.
+Before we dive into coding, it's crucial to gather some foundational information about the document you're aiming to create. This involves considering the writing style, defining the rules for the AI language model (LLM), deciding on the document structure, and identifying the criteria you'll use to evaluate the results.
 
 ## Defining the Writing Style
 
@@ -24,11 +24,11 @@ The first step in creating effective AI-generated text is identifying the desire
 - Are there specific writing styles to avoid, such as passive voice, split infinitives, or unnecessary wordiness?
 - Do you require gender-inclusive language, or do you prefer a more traditional approach?
 
-By clearly defining the style, you provide the LLM with a concrete direction, improving the quality and consistency of the output.
+By clearly defining the style, you provide the LLM with concrete examples of what you do and do not want, improving the quality and consistency of the output.
 
 ## Establishing Writing Rules for the LLM
 
-Although the writing style provides general guidance, you'll also need to define specific writing rules for the LLM. Consider these points:
+Although the writing style provides general guidance, you'll also need to define specific writing rules for the LLM. Consider these areas:
 
 - **Dates and numbers:** How should they be represented? Is it "October 18, 2024" or "18/10/2024"?
 - **Capitalization rules:**
@@ -64,7 +64,7 @@ Once the document is generated, how will you judge its success? Since you'll be 
 - **Content sensitivity:** Is there any potentially objectionable material in the document?
 - **Adherence to writing rules:** Does the document follow all the style and writing rules you've outlined?
 
-These criteria will be rated on a scale of 1-10, with specific feedback provided for improvements. This iterative process allows for continuous refinement and optimization of the generated content.
+When we get to agents, these criteria will be rated on a scale of 1-10, with specific feedback provided for improvements. The agents we build will use the feedback to improve the quality of the generated text, allowing for iterative optimization.
 
 ## Conclusion
 
