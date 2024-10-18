@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AI Writing – The Setup (Part 1)"
+title: "Using AI to Write: The Setup (Part 1)"
 date: 2024-10-18
 image: /images/posts/ai-writing-part-1.png
 description: A guide to setting up AI-generated text, covering writing style, rules for LLMs, and document structure.
