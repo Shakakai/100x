@@ -1,0 +1,18 @@
+[project]
+name = "100x"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Todd Cullen", email = "culltp1@gmail.com"},
+]
+dependencies = [
+    "jinja2>=3.1.4",
+    "click>=8.1.7",
+]
+requires-python = "==3.11.*"
+readme = "README.md"
+license = {text = "Todd Cullen"}
+
+
+[tool.pdm]
+distribution = false
