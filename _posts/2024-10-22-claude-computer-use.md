@@ -23,23 +23,13 @@ At its core, the Computer Use tool exposes a new capability to Claude called a "
 
 1. You send Claude a screenshot of your desktop along with a prompt.
 2. Claude responds with a computer tool response, which includes:
-   - An Action (required):
-     - key: press down on a single key, like an arrow direction
-     - type: type out a bit of text
-     - mouse_move
-     - left_click
-     - left_click_drag
-     - right_click
-     - middle_click
-     - double_click
-     - screenshot
-     - cursor_position: move the caret to a certain place in a string of text
-   - Text (optional): Used for the "type" or "key" action
-   - Coordinates (optional): the x,y coordinate used for the "mouse_move" and "left_click_drag" actions
+   - An Action (key down, move mouse, double click, etc)
+   - Optional Text used for the typing or key press actions
+   - Optional Coordinates used for the mouse move or left click drag actions
 
-It's the user's responsibility to implement the computer interface with their system. An example implementation using Ubuntu is available in the Sources section below.
+It's the user's responsibility to implement the computer interface with their system.  This is where a wave of startups will fill the gap implementing automation systems on every concievable operating system. An example implementation using Ubuntu is available in the Sources section below.
 
-To execute complex user interactions, you need to loop the interaction with Claude, providing the computer tool until Claude no longer invokes the tool and the task is either completed or has encountered an error.
+To execute complex user interactions, systems simply loop LLM request to Claude, providing the computer tool until Claude no longer invokes the tool and the task is either completed or has encountered an error. Very simple to implement.
 
 ## Limitations
 
