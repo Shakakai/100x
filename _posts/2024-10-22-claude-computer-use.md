@@ -6,9 +6,6 @@ image: /images/posts/claude-computer-use.png
 description: An overview of Claude's new Computer Use tool, its capabilities, and potential applications in AI-assisted desktop interactions.
 ---
 
-
-## What is it?
-
 The Computer Use tool is a groundbreaking feature that enables Claude to interact reliably with a desktop computer. This advancement represents a significant leap forward in AI capabilities for two primary reasons:
 
 1. Enhanced Image Interaction: Previously, while Large Language Models (LLMs) could work with images, they lacked the ability to provide pixel-accurate x, y coordinates for elements within those images. This limitation made LLM-driven screen interactions highly error-prone, often relying on imprecise methods such as clicking on general screen regions or employing multiple, cobbled-together machine learning techniques.
