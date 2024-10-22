@@ -15,7 +15,7 @@ The Computer Use tool is a groundbreaking feature that enables Claude to interac
 
 2. Improved Reasoning Capabilities: Traditional non-LLM computer vision techniques for UI interaction and comprehension lacked the sophisticated reasoning abilities now available with Claude. These older methods typically required writing specific instructions for each UI screen, rather than allowing for generic, goal-oriented instructions.
 
-The Computer Use Tool empowers Claude to translate high-level prompts, such as "When was the last time I emailed my brother?", into a series of precise actions. These actions might include loading Gmail, searching for your brother's name, and retrieving the date of the most recent email. While this may seem straightforward to a non-technical observer, it represents a remarkable achievement for a generic system operating without specialized knowledge or API access to Chrome and Gmail.
+The Computer Use tool empowers Claude to translate high-level prompts, such as "When was the last time I emailed my brother?", into a series of precise actions. These actions might include loading Gmail, searching for your brother's name, and retrieving the date of the most recent email. While this may seem straightforward to a non-technical observer, it represents a remarkable achievement for a generic system operating without specialized knowledge or API access to Chrome and Gmail.
 
 ## How It Works
 
@@ -29,7 +29,7 @@ At its core, the Computer Use tool exposes a new capability to Claude called a "
 
 It's the user's responsibility to implement the computer interface with their system.  This is where a wave of startups will fill the gap implementing automation systems on every concievable operating system. An example implementation using Ubuntu is available in the Sources section below.
 
-To execute complex user interactions, systems simply loop LLM request to Claude, providing the computer tool until Claude no longer invokes the tool and the task is either completed or has encountered an error. Very simple to implement.
+To execute complex user interactions, systems simply loop LLM requests to Claude, providing the computer tool until Claude no longer invokes the tool and the task is either completed or has encountered an error. Very simple to implement.
 
 ## Limitations
 
