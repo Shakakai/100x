@@ -9,9 +9,9 @@ description: A guide to setting up AI-generated text, covering writing style, ru
 In this series, I'll show you how to generate high-quality AI-generated text for various use cases from code. You'll need to be familiar with Python 3.9+ to follow along. Here's an outline of the series:
 
 1. **Part 1: Foundations & Setup**
-2. **Part 2: Naive Social Media Post Generator**
-3. **Part 3: Basic Writing Agent**
-4. **Part 4: Advanced Writing Agent**
+2. **Part 2: Reddit Comment Writer (The Basics)**
+3. **Part 3: A Reddit Comment Agent (Evals & Optimizations)**
+4. **Part 4: A Blog Post Writing Agent (Multi-Step Agents)**
 
 Before we dive into coding, it's crucial to gather some foundational information about the document you're aiming to create. This involves considering the writing style, defining the rules for the AI language model (LLM), deciding on the document structure, and identifying the criteria you'll use to evaluate the results.
 
