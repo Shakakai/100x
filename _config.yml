@@ -1,6 +1,6 @@
 baseurl: '/'
 permalink: pretty
-title: '100x'
+title: 'Todd Cullen'
 
 logo:
   mobile: "images/logo/logo.png"
@@ -10,13 +10,7 @@ logo:
   desktop_height: "64px"
   desktop_width: "64px"
 
-home: 
-  limit_services: 6
-
 collections:
-  services:
-    output: true
-    sort_by: weight
   team:
     output: true
   posts:
@@ -29,11 +23,6 @@ collections:
     permalink: /campaigns/:title
 
 defaults:
-  - scope:
-      path: ""
-      type: "services"
-    values:
-      layout: "service"
   - scope:
       path: ""
       type: "team"

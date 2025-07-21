@@ -4,5 +4,6 @@ layout: contact
 description: Get in Touch
 ---
 
-Let's get this conversation started. Schedule a free 30min working session with 100x's Founder, Todd Cullen. 
-On the call, we'll discuss your goals and objectives and see where the 100x team can deliver your organization the most value.
+I'd love to hear from you! Whether you want to discuss AI, technology leadership, or explore potential collaboration opportunities, feel free to reach out.
+
+You can connect with me through the form below or find me on [LinkedIn](https://www.linkedin.com/in/toddcullen/).
