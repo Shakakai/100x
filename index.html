@@ -1,57 +1,644 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todd Cullen</title>
-  <meta name="description" content="Todd Cullen — technology leader and product engineer.">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.6;
-      color: #1a1a1a;
-      background: #fafafa;
-    }
-    main {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 64px 24px;
-    }
-    img.avatar {
-      width: 128px;
-      height: 128px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 24px;
-    }
-    h1 { font-size: 2rem; margin-bottom: 4px; }
-    .tagline { color: #666; margin-bottom: 32px; }
-    p { margin-bottom: 16px; }
-    ul.links { list-style: none; margin-top: 32px; }
-    ul.links li { margin-bottom: 8px; }
-    a { color: #0057b8; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todd Cullen — Global AI Product Leader</title>
+<meta name="description" content="Todd Cullen — global AI product leader and technology executive.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    background: #01030a;
+    font-family: 'Share Tech Mono', ui-monospace, Menlo, monospace;
+    color: #bfefff;
+  }
+  #gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; }
+  #gl.dragging { cursor: grabbing; }
+
+  .overlay { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+
+  header { position: absolute; top: 32px; left: 36px; }
+  h1 {
+    font-family: 'Orbitron', 'Share Tech Mono', sans-serif;
+    font-weight: 900;
+    font-size: clamp(26px, 4vw, 44px);
+    letter-spacing: 0.18em;
+    color: #eafcff;
+    text-shadow: 0 0 8px rgba(0,229,255,.9), 0 0 24px rgba(0,229,255,.55), 0 0 64px rgba(0,229,255,.35);
+  }
+  .tagline {
+    margin-top: 10px;
+    font-size: clamp(11px, 1.4vw, 15px);
+    letter-spacing: 0.55em;
+    color: #35e0ff;
+    text-shadow: 0 0 10px rgba(0,229,255,.8);
+  }
+
+  #contactBtn {
+    position: absolute; top: 40px; right: 40px;
+    pointer-events: auto;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.3em;
+    color: #35e0ff; background: rgba(0, 40, 60, 0.25);
+    border: 1px solid rgba(0,229,255,.7);
+    padding: 12px 22px 12px 26px;
+    cursor: pointer;
+    text-shadow: 0 0 8px rgba(0,229,255,.8);
+    box-shadow: 0 0 12px rgba(0,229,255,.35), inset 0 0 12px rgba(0,229,255,.12);
+    transition: all .2s ease;
+  }
+  #contactBtn:hover {
+    background: rgba(0,229,255,.15);
+    box-shadow: 0 0 24px rgba(0,229,255,.6), inset 0 0 18px rgba(0,229,255,.25);
+  }
+
+  .corner { position: absolute; width: 26px; height: 26px; border: 1px solid rgba(0,229,255,.5); }
+  .corner.tl { top: 16px; left: 16px; border-right: none; border-bottom: none; }
+  .corner.tr { top: 16px; right: 16px; border-left: none; border-bottom: none; }
+  .corner.bl { bottom: 16px; left: 16px; border-right: none; border-top: none; }
+  .corner.br { bottom: 16px; right: 16px; border-left: none; border-top: none; }
+
+  #hint {
+    position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+    font-size: 10px; letter-spacing: 0.5em; color: rgba(53,224,255,.55);
+    text-shadow: 0 0 8px rgba(0,229,255,.5);
+    transition: opacity 1s ease;
+  }
+  #status {
+    position: absolute; bottom: 24px; left: 36px;
+    font-size: 10px; letter-spacing: 0.25em; color: rgba(53,224,255,.4);
+  }
+  #status .dot { color: #ff9f1c; text-shadow: 0 0 8px rgba(255,159,28,.9); }
+
+  #labels { position: fixed; inset: 0; pointer-events: none; z-index: 4; overflow: hidden; }
+  .city {
+    position: absolute; top: 0; left: 0;
+    font-size: 10px; letter-spacing: 0.22em; white-space: nowrap;
+    color: #ffd9a0;
+    text-shadow: 0 0 6px rgba(255,159,28,.95), 0 0 18px rgba(255,159,28,.5);
+    will-change: transform, opacity;
+  }
+  .city::before {
+    content: "";
+    display: inline-block; width: 5px; height: 5px;
+    margin-right: 7px; vertical-align: 1px;
+    background: #ff9f1c;
+    box-shadow: 0 0 8px rgba(255,159,28,1);
+    transform: rotate(45deg);
+  }
+
+  /* contact modal */
+  #modal { position: fixed; inset: 0; z-index: 20; display: none; }
+  #modal.open { display: block; }
+  #modal .backdrop {
+    position: absolute; inset: 0;
+    background: rgba(1,3,10,.72);
+    backdrop-filter: blur(3px);
+  }
+  #modal .panel {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: min(420px, calc(100vw - 48px));
+    background: rgba(2,10,20,.92);
+    border: 1px solid rgba(0,229,255,.6);
+    box-shadow: 0 0 40px rgba(0,229,255,.35), inset 0 0 30px rgba(0,229,255,.06);
+    padding: 34px 36px 30px;
+  }
+  #modal h2 {
+    font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700;
+    letter-spacing: 0.4em; color: #eafcff;
+    text-shadow: 0 0 10px rgba(0,229,255,.8);
+    margin-bottom: 26px;
+  }
+  #modal .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 18px; }
+  #modal .k { font-size: 10px; letter-spacing: 0.3em; color: rgba(53,224,255,.6); }
+  #modal a {
+    color: #bfefff; text-decoration: none; font-size: 13px; letter-spacing: 0.08em;
+    border-bottom: 1px solid rgba(0,229,255,.35);
+    transition: all .15s ease;
+  }
+  #modal a:hover { color: #fff; text-shadow: 0 0 10px rgba(0,229,255,.9); border-bottom-color: #35e0ff; }
+  #modal .close {
+    position: absolute; top: 10px; right: 14px;
+    background: none; border: none; cursor: pointer;
+    color: rgba(53,224,255,.7); font-size: 22px; font-family: inherit;
+  }
+  #modal .close:hover { color: #fff; text-shadow: 0 0 10px rgba(0,229,255,.9); }
+
+  #fallback { position: fixed; inset: 0; display: none; place-items: center; text-align: center; padding: 40px; z-index: 30; background: #01030a; }
+
+  @media (max-width: 640px) {
+    header { top: 24px; left: 24px; }
+    #contactBtn { top: auto; bottom: 60px; right: 24px; }
+    #status { display: none; }
+  }
+</style>
 </head>
 <body>
-  <main>
-    <img class="avatar" src="images/team/todd-cullen.jpg" alt="Todd Cullen">
-    <h1>Todd Cullen</h1>
-    <p class="tagline">Technology leader &amp; product engineer</p>
 
-    <p>I'm a technology executive and builder with a track record of leading engineering
-    organizations and shipping products — from emergency department software to real
-    estate marketing intelligence platforms.</p>
+<canvas id="gl"></canvas>
+<div id="labels"></div>
 
-    <p>I've served as a CTO across several organizations, modernizing cloud infrastructure,
-    reducing operational costs, and building teams that deliver. I founded companies like
-    Remarkably and ThoughtLeadr, taking them from conception to market.</p>
+<div class="overlay">
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+  <header>
+    <h1>TODD CULLEN</h1>
+    <p class="tagline">GLOBAL AI PRODUCT LEADER</p>
+  </header>
+  <button id="contactBtn">CONTACT</button>
+  <div id="status">SYS.ONLINE <span class="dot">&#9679;</span> 11 CITIES LOGGED</div>
+  <div id="hint">DRAG TO ROTATE</div>
+</div>
 
-    <p>Lately I've been working hands-on with large language models and AI-powered products.</p>
+<div id="modal" role="dialog" aria-modal="true" aria-label="Contact">
+  <div class="backdrop"></div>
+  <div class="panel">
+    <button class="close" aria-label="Close">&times;</button>
+    <h2>CONTACT</h2>
+    <div class="row"><span class="k">X / TWITTER</span><a href="https://x.com/Shakakai" target="_blank" rel="noopener">@Shakakai</a></div>
+    <div class="row"><span class="k">LINKEDIN</span><a href="https://www.linkedin.com/in/toddcullen/" target="_blank" rel="noopener">/in/toddcullen</a></div>
+    <div class="row"><span class="k">EMAIL</span><a id="emailLink" href="#">culltp1 [at] gmail [dot] com</a></div>
+  </div>
+</div>
 
-    <ul class="links">
-      <li><a href="https://www.linkedin.com/in/toddcullen/">LinkedIn</a></li>
-    </ul>
-  </main>
+<div id="fallback"><p>WebGL is not available in this browser.<br><br>Todd Cullen — Global AI Product Leader<br><a href="https://www.linkedin.com/in/toddcullen/" style="color:#35e0ff">LinkedIn</a></p></div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ---------- data ----------
+  const CITIES = [
+    { name: 'MADISON, CT',       lat: 41.28, lon: -72.60,  off: [-14, -34] },
+    { name: 'WINSTON-SALEM, NC', lat: 36.10, lon: -80.24,  off: [-30, 30] },
+    { name: 'BOSTON, MA',        lat: 42.36, lon: -71.06,  off: [18, -38] },
+    { name: 'NEW YORK, NY',      lat: 40.71, lon: -74.01,  off: [20, 14] },
+    { name: 'SHANGHAI, CN',      lat: 31.23, lon: 121.47,  off: [14, -12] },
+    { name: 'SINGAPORE, SG',     lat: 1.35,  lon: 103.82,  off: [14, 10] },
+    { name: 'HAMBURG, DE',       lat: 53.55, lon: 9.99,    off: [14, -14] },
+    { name: 'SAN FRANCISCO, CA', lat: 37.77, lon: -122.42, off: [-16, -30] },
+    { name: 'AUSTIN, TX',        lat: 30.27, lon: -97.74,  off: [-24, 26] },
+    { name: 'SEATTLE, WA',       lat: 47.61, lon: -122.33, off: [-14, -34] },
+    { name: 'PITTSBURGH, PA',    lat: 40.44, lon: -80.00,  off: [-78, -8] }
+  ];
+
+  const COL_GRID   = [0.0, 0.85, 1.0, 0.26];
+  const COL_EQUAT  = [0.2, 0.95, 1.0, 0.6];
+  const COL_FLOOR  = [0.0, 0.75, 1.0, 1.0];
+  const COL_MARKER = [1.0, 0.62, 0.11];
+  const COL_STALK  = [1.0, 0.62, 0.11, 0.5];
+
+  // ---------- tiny mat4 (column-major) ----------
+  function perspective(fov, aspect, near, far) {
+    const f = 1 / Math.tan(fov / 2), nf = 1 / (near - far);
+    return [f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (far + near) * nf, -1, 0, 0, 2 * far * near * nf, 0];
+  }
+  function mul(a, b) {
+    const o = new Array(16);
+    for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++) {
+      o[c * 4 + r] = a[r] * b[c * 4] + a[4 + r] * b[c * 4 + 1] + a[8 + r] * b[c * 4 + 2] + a[12 + r] * b[c * 4 + 3];
+    }
+    return o;
+  }
+  function rotX(a) { const c = Math.cos(a), s = Math.sin(a); return [1, 0, 0, 0, 0, c, s, 0, 0, -s, c, 0, 0, 0, 0, 1]; }
+  function rotY(a) { const c = Math.cos(a), s = Math.sin(a); return [c, 0, -s, 0, 0, 1, 0, 0, s, 0, c, 0, 0, 0, 0, 1]; }
+  function xform(m, v) {
+    return [
+      m[0] * v[0] + m[4] * v[1] + m[8] * v[2] + m[12],
+      m[1] * v[0] + m[5] * v[1] + m[9] * v[2] + m[13],
+      m[2] * v[0] + m[6] * v[1] + m[10] * v[2] + m[14]
+    ];
+  }
+  function ll2v(lat, lon, r) {
+    const la = lat * Math.PI / 180, lo = lon * Math.PI / 180;
+    return [r * Math.cos(la) * Math.cos(lo), r * Math.sin(la), r * Math.cos(la) * Math.sin(lo)];
+  }
+
+  // ---------- gl setup ----------
+  const canvas = document.getElementById('gl');
+  const gl = canvas.getContext('webgl', { antialias: true, alpha: false, powerPreference: 'high-performance' });
+  if (!gl) {
+    document.getElementById('fallback').style.display = 'grid';
+    canvas.remove();
+    return;
+  }
+
+  function shader(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  function program(vs, fs) {
+    const p = gl.createProgram();
+    gl.attachShader(p, shader(gl.VERTEX_SHADER, vs));
+    gl.attachShader(p, shader(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+    return p;
+  }
+
+  const VS_LINE = `
+    attribute vec3 aPos; attribute float aAlpha; attribute float aFace;
+    uniform mat4 uMVP; uniform mat4 uModel;
+    varying float vAlpha; varying float vFacing;
+    void main() {
+      vec4 w = uModel * vec4(aPos, 1.0);
+      vFacing = aFace > 0.5 ? normalize(w.xyz).z : 1.0;
+      vAlpha = aAlpha;
+      gl_Position = uMVP * vec4(aPos, 1.0);
+    }`;
+  const FS_LINE = `
+    precision mediump float;
+    uniform vec4 uColor;
+    varying float vAlpha; varying float vFacing;
+    void main() {
+      float dim = mix(0.05, 1.0, smoothstep(-0.15, 0.35, vFacing));
+      gl_FragColor = vec4(uColor.rgb, uColor.a * vAlpha * dim);
+    }`;
+
+  const VS_MARKER = `
+    attribute vec3 aPos; attribute float aPhase;
+    uniform mat4 uMVP; uniform mat4 uModel; uniform float uTime; uniform float uDPR;
+    varying float vFacing; varying float vPulse;
+    void main() {
+      vec4 w = uModel * vec4(aPos, 1.0);
+      vFacing = normalize(w.xyz).z;
+      vPulse = 0.7 + 0.3 * sin(uTime * 2.2 + aPhase);
+      gl_Position = uMVP * vec4(aPos, 1.0);
+      gl_PointSize = 8.5 * vPulse * uDPR;
+    }`;
+  const FS_MARKER = `
+    precision mediump float;
+    uniform vec3 uColor;
+    varying float vFacing; varying float vPulse;
+    void main() {
+      vec2 uv = gl_PointCoord * 2.0 - 1.0;
+      float d = length(uv);
+      if (d > 1.0) discard;
+      float core = smoothstep(1.0, 0.0, d);
+      float vis = smoothstep(-0.02, 0.22, vFacing);
+      gl_FragColor = vec4(uColor, core * core * vis * (0.6 + 0.4 * vPulse));
+    }`;
+
+  const VS_STAR = `
+    attribute vec3 aPos; attribute float aBright;
+    uniform mat4 uVP; uniform float uDPR;
+    varying float vBright;
+    void main() {
+      vBright = aBright;
+      gl_Position = uVP * vec4(aPos, 1.0);
+      gl_PointSize = (1.0 + aBright * 1.6) * uDPR;
+    }`;
+  const FS_STAR = `
+    precision mediump float;
+    varying float vBright;
+    void main() {
+      vec2 uv = gl_PointCoord * 2.0 - 1.0;
+      if (dot(uv, uv) > 1.0) discard;
+      gl_FragColor = vec4(0.65, 0.85, 1.0, vBright * 0.55);
+    }`;
+
+  const VS_QUAD = `
+    attribute vec2 aPos; varying vec2 vUV;
+    void main() { vUV = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }`;
+  const FS_BLUR = `
+    precision mediump float;
+    uniform sampler2D uTex; uniform vec2 uDir;
+    varying vec2 vUV;
+    void main() {
+      vec3 c = texture2D(uTex, vUV).rgb * 0.227027;
+      c += texture2D(uTex, vUV + uDir * 1.3846).rgb * 0.3162162;
+      c += texture2D(uTex, vUV - uDir * 1.3846).rgb * 0.3162162;
+      c += texture2D(uTex, vUV + uDir * 3.2308).rgb * 0.0702703;
+      c += texture2D(uTex, vUV - uDir * 3.2308).rgb * 0.0702703;
+      gl_FragColor = vec4(c, 1.0);
+    }`;
+  const FS_COMPOSITE = `
+    precision mediump float;
+    uniform sampler2D uScene; uniform sampler2D uBloom; uniform float uTime;
+    varying vec2 vUV;
+    void main() {
+      vec3 c = texture2D(uScene, vUV).rgb + texture2D(uBloom, vUV).rgb * 0.75;
+      float d = distance(vUV, vec2(0.5, 0.46));
+      c *= 1.0 - 0.5 * smoothstep(0.38, 0.92, d);          // vignette
+      c *= 0.965 + 0.035 * sin(vUV.y * 1100.0);            // scanlines
+      gl_FragColor = vec4(c, 1.0);
+    }`;
+
+  const progLine = program(VS_LINE, FS_LINE);
+  const progMarker = program(VS_MARKER, FS_MARKER);
+  const progStar = program(VS_STAR, FS_STAR);
+  const progBlur = program(VS_QUAD, FS_BLUR);
+  const progComp = program(VS_QUAD, FS_COMPOSITE);
+
+  function loc(p, n) { return gl.getUniformLocation(p, n); }
+  const U = {
+    line: { mvp: loc(progLine, 'uMVP'), model: loc(progLine, 'uModel'), color: loc(progLine, 'uColor') },
+    marker: { mvp: loc(progMarker, 'uMVP'), model: loc(progMarker, 'uModel'), time: loc(progMarker, 'uTime'), dpr: loc(progMarker, 'uDPR'), color: loc(progMarker, 'uColor') },
+    star: { vp: loc(progStar, 'uVP'), dpr: loc(progStar, 'uDPR') },
+    blur: { tex: loc(progBlur, 'uTex'), dir: loc(progBlur, 'uDir') },
+    comp: { scene: loc(progComp, 'uScene'), bloom: loc(progComp, 'uBloom'), time: loc(progComp, 'uTime') }
+  };
+
+  // ---------- geometry ----------
+  // interleaved line verts: [x, y, z, alpha, face]
+  function buildGrid() {
+    const v = [];
+    function seg(a, b, alpha, face) { v.push(a[0], a[1], a[2], alpha, face, b[0], b[1], b[2], alpha, face); }
+    // parallels
+    for (let lat = -75; lat <= 75; lat += 15) {
+      for (let lon = 0; lon < 360; lon += 4) seg(ll2v(lat, lon, 1), ll2v(lat, lon + 4, 1), 1, 1);
+    }
+    // meridians
+    for (let lon = 0; lon < 360; lon += 15) {
+      for (let lat = -90; lat < 90; lat += 4) seg(ll2v(lat, lon, 1), ll2v(lat + 4, lon, 1), 1, 1);
+    }
+    return new Float32Array(v);
+  }
+  function buildEquator() {
+    const v = [];
+    for (let lon = 0; lon < 360; lon += 3) {
+      const a = ll2v(0, lon, 1.001), b = ll2v(0, lon + 3, 1.001);
+      v.push(a[0], a[1], a[2], 1, 1, b[0], b[1], b[2], 1, 1);
+    }
+    return new Float32Array(v);
+  }
+  function buildFloor() {
+    const v = [];
+    const y = -1.25, xMin = -9, xMax = 9, zMin = -13, zMax = 4, step = 0.6;
+    function fade(x, z) { return Math.max(0, 0.16 - Math.hypot(x, z + 2.5) * 0.014); }
+    function push(x1, z1, x2, z2) {
+      v.push(x1, y, z1, fade(x1, z1), 0, x2, y, z2, fade(x2, z2), 0);
+    }
+    for (let x = xMin; x <= xMax + 0.001; x += step) push(x, zMin, x, zMax);
+    for (let z = zMin; z <= zMax + 0.001; z += step) push(xMin, z, xMax, z);
+    return new Float32Array(v);
+  }
+  function buildStalks() {
+    const v = [];
+    CITIES.forEach(c => {
+      const a = ll2v(c.lat, c.lon, 1.005), b = ll2v(c.lat, c.lon, 1.09);
+      v.push(a[0], a[1], a[2], 1, 1, b[0], b[1], b[2], 1, 1);
+    });
+    return new Float32Array(v);
+  }
+  const markerPos = new Float32Array(CITIES.length * 4);
+  CITIES.forEach((c, i) => {
+    const p = ll2v(c.lat, c.lon, 1.09);
+    markerPos.set([p[0], p[1], p[2], i * 1.7], i * 4);
+  });
+  const starData = new Float32Array(420 * 4);
+  for (let i = 0; i < 420; i++) {
+    const t = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
+    const r = 26 + Math.random() * 22;
+    starData.set([r * Math.sin(ph) * Math.cos(t), r * Math.sin(ph) * Math.sin(t), r * Math.cos(ph), Math.random()], i * 4);
+  }
+
+  function buffer(data) {
+    const b = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, b);
+    gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+    return b;
+  }
+  const bufGrid = buffer(buildGrid());
+  const bufEquator = buffer(buildEquator());
+  const bufFloor = buffer(buildFloor());
+  const bufStalks = buffer(buildStalks());
+  const bufMarkers = buffer(markerPos);
+  const bufStars = buffer(starData);
+  const bufQuad = buffer(new Float32Array([-1, -1, 3, -1, -1, 3]));
+
+  const counts = { grid: 0, equator: 0, floor: 0, stalks: CITIES.length * 2 };
+  counts.grid = (function () { let n = 0; for (let lat = -75; lat <= 75; lat += 15) n += 90 * 2; for (let lon = 0; lon < 360; lon += 15) n += 45 * 2; return n; })();
+  counts.equator = 120 * 2;
+  counts.floor = (function () { const nx = Math.floor(18 / 0.6) + 1, nz = Math.floor(17 / 0.6) + 1; return (nx + nz) * 2; })();
+
+  // ---------- framebuffers ----------
+  let W = 0, H = 0, DPR = 1;
+  let fboScene = null, fboA = null, fboB = null, texScene = null, texA = null, texB = null;
+
+  function makeTarget(w, h) {
+    const tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    const fbo = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    return { tex, fbo };
+  }
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.floor(canvas.clientWidth * DPR), h = Math.floor(canvas.clientHeight * DPR);
+    if (w === W && h === H) return;
+    W = canvas.width = w; H = canvas.height = h;
+    const s = makeTarget(w, h), a = makeTarget(w >> 1, h >> 1), b = makeTarget(w >> 1, h >> 1);
+    texScene = s.tex; fboScene = s.fbo;
+    texA = a.tex; fboA = a.fbo;
+    texB = b.tex; fboB = b.fbo;
+  }
+  window.addEventListener('resize', resize);
+
+  // ---------- interaction ----------
+  let rot = 0.9, tilt = 0.32, vel = 0, dragging = false, lastX = 0, lastY = 0;
+  const hint = document.getElementById('hint');
+  canvas.addEventListener('pointerdown', e => {
+    dragging = true; lastX = e.clientX; lastY = e.clientY;
+    canvas.classList.add('dragging');
+    canvas.setPointerCapture(e.pointerId);
+    hint.style.opacity = '0';
+  });
+  canvas.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    vel = (e.clientX - lastX) * 0.004;
+    rot += vel;
+    tilt = Math.max(-0.6, Math.min(1.0, tilt + (e.clientY - lastY) * 0.003));
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  window.addEventListener('pointerup', () => { dragging = false; canvas.classList.remove('dragging'); });
+
+  // ---------- labels ----------
+  const labelWrap = document.getElementById('labels');
+  const labelEls = CITIES.map(c => {
+    const d = document.createElement('div');
+    d.className = 'city';
+    d.textContent = c.name;
+    labelWrap.appendChild(d);
+    return d;
+  });
+
+  // ---------- render ----------
+  function bindLineAttribs() {
+    const stride = 20;
+    const aPos = gl.getAttribLocation(progLine, 'aPos');
+    const aAlpha = gl.getAttribLocation(progLine, 'aAlpha');
+    const aFace = gl.getAttribLocation(progLine, 'aFace');
+    gl.enableVertexAttribArray(aPos);
+    gl.enableVertexAttribArray(aAlpha);
+    gl.enableVertexAttribArray(aFace);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, stride, 0);
+    gl.vertexAttribPointer(aAlpha, 1, gl.FLOAT, false, stride, 12);
+    gl.vertexAttribPointer(aFace, 1, gl.FLOAT, false, stride, 16);
+  }
+  function drawLines(buf, count, color) {
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    bindLineAttribs();
+    gl.uniform4fv(U.line.color, color);
+    gl.drawArrays(gl.LINES, 0, count);
+  }
+  function drawQuad(prog) {
+    const aPosLoc = gl.getAttribLocation(prog, 'aPos');
+    gl.bindBuffer(gl.ARRAY_BUFFER, bufQuad);
+    gl.enableVertexAttribArray(aPosLoc);
+    gl.vertexAttribPointer(aPosLoc, 2, gl.FLOAT, false, 0, 0);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  let prev = 0;
+  const BASE_SPEED = 0.085; // rad/s
+
+  function frame(t) {
+    const time = t * 0.001;
+    const dt = Math.min(time - prev, 0.05);
+    prev = time;
+    resize();
+
+    if (!dragging) {
+      rot += (BASE_SPEED + vel) * dt;
+      vel *= 0.96;
+    }
+
+    const model = mul(rotX(tilt), rotY(rot));
+    const fovHalf = 19 * Math.PI / 180;
+    const aspect = W / H;
+    const dist = Math.max(3.9, 1.35 / (Math.tan(fovHalf) * aspect));
+    const proj = perspective(fovHalf * 2, aspect, 0.1, 100);
+    const view = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -dist, 1];
+    const vp = mul(proj, view);
+    const mvp = mul(vp, model);
+
+    // 1. scene -> fboScene
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fboScene);
+    gl.viewport(0, 0, W, H);
+    gl.clearColor(0.004, 0.012, 0.04, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+    // stars
+    gl.useProgram(progStar);
+    gl.uniformMatrix4fv(U.star.vp, false, vp);
+    gl.uniform1f(U.star.dpr, DPR);
+    gl.bindBuffer(gl.ARRAY_BUFFER, bufStars);
+    const sPos = gl.getAttribLocation(progStar, 'aPos');
+    const sBr = gl.getAttribLocation(progStar, 'aBright');
+    gl.enableVertexAttribArray(sPos);
+    gl.enableVertexAttribArray(sBr);
+    gl.vertexAttribPointer(sPos, 3, gl.FLOAT, false, 16, 0);
+    gl.vertexAttribPointer(sBr, 1, gl.FLOAT, false, 16, 12);
+    gl.drawArrays(gl.POINTS, 0, 420);
+
+    // lines
+    gl.useProgram(progLine);
+    gl.uniformMatrix4fv(U.line.mvp, false, mvp);
+    gl.uniformMatrix4fv(U.line.model, false, model);
+    drawLines(bufFloor, counts.floor, COL_FLOOR);
+    drawLines(bufGrid, counts.grid, COL_GRID);
+    drawLines(bufEquator, counts.equator, COL_EQUAT);
+    drawLines(bufStalks, counts.stalks, COL_STALK);
+
+    // markers
+    gl.useProgram(progMarker);
+    gl.uniformMatrix4fv(U.marker.mvp, false, mvp);
+    gl.uniformMatrix4fv(U.marker.model, false, model);
+    gl.uniform1f(U.marker.time, time);
+    gl.uniform1f(U.marker.dpr, DPR);
+    gl.uniform3fv(U.marker.color, COL_MARKER);
+    gl.bindBuffer(gl.ARRAY_BUFFER, bufMarkers);
+    const mPos = gl.getAttribLocation(progMarker, 'aPos');
+    const mPh = gl.getAttribLocation(progMarker, 'aPhase');
+    gl.enableVertexAttribArray(mPos);
+    gl.enableVertexAttribArray(mPh);
+    gl.vertexAttribPointer(mPos, 3, gl.FLOAT, false, 16, 0);
+    gl.vertexAttribPointer(mPh, 1, gl.FLOAT, false, 16, 12);
+    gl.drawArrays(gl.POINTS, 0, CITIES.length);
+
+    // 2. bloom: scene -> A (H) -> B (V)
+    gl.useProgram(progBlur);
+    gl.uniform1i(U.blur.tex, 0);
+    gl.activeTexture(gl.TEXTURE0);
+    const passes = [
+      { src: texScene, dst: fboA, dir: [1 / (W >> 1), 0] },
+      { src: texA, dst: fboB, dir: [0, 1 / (H >> 1)] }
+    ];
+    gl.viewport(0, 0, W >> 1, H >> 1);
+    passes.forEach(p => {
+      gl.bindFramebuffer(gl.FRAMEBUFFER, p.dst);
+      gl.bindTexture(gl.TEXTURE_2D, p.src);
+      gl.uniform2fv(U.blur.dir, p.dir);
+      drawQuad(progBlur);
+    });
+
+    // 3. composite -> screen
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, W, H);
+    gl.useProgram(progComp);
+    gl.uniform1i(U.comp.scene, 0);
+    gl.uniform1i(U.comp.bloom, 1);
+    gl.uniform1f(U.comp.time, time);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, texScene);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, texB);
+    drawQuad(progComp);
+    gl.activeTexture(gl.TEXTURE0);
+
+    // 4. html labels
+    const cw = canvas.clientWidth, ch = canvas.clientHeight;
+    for (let i = 0; i < CITIES.length; i++) {
+      const c = CITIES[i], el = labelEls[i];
+      const world = xform(model, ll2v(c.lat, c.lon, 1.09));
+      const len = Math.hypot(world[0], world[1], world[2]);
+      const facing = world[2] / len;
+      if (facing < 0.08) { el.style.opacity = '0'; continue; }
+      const vs = [world[0], world[1], world[2] - dist];
+      const cx = proj[0] * vs[0], cy = proj[5] * vs[1], w2 = -vs[2];
+      const sx = (cx / w2 * 0.5 + 0.5) * cw + c.off[0];
+      const sy = (1 - (cy / w2 * 0.5 + 0.5)) * ch + c.off[1];
+      el.style.opacity = String(Math.min(1, (facing - 0.08) * 4));
+      el.style.transform = 'translate(' + sx.toFixed(1) + 'px,' + sy.toFixed(1) + 'px)';
+    }
+
+    requestAnimationFrame(frame);
+  }
+  resize();
+  requestAnimationFrame(frame);
+
+  // ---------- contact modal ----------
+  const modal = document.getElementById('modal');
+  document.getElementById('contactBtn').addEventListener('click', () => modal.classList.add('open'));
+  modal.querySelector('.close').addEventListener('click', () => modal.classList.remove('open'));
+  modal.querySelector('.backdrop').addEventListener('click', () => modal.classList.remove('open'));
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
+  const emailLink = document.getElementById('emailLink');
+  emailLink.addEventListener('click', e => {
+    e.preventDefault();
+    window.location.href = 'mailto:' + ['culltp1', 'gmail.com'].join('@');
+  });
+
+  setTimeout(() => { hint.style.opacity = '0'; }, 8000);
+})();
+</script>
 </body>
 </html>
