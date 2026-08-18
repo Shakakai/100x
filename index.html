@@ -37,9 +37,22 @@
     color: #35e0ff;
     text-shadow: 0 0 10px rgba(0,229,255,.8);
   }
+  .subbrand {
+    margin-top: 8px;
+    font-size: clamp(9px, 1vw, 11px);
+    letter-spacing: 0.4em;
+    color: rgba(53,224,255,.5);
+  }
+
+  #weblog {
+    position: absolute; top: 48px; right: 40px;
+    font-size: 11px; letter-spacing: 0.35em;
+    color: rgba(53,224,255,.6);
+    text-shadow: 0 0 8px rgba(0,229,255,.4);
+  }
 
   #contactBtn {
-    position: absolute; top: 40px; right: 40px;
+    position: absolute; bottom: 44px; right: 40px;
     pointer-events: auto;
     font-family: 'Orbitron', sans-serif;
     font-size: 13px; font-weight: 700; letter-spacing: 0.3em;
@@ -52,6 +65,24 @@
     transition: all .2s ease;
   }
   #contactBtn:hover {
+    background: rgba(0,229,255,.15);
+    box-shadow: 0 0 24px rgba(0,229,255,.6), inset 0 0 18px rgba(0,229,255,.25);
+  }
+
+  #playBtn {
+    position: absolute; bottom: 44px; right: 182px;
+    pointer-events: auto;
+    font-family: 'Share Tech Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: #35e0ff; background: rgba(0, 40, 60, 0.25);
+    border: 1px solid rgba(0,229,255,.7);
+    padding: 12px 15px;
+    cursor: pointer;
+    text-shadow: 0 0 8px rgba(0,229,255,.8);
+    box-shadow: 0 0 12px rgba(0,229,255,.35), inset 0 0 12px rgba(0,229,255,.12);
+    transition: all .2s ease;
+  }
+  #playBtn:hover {
     background: rgba(0,229,255,.15);
     box-shadow: 0 0 24px rgba(0,229,255,.6), inset 0 0 18px rgba(0,229,255,.25);
   }
@@ -75,21 +106,41 @@
   #status .dot { color: #ff9f1c; text-shadow: 0 0 8px rgba(255,159,28,.9); }
   #status .dot2 { color: #40ff66; text-shadow: 0 0 8px rgba(64,255,102,.9); }
 
-  #labels { position: fixed; inset: 0; pointer-events: none; z-index: 4; overflow: hidden; }
-  .city {
-    position: absolute; top: 0; left: 0;
-    font-size: 10px; letter-spacing: 0.22em; white-space: nowrap;
-    color: #ffd9a0;
-    text-shadow: 0 0 6px rgba(255,159,28,.95), 0 0 18px rgba(255,159,28,.5);
-    will-change: transform, opacity;
+  /* hover callout: stem animates out from the pin, then the name fades in */
+  #callout {
+    position: fixed; top: 0; left: 0; z-index: 6;
+    pointer-events: none;
+    --c: #ff9f1c;
   }
-  .city::before {
-    content: "";
-    display: inline-block; width: 5px; height: 5px;
-    margin-right: 7px; vertical-align: 1px;
-    background: #ff9f1c;
-    box-shadow: 0 0 8px rgba(255,159,28,1);
-    transform: rotate(45deg);
+  #callout.visited { --c: #40ff66; }
+  #callout .stem {
+    position: absolute; left: 0; top: 0;
+    width: 0; height: 1px;
+    background: var(--c);
+    box-shadow: 0 0 8px var(--c);
+    transform: rotate(-40deg);
+    transform-origin: 0 50%;
+    transition: width .16s ease-out;
+  }
+  #callout.flip .stem { transform: rotate(-140deg); }
+  #callout.show .stem { width: 54px; }
+  #callout .tag {
+    position: absolute; left: 44px; bottom: 34px;
+    opacity: 0; transform: translateY(5px);
+    transition: opacity .18s ease .1s, transform .18s ease .1s;
+    white-space: nowrap;
+  }
+  #callout.flip .tag { left: auto; right: 44px; text-align: right; }
+  #callout.show .tag { opacity: 1; transform: translateY(0); }
+  #callout .name {
+    font-size: 11px; letter-spacing: 0.22em;
+    color: var(--c);
+    text-shadow: 0 0 8px var(--c);
+  }
+  #callout .kind {
+    margin-top: 3px;
+    font-size: 8px; letter-spacing: 0.3em;
+    color: rgba(191,239,255,.55);
   }
 
   /* contact modal */
@@ -133,7 +184,9 @@
 
   @media (max-width: 640px) {
     header { top: 24px; left: 24px; }
-    #contactBtn { top: auto; bottom: 60px; right: 24px; }
+    #weblog { top: 30px; right: 24px; font-size: 9px; }
+    #contactBtn { bottom: 40px; right: 24px; }
+    #playBtn { bottom: 40px; right: 154px; }
     #status { display: none; }
   }
 </style>
@@ -141,7 +194,13 @@
 <body>
 
 <canvas id="gl"></canvas>
-<div id="labels"></div>
+<div id="callout" aria-hidden="true">
+  <div class="stem"></div>
+  <div class="tag">
+    <div class="name"></div>
+    <div class="kind"></div>
+  </div>
+</div>
 
 <div class="overlay">
   <div class="corner tl"></div><div class="corner tr"></div>
@@ -149,10 +208,13 @@
   <header>
     <h1>TODD CULLEN</h1>
     <p class="tagline">GLOBAL AI PRODUCT LEADER</p>
+    <p class="subbrand">100X AI</p>
   </header>
+  <div id="weblog">TODD CULLEN'S WEBLOG</div>
+  <button id="playBtn" aria-label="Pause rotation">&#10074;&#10074;</button>
   <button id="contactBtn">CONTACT</button>
   <div id="status">SYS.ONLINE <span class="dot">&#9679;</span> 11 CITIES LIVED <span class="dot2">&#9679;</span> 39 PLACES VISITED</div>
-  <div id="hint">DRAG TO ROTATE</div>
+  <div id="hint">DRAG TO ROTATE &#183; HOVER A PIN</div>
 </div>
 
 <div id="modal" role="dialog" aria-modal="true" aria-label="Contact">
@@ -189,43 +251,43 @@
 
   // places visited (country-only entries pinned on their capital)
   const VISITED = [
-    { name: 'TOKYO, JP',        lat: 35.68,  lon: 139.69 },
-    { name: 'SEOUL, KR',        lat: 37.57,  lon: 126.98 },
-    { name: 'HANOI, VN',        lat: 21.03,  lon: 105.85 },
-    { name: 'KUALA LUMPUR, MY', lat: 3.14,   lon: 101.69 },
-    { name: 'MANILA, PH',       lat: 14.60,  lon: 120.98 },
-    { name: 'BANGKOK, TH',      lat: 13.76,  lon: 100.50 },
-    { name: 'VIENTIANE, LA',    lat: 17.97,  lon: 102.61 },
-    { name: 'SYDNEY, AU',       lat: -33.87, lon: 151.21 },
-    { name: 'BALI, ID',         lat: -8.41,  lon: 115.19 },
-    { name: 'LOMBOK, ID',       lat: -8.58,  lon: 116.12 },
-    { name: 'NEW DELHI, IN',    lat: 28.61,  lon: 77.21 },
-    { name: 'ABU DHABI, AE',    lat: 24.45,  lon: 54.38 },
-    { name: 'ROME, IT',         lat: 41.90,  lon: 12.50 },
-    { name: 'MADRID, ES',       lat: 40.42,  lon: -3.70 },
-    { name: 'PARIS, FR',        lat: 48.86,  lon: 2.35 },
-    { name: 'MONTREAL, CA',     lat: 45.50,  lon: -73.57 },
-    { name: 'LONDON, UK',       lat: 51.51,  lon: -0.13 },
-    { name: 'GLENFARNE, IE',    lat: 54.28,  lon: -7.99 },
-    { name: 'BELFAST, UK',      lat: 54.60,  lon: -5.93 },
-    { name: 'VANCOUVER, CA',    lat: 49.28,  lon: -123.12 },
-    { name: 'QUEBEC CITY, CA',  lat: 46.81,  lon: -71.21 },
-    { name: 'BERLIN, DE',       lat: 52.52,  lon: 13.40 },
-    { name: 'MUNICH, DE',       lat: 48.14,  lon: 11.58 },
-    { name: 'PRAGUE, CZ',       lat: 50.08,  lon: 14.44 },
-    { name: 'REYKJAVIK, IS',    lat: 64.15,  lon: -21.94 },
-    { name: 'BELMOPAN, BZ',     lat: 17.25,  lon: -88.77 },
-    { name: 'CANCUN, MX',       lat: 21.16,  lon: -86.85 },
-    { name: 'PUERTO VALLARTA, MX', lat: 20.65, lon: -105.22 },
-    { name: 'HAMILTON, BM',     lat: 32.29,  lon: -64.78 },
-    { name: 'KINGSTON, JM',     lat: 18.02,  lon: -76.80 },
-    { name: 'ORANJESTAD, AW',   lat: 12.52,  lon: -70.03 },
-    { name: 'GEORGE TOWN, KY',  lat: 19.29,  lon: -81.38 },
-    { name: 'GUATEMALA CITY, GT', lat: 14.63, lon: -90.55 },
-    { name: 'VIENNA, AT',       lat: 48.21,  lon: 16.37 },
-    { name: 'BRUSSELS, BE',     lat: 50.85,  lon: 4.35 },
-    { name: 'AMSTERDAM, NL',    lat: 52.37,  lon: 4.90 },
-    { name: 'MOSCOW, RU',       lat: 55.76,  lon: 37.62 },
+    { name: 'TOKYO, JAPAN',        lat: 35.68,  lon: 139.69 },
+    { name: 'SEOUL, SOUTH KOREA',  lat: 37.57,  lon: 126.98 },
+    { name: 'HANOI, VIETNAM',      lat: 21.03,  lon: 105.85 },
+    { name: 'KUALA LUMPUR, MALAYSIA', lat: 3.14,   lon: 101.69 },
+    { name: 'MANILA, PHILIPPINES', lat: 14.60,  lon: 120.98 },
+    { name: 'BANGKOK, THAILAND',   lat: 13.76,  lon: 100.50 },
+    { name: 'VIENTIANE, LAOS',     lat: 17.97,  lon: 102.61 },
+    { name: 'SYDNEY, AUSTRALIA',   lat: -33.87, lon: 151.21 },
+    { name: 'BALI, INDONESIA',     lat: -8.41,  lon: 115.19 },
+    { name: 'LOMBOK, INDONESIA',   lat: -8.58,  lon: 116.12 },
+    { name: 'NEW DELHI, INDIA',    lat: 28.61,  lon: 77.21 },
+    { name: 'ABU DHABI, UNITED ARAB EMIRATES', lat: 24.45, lon: 54.38 },
+    { name: 'ROME, ITALY',         lat: 41.90,  lon: 12.50 },
+    { name: 'MADRID, SPAIN',       lat: 40.42,  lon: -3.70 },
+    { name: 'PARIS, FRANCE',       lat: 48.86,  lon: 2.35 },
+    { name: 'MONTREAL, CANADA',    lat: 45.50,  lon: -73.57 },
+    { name: 'LONDON, ENGLAND',     lat: 51.51,  lon: -0.13 },
+    { name: 'GLENFARNE, IRELAND',  lat: 54.28,  lon: -7.99 },
+    { name: 'BELFAST, NORTHERN IRELAND', lat: 54.60, lon: -5.93 },
+    { name: 'VANCOUVER, CANADA',   lat: 49.28,  lon: -123.12 },
+    { name: 'QUEBEC CITY, CANADA', lat: 46.81,  lon: -71.21 },
+    { name: 'BERLIN, GERMANY',     lat: 52.52,  lon: 13.40 },
+    { name: 'MUNICH, GERMANY',     lat: 48.14,  lon: 11.58 },
+    { name: 'PRAGUE, CZECH REPUBLIC', lat: 50.08, lon: 14.44 },
+    { name: 'REYKJAVIK, ICELAND',  lat: 64.15,  lon: -21.94 },
+    { name: 'BELMOPAN, BELIZE',    lat: 17.25,  lon: -88.77 },
+    { name: 'CANCUN, MEXICO',      lat: 21.16,  lon: -86.85 },
+    { name: 'PUERTO VALLARTA, MEXICO', lat: 20.65, lon: -105.22 },
+    { name: 'HAMILTON, BERMUDA',   lat: 32.29,  lon: -64.78 },
+    { name: 'KINGSTON, JAMAICA',   lat: 18.02,  lon: -76.80 },
+    { name: 'ORANJESTAD, ARUBA',   lat: 12.52,  lon: -70.03 },
+    { name: 'GEORGE TOWN, CAYMAN ISLANDS', lat: 19.29, lon: -81.38 },
+    { name: 'GUATEMALA CITY, GUATEMALA', lat: 14.63, lon: -90.55 },
+    { name: 'VIENNA, AUSTRIA',     lat: 48.21,  lon: 16.37 },
+    { name: 'BRUSSELS, BELGIUM',   lat: 50.85,  lon: 4.35 },
+    { name: 'AMSTERDAM, NETHERLANDS', lat: 52.37, lon: 4.90 },
+    { name: 'MOSCOW, RUSSIA',      lat: 55.76,  lon: 37.62 },
     { name: 'KONA, BIG ISLAND, HI', lat: 19.64, lon: -156.00 },
     { name: 'HONOLULU, OAHU, HI',   lat: 21.31, lon: -157.86 }
   ];
@@ -523,31 +585,54 @@
 
   // ---------- interaction ----------
   let rot = 1.68, tilt = 0.32, vel = 0, dragging = false, lastX = 0, lastY = 0;
+  let paused = false, mouseX = -1e4, mouseY = -1e4, stickyName = null;
+  let hoveredPin = null, calloutName = null;
+  let downX = 0, downY = 0, downT = 0;
   const hint = document.getElementById('hint');
   canvas.addEventListener('pointerdown', e => {
-    dragging = true; lastX = e.clientX; lastY = e.clientY;
+    dragging = true; lastX = downX = e.clientX; lastY = downY = e.clientY;
+    downT = performance.now();
     canvas.classList.add('dragging');
     canvas.setPointerCapture(e.pointerId);
     hint.style.opacity = '0';
   });
   canvas.addEventListener('pointermove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
     if (!dragging) return;
     vel = (e.clientX - lastX) * 0.004;
     rot += vel;
     tilt = Math.max(-0.6, Math.min(1.0, tilt + (e.clientY - lastY) * 0.003));
     lastX = e.clientX; lastY = e.clientY;
   });
-  window.addEventListener('pointerup', () => { dragging = false; canvas.classList.remove('dragging'); });
-
-  // ---------- labels ----------
-  const labelWrap = document.getElementById('labels');
-  const labelEls = CITIES.map(c => {
-    const d = document.createElement('div');
-    d.className = 'city';
-    d.textContent = c.name;
-    labelWrap.appendChild(d);
-    return d;
+  window.addEventListener('pointerup', e => {
+    if (dragging && Math.hypot(e.clientX - downX, e.clientY - downY) < 8 && performance.now() - downT < 400) {
+      // tap (touch devices): stick a callout on the nearest pin
+      let best = 26 * 26, found = null;
+      for (let i = 0; i < pinTotal; i++) {
+        const p = pinPts[i];
+        if (p.facing < 0.12) continue;
+        const dx = p.x - e.clientX, dy = p.y - e.clientY, d2 = dx * dx + dy * dy;
+        if (d2 < best) { best = d2; found = p; }
+      }
+      stickyName = found ? found.name : null;
+    }
+    dragging = false; canvas.classList.remove('dragging');
   });
+
+  const playBtn = document.getElementById('playBtn');
+  playBtn.addEventListener('click', () => {
+    paused = !paused;
+    playBtn.innerHTML = paused ? '&#9654;' : '&#10074;&#10074;';
+    playBtn.setAttribute('aria-label', paused ? 'Play rotation' : 'Pause rotation');
+  });
+
+  // ---------- pins & hover callout ----------
+  const pinTotal = CITIES.length + VISITED.length;
+  const pinPts = [];
+  for (let i = 0; i < pinTotal; i++) pinPts.push({ x: 0, y: 0, facing: 0, name: '', kind: 0 });
+  const callout = document.getElementById('callout');
+  const coName = callout.querySelector('.name');
+  const coKind = callout.querySelector('.kind');
 
   // ---------- render ----------
   function bindLineAttribs() {
@@ -585,10 +670,8 @@
     prev = time;
     resize();
 
-    if (!dragging) {
-      rot += (BASE_SPEED + vel) * dt;
-      vel *= 0.96;
-    }
+    if (!dragging && !paused && !hoveredPin) rot += (BASE_SPEED + vel) * dt;
+    if (!dragging) vel *= 0.96;
 
     const model = mul(rotX(tilt), rotY(rot));
     const fovHalf = 19 * Math.PI / 180;
@@ -697,21 +780,57 @@
     drawQuad(progComp);
     gl.activeTexture(gl.TEXTURE0);
 
-    // 4. html labels
+    // 4. pin screen positions + hover callout
     const cw = canvas.clientWidth, ch = canvas.clientHeight;
-    for (let i = 0; i < CITIES.length; i++) {
-      const c = CITIES[i], el = labelEls[i];
-      const world = xform(model, ll2v(c.lat, c.lon, 1.09));
+    for (let i = 0; i < pinTotal; i++) {
+      const isCity = i < CITIES.length;
+      const src = isCity ? CITIES[i] : VISITED[i - CITIES.length];
+      const p = pinPts[i];
+      const world = xform(model, ll2v(src.lat, src.lon, isCity ? 1.09 : 1.006));
       const len = Math.hypot(world[0], world[1], world[2]);
-      const facing = world[2] / len;
-      if (facing < 0.08) { el.style.opacity = '0'; continue; }
+      p.facing = world[2] / len;
       const vs = [world[0], world[1], world[2] - dist];
       const cx = proj[0] * vs[0], cy = proj[5] * vs[1], w2 = -vs[2];
-      const sx = (cx / w2 * 0.5 + 0.5) * cw + c.off[0];
-      const sy = (1 - (cy / w2 * 0.5 + 0.5)) * ch + c.off[1];
-      el.style.opacity = String(Math.min(1, (facing - 0.08) * 4));
-      el.style.transform = 'translate(' + sx.toFixed(1) + 'px,' + sy.toFixed(1) + 'px)';
+      p.x = (cx / w2 * 0.5 + 0.5) * cw;
+      p.y = (1 - (cy / w2 * 0.5 + 0.5)) * ch;
+      p.name = src.name;
+      p.kind = isCity ? 0 : 1;
     }
+
+    let pick = null;
+    if (!dragging) {
+      let best = 26 * 26;
+      for (let i = 0; i < pinTotal; i++) {
+        const p = pinPts[i];
+        if (p.facing < 0.12) continue;
+        const dx = p.x - mouseX, dy = p.y - mouseY, d2 = dx * dx + dy * dy;
+        if (d2 < best) { best = d2; pick = p; }
+      }
+      if (!pick && stickyName) {
+        for (let i = 0; i < pinTotal; i++) {
+          const p = pinPts[i];
+          if (p.name === stickyName && p.facing > 0.12) { pick = p; break; }
+        }
+        if (!pick) stickyName = null;
+      }
+    }
+    hoveredPin = pick;
+
+    if (hoveredPin) {
+      if (calloutName !== hoveredPin.name) {
+        calloutName = hoveredPin.name;
+        coName.textContent = hoveredPin.name;
+        coKind.textContent = hoveredPin.kind ? 'VISITED' : 'LIVED';
+        callout.classList.toggle('visited', hoveredPin.kind === 1);
+      }
+      callout.classList.toggle('flip', hoveredPin.x > cw * 0.55);
+      callout.style.transform = 'translate(' + hoveredPin.x.toFixed(1) + 'px,' + hoveredPin.y.toFixed(1) + 'px)';
+      callout.classList.add('show');
+    } else {
+      callout.classList.remove('show');
+      calloutName = null;
+    }
+    canvas.style.cursor = dragging ? 'grabbing' : (hoveredPin ? 'pointer' : 'grab');
 
     requestAnimationFrame(frame);
   }
