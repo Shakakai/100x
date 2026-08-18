@@ -186,7 +186,7 @@
     { name: 'PITTSBURGH, PA',    lat: 40.44, lon: -80.00,  off: [-78, -8] }
   ];
 
-  const COL_GRID   = [0.0, 0.85, 1.0, 0.26];
+  const COL_GRID   = [0.0, 0.85, 1.0, 0.32];
   const COL_EQUAT  = [0.2, 0.95, 1.0, 0.6];
   const COL_FLOOR  = [0.0, 0.75, 1.0, 1.0];
   const COL_MARKER = [1.0, 0.62, 0.11];
@@ -324,7 +324,7 @@
     uniform sampler2D uScene; uniform sampler2D uBloom; uniform float uTime;
     varying vec2 vUV;
     void main() {
-      vec3 c = texture2D(uScene, vUV).rgb + texture2D(uBloom, vUV).rgb * 0.75;
+      vec3 c = texture2D(uScene, vUV).rgb + texture2D(uBloom, vUV).rgb * 1.1;
       float d = distance(vUV, vec2(0.5, 0.46));
       c *= 1.0 - 0.5 * smoothstep(0.38, 0.92, d);          // vignette
       c *= 0.965 + 0.035 * sin(vUV.y * 1100.0);            // scanlines
@@ -584,6 +584,10 @@
     gl.drawArrays(gl.POINTS, 0, CITIES.length);
 
     // 2. bloom: scene -> A (H) -> B (V)
+    // blending must be OFF for the post-processing passes: with additive
+    // blending the blur/composite quads accumulate onto previous frames
+    // and the whole screen washes to white within a second
+    gl.disable(gl.BLEND);
     gl.useProgram(progBlur);
     gl.uniform1i(U.blur.tex, 0);
     gl.activeTexture(gl.TEXTURE0);
