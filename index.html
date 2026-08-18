@@ -442,6 +442,8 @@
     const w = Math.floor(canvas.clientWidth * DPR), h = Math.floor(canvas.clientHeight * DPR);
     if (w === W && h === H) return;
     W = canvas.width = w; H = canvas.height = h;
+    [fboScene, fboA, fboB].forEach(f => f && gl.deleteFramebuffer(f));
+    [texScene, texA, texB].forEach(t => t && gl.deleteTexture(t));
     const s = makeTarget(w, h), a = makeTarget(w >> 1, h >> 1), b = makeTarget(w >> 1, h >> 1);
     texScene = s.tex; fboScene = s.fbo;
     texA = a.tex; fboA = a.fbo;
@@ -528,6 +530,13 @@
     const mvp = mul(vp, model);
 
     // 1. scene -> fboScene
+    // unbind all textures first: leaving texScene/texB bound from last frame's
+    // composite creates a feedback loop once we render to their FBOs (breaks on Metal)
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, null);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D, null);
+    gl.activeTexture(gl.TEXTURE0);
     gl.bindFramebuffer(gl.FRAMEBUFFER, fboScene);
     gl.viewport(0, 0, W, H);
     gl.clearColor(0.004, 0.012, 0.04, 1);
