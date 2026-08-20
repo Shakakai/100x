@@ -1,0 +1,17 @@
+{
+  "slug": "05-stormx",
+  "category": "professional",
+  "title": "AdTech Consultant",
+  "date": "Jan 2018 — Dec 2018",
+  "location": "Seattle, WA",
+  "pin": "SEATTLE, WA",
+  "lat": 47.61,
+  "lon": -122.33,
+  "org": "StormX, Inc.",
+  "url": "https://stormx.io",
+  "photos": [],
+  "photo": null,
+  "tag": null,
+  "excerpt": "Architected the Microtask API on Node.js, AWS Lambda, and Elastic Beanstalk for a blockchain rewards platform; launched to 100K+ users in its first quarter.",
+  "html": "<p>Contract engagement with a <strong>blockchain-based mobile microtask and rewards platform</strong>.</p>\n<p>Architected the Microtask API on <strong>Node.js, AWS Lambda, and Elastic Beanstalk</strong>, then launched the service to <strong>100,000+ users</strong> with month-over-month growth above 10 percent in its first quarter.</p>"
+}

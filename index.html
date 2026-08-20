@@ -167,12 +167,202 @@
   }
   #modal .close:hover { color: #fff; text-shadow: 0 0 10px rgba(0,229,255,.9); }
 
+  /* explore panel */
+  #panelBtn {
+    position: absolute; top: 92px; right: 40px;
+    pointer-events: auto; z-index: 9;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.3em;
+    color: #35e0ff; background: rgba(0, 40, 60, 0.25);
+    border: 1px solid rgba(0,229,255,.7);
+    padding: 11px 18px 11px 22px;
+    cursor: pointer;
+    text-shadow: 0 0 8px rgba(0,229,255,.8);
+    box-shadow: 0 0 12px rgba(0,229,255,.35), inset 0 0 12px rgba(0,229,255,.12);
+    transition: all .2s ease;
+  }
+  #panelBtn:hover {
+    background: rgba(0,229,255,.15);
+    box-shadow: 0 0 24px rgba(0,229,255,.6), inset 0 0 18px rgba(0,229,255,.25);
+  }
+  #panel {
+    position: absolute; top: 0; right: 0; height: 100%;
+    width: min(400px, 100vw);
+    pointer-events: none; z-index: 8;
+    transform: translateX(103%);
+    transition: transform .45s cubic-bezier(.2,.9,.25,1);
+    padding: 140px 0 60px 0;
+  }
+  #panel.open { transform: translateX(0); }
+  #panel[data-tab="professional"] { --accent: #ff9f1c; }
+  #panel[data-tab="personal"] { --accent: #40ff66; }
+  #panel .inner {
+    height: 100%; display: flex; flex-direction: column;
+    pointer-events: auto;
+    background: rgba(2,10,20,.88);
+    border: 1px solid rgba(0,229,255,.4); border-right: none;
+    box-shadow: 0 0 34px rgba(0,229,255,.2), inset 0 0 28px rgba(0,229,255,.05);
+    backdrop-filter: blur(5px);
+  }
+  #panel .tabs { display: flex; border-bottom: 1px solid rgba(0,229,255,.35); }
+  #panel .tab {
+    flex: 1; background: none; border: none; cursor: pointer;
+    font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.28em; color: rgba(53,224,255,.45);
+    padding: 15px 6px 13px; border-bottom: 2px solid transparent;
+    transition: all .18s ease;
+  }
+  #panel .tab:hover { color: rgba(53,224,255,.85); }
+  #panel .tab.active {
+    color: #35e0ff; border-bottom-color: #35e0ff;
+    text-shadow: 0 0 8px rgba(0,229,255,.8);
+  }
+  #panel .list { flex: 1; overflow-y: auto; padding: 14px 14px 22px; }
+  #panel .list::-webkit-scrollbar { width: 6px; }
+  #panel .list::-webkit-scrollbar-thumb { background: rgba(0,229,255,.3); }
+  #panel .list::-webkit-scrollbar-track { background: rgba(0,229,255,.05); }
+  .card {
+    display: block; width: 100%; text-align: left; cursor: pointer;
+    background: rgba(0,30,45,.25); border: 1px solid rgba(0,229,255,.22);
+    padding: 14px 16px 15px; margin-bottom: 12px;
+    font-family: inherit; color: inherit;
+    transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+  .card:hover, .card:focus-visible {
+    border-color: rgba(0,229,255,.7);
+    background: rgba(0,229,255,.08);
+    box-shadow: 0 0 14px rgba(0,229,255,.25);
+    outline: none;
+  }
+  .card.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  .card .role {
+    font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; color: #eafcff; text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(0,229,255,.4);
+  }
+  .card .org { margin-top: 5px; font-size: 11px; letter-spacing: 0.18em; color: #35e0ff; }
+  .card .meta { margin-top: 5px; font-size: 9px; letter-spacing: 0.22em; color: rgba(191,239,255,.45); }
+  .card .blurb { margin-top: 10px; font-size: 11px; line-height: 1.6; color: rgba(191,239,255,.75); }
+  .card a.link {
+    display: inline-block; margin-top: 10px;
+    font-size: 10px; letter-spacing: 0.2em; color: #35e0ff; text-decoration: none;
+    border-bottom: 1px solid rgba(0,229,255,.35);
+    transition: all .15s ease;
+  }
+  .card a.link:hover { color: #fff; text-shadow: 0 0 10px rgba(0,229,255,.9); border-bottom-color: #35e0ff; }
+  .card .photo {
+    margin-top: 10px; height: 130px; overflow: hidden;
+    border: 1px solid rgba(0,229,255,.25);
+    display: grid; place-items: center;
+  }
+  .card .photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.85) contrast(1.05); }
+  .card .photo.empty {
+    background:
+      repeating-linear-gradient(45deg, rgba(0,229,255,.06) 0 8px, transparent 8px 16px),
+      rgba(0,30,45,.3);
+  }
+  .card .photo.empty span { font-size: 9px; letter-spacing: 0.4em; color: rgba(53,224,255,.45); }
+
+  /* post detail panel: animates out from the pin after a flight */
+  #detail {
+    position: fixed; left: 40px; top: 50%;
+    width: min(560px, calc(100vw - 80px));
+    z-index: 12;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-50%) scale(.92);
+    transition: transform .5s cubic-bezier(.2,.9,.25,1.04), opacity .3s ease;
+  }
+  #detail.open { pointer-events: auto; }
+  #detail .d-box {
+    display: flex; flex-direction: column; max-height: 82vh;
+    background: rgba(2,10,20,.92);
+    border: 1px solid rgba(0,229,255,.55);
+    box-shadow: 0 0 40px rgba(0,229,255,.3), inset 0 0 30px rgba(0,229,255,.06);
+    backdrop-filter: blur(5px);
+    padding: 26px 28px 20px;
+  }
+  .d-close {
+    position: absolute; top: 8px; right: 12px;
+    background: none; border: none; cursor: pointer;
+    color: rgba(53,224,255,.7); font-size: 22px; font-family: inherit;
+  }
+  .d-close:hover { color: #fff; text-shadow: 0 0 10px rgba(0,229,255,.9); }
+  .d-title {
+    font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: #eafcff;
+    text-shadow: 0 0 10px rgba(0,229,255,.7); padding-right: 24px;
+  }
+  .d-org { margin-top: 6px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #35e0ff; }
+  .d-meta { margin-top: 6px; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(191,239,255,.45); }
+  /* slideshow: 1 photo = static image, 2+ = controls + auto-advance */
+  .d-photo { position: relative; margin-top: 14px; height: 240px; overflow: hidden; border: 1px solid rgba(0,229,255,.25); }
+  .d-photo .s-img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: saturate(.85) contrast(1.05); transition: opacity .18s ease;
+  }
+  .s-controls {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; gap: 8px; padding: 6px 8px;
+    background: linear-gradient(transparent, rgba(1,3,10,.88));
+  }
+  .s-controls button {
+    background: rgba(1,3,10,.6); border: 1px solid rgba(0,229,255,.4);
+    color: #35e0ff; cursor: pointer; padding: 3px 10px;
+    font-family: inherit; font-size: 12px; transition: all .15s ease;
+  }
+  .s-controls button:hover { background: rgba(0,229,255,.15); box-shadow: 0 0 8px rgba(0,229,255,.35); }
+  .s-count { margin-left: auto; font-size: 9px; letter-spacing: 0.3em; color: rgba(191,239,255,.6); }
+  .d-body { margin-top: 14px; overflow-y: auto; padding-right: 6px; }
+  .d-body::-webkit-scrollbar { width: 6px; }
+  .d-body::-webkit-scrollbar-thumb { background: rgba(0,229,255,.3); }
+  .d-body p { font-size: 12px; line-height: 1.7; color: rgba(191,239,255,.8); margin: 0 0 12px; }
+  .d-body h2, .d-body h3 {
+    font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #35e0ff; margin: 16px 0 8px;
+  }
+  .d-body ul { margin: 0 0 12px; padding-left: 18px; }
+  .d-body li { font-size: 12px; line-height: 1.7; color: rgba(191,239,255,.8); margin-bottom: 4px; }
+  .d-body strong { color: #eafcff; }
+  .d-body a { color: #35e0ff; }
+  .d-body code { color: #ff9f1c; font-size: 11px; }
+  .d-body blockquote {
+    margin: 0 0 12px; padding-left: 12px;
+    border-left: 2px solid rgba(0,229,255,.4); color: rgba(191,239,255,.6);
+  }
+  .d-body img { max-width: 100%; }
+  .d-body .loading { font-size: 10px; letter-spacing: 0.3em; color: rgba(53,224,255,.5); }
+  .d-link, .d-term {
+    display: inline-block; margin-top: 4px; margin-right: 18px;
+    font-size: 10px; letter-spacing: 0.2em; text-decoration: none;
+    border-bottom: 1px solid rgba(0,229,255,.35); transition: all .15s ease;
+  }
+  .d-link { color: #35e0ff; }
+  .d-term { color: #ff9f1c; border-bottom-color: rgba(255,159,28,.35); }
+  .d-link:hover { color: #fff; text-shadow: 0 0 10px rgba(0,229,255,.9); border-bottom-color: #35e0ff; }
+  .d-term:hover { color: #ffd9a0; text-shadow: 0 0 10px rgba(255,159,28,.9); border-bottom-color: #ff9f1c; }
+  .d-nav { margin-top: 14px; display: flex; align-items: center; gap: 12px; }
+  .d-nav button {
+    background: none; border: 1px solid rgba(0,229,255,.4); color: #35e0ff;
+    cursor: pointer; padding: 4px 12px; font-family: inherit; font-size: 14px;
+    transition: all .15s ease;
+  }
+  .d-nav button:hover { background: rgba(0,229,255,.12); box-shadow: 0 0 10px rgba(0,229,255,.3); }
+  .d-count { font-size: 9px; letter-spacing: 0.3em; color: rgba(191,239,255,.45); }
+
   #fallback { position: fixed; inset: 0; display: none; place-items: center; text-align: center; padding: 40px; z-index: 30; background: #01030a; }
 
   @media (max-width: 640px) {
     header { top: 24px; left: 24px; }
     #contactBtn { bottom: 40px; right: 24px; }
     #playBtn { top: 26px; right: 24px; }
+    #panelBtn { top: 78px; right: 24px; }
+    #panel { width: 100vw; padding: 130px 0 80px 0; }
+    #detail { left: 12px; right: 12px; top: auto; bottom: 12px; width: auto; transform: translateY(24px) scale(.95); }
+    #detail .d-box { max-height: 52vh; }
     #status { display: none; }
   }
 </style>
@@ -188,6 +378,26 @@
   </div>
 </div>
 
+<div id="detail" aria-hidden="true">
+  <div class="d-box">
+    <button class="d-close" aria-label="Close">&times;</button>
+    <div class="d-title"></div>
+    <div class="d-org"></div>
+    <div class="d-meta"></div>
+    <div class="d-photo"></div>
+    <div class="d-body"></div>
+    <div>
+      <a class="d-link" href="#" target="_blank" rel="noopener"></a>
+      <a class="d-term" href="#">OPEN IN TERMINAL &#8599;</a>
+    </div>
+    <div class="d-nav">
+      <button class="d-prev" aria-label="Previous post at this location">&#8249;</button>
+      <span class="d-count"></span>
+      <button class="d-next" aria-label="Next post at this location">&#8250;</button>
+    </div>
+  </div>
+</div>
+
 <div class="overlay">
   <div class="corner tl"></div><div class="corner tr"></div>
   <div class="corner bl"></div><div class="corner br"></div>
@@ -197,6 +407,16 @@
   </header>
   <button id="playBtn" aria-label="Pause rotation">&#10074;&#10074;</button>
   <button id="contactBtn">CONTACT</button>
+  <button id="panelBtn">EXPLORE</button>
+  <aside id="panel" data-tab="professional" aria-hidden="true" aria-label="Explore">
+    <div class="inner">
+      <div class="tabs">
+        <button class="tab active" data-tab="professional">PROFESSIONAL</button>
+        <button class="tab" data-tab="personal">PERSONAL</button>
+      </div>
+      <div class="list" id="panelList"></div>
+    </div>
+  </aside>
   <div id="status">SYS.ONLINE <span class="dot">&#9679;</span> 11 CITIES LIVED <span class="dot2">&#9679;</span> 39 PLACES VISITED</div>
   <div id="hint">DRAG TO ROTATE &#183; HOVER A PIN</div>
 </div>
@@ -276,6 +496,307 @@
     { name: 'HONOLULU, OAHU, HI',   lat: 21.31, lon: -157.86 }
   ];
 
+  // ---------- post data ----------
+  // Generated by `mise run posts:build` (scripts/build-posts.mjs) from the
+  // markdown files in posts/. `pin` values must match a CITIES/VISITED pin
+  // name for pin-click mapping and the post-flight callout. Do not edit by hand.
+  // __POSTS_DATA_START__
+  const POSTS = [
+    {
+      "slug": "01-epistemix",
+      "category": "professional",
+      "title": "Chief Product Officer",
+      "date": "Mar 2025 — Present",
+      "location": "Pittsburgh, PA",
+      "pin": "PITTSBURGH, PA",
+      "lat": 40.44,
+      "lon": -80,
+      "org": "Epistemix",
+      "url": "https://www.epistemix.com",
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Own product strategy for an AI-powered simulation platform that turns business questions into petabyte-scale data science. Shipped an agentic AI data scientist and Populus, a Ray-based simulation engine handling 10PB workloads."
+    },
+    {
+      "slug": "01-midnight-sun-drive",
+      "category": "personal",
+      "title": "Midnight Sun Drive",
+      "date": "Jun 2019",
+      "location": "Reykjavik, Iceland",
+      "pin": "REYKJAVIK, ICELAND",
+      "lat": 64.15,
+      "lon": -21.94,
+      "org": null,
+      "url": null,
+      "photos": [
+        "https://picsum.photos/seed/iceland19a/900/500",
+        "https://picsum.photos/seed/iceland19b/900/500",
+        "https://picsum.photos/seed/iceland19c/900/500",
+        "https://picsum.photos/seed/iceland19d/900/500"
+      ],
+      "photo": "https://picsum.photos/seed/iceland19a/900/500",
+      "tag": null,
+      "excerpt": "Ten days circling the Ring Road — waterfalls you can walk behind, black sand beaches, and daylight that never ends."
+    },
+    {
+      "slug": "02-100x-ai-consulting",
+      "category": "professional",
+      "title": "Founder / Fractional Chief AI Officer",
+      "date": "Aug 2023 — Mar 2025",
+      "location": "Seattle, WA",
+      "pin": "SEATTLE, WA",
+      "lat": 47.61,
+      "lon": -122.33,
+      "org": "100x AI Consulting",
+      "url": "https://www.linkedin.com/in/toddcullen/",
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Founded an AI product consultancy for Fortune 500s and venture-backed startups — LLM systems, voice and chat assistants, and clinical-grade patient communication automation with hard guardrails."
+    },
+    {
+      "slug": "02-neon-and-ramen",
+      "category": "personal",
+      "title": "Neon & Ramen",
+      "date": "Oct 2016",
+      "location": "Tokyo, Japan",
+      "pin": "TOKYO, JAPAN",
+      "lat": 35.68,
+      "lon": 139.69,
+      "org": null,
+      "url": null,
+      "photos": [
+        "https://picsum.photos/seed/tokyo16a/900/500",
+        "https://picsum.photos/seed/tokyo16b/900/500",
+        "https://picsum.photos/seed/tokyo16c/900/500"
+      ],
+      "photo": "https://picsum.photos/seed/tokyo16a/900/500",
+      "tag": null,
+      "excerpt": "A week of izakayas, arcades, and getting happily lost between Shinjuku and Shimokitazawa."
+    },
+    {
+      "slug": "03-jaspr-health",
+      "category": "professional",
+      "title": "Chief Technology Officer",
+      "date": "May 2020 — Aug 2023",
+      "location": "Seattle, WA",
+      "pin": "SEATTLE, WA",
+      "lat": 47.61,
+      "lon": -122.33,
+      "org": "Jaspr Health",
+      "url": "https://jasprhealth.com",
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Owned the technical and regulatory path to FDA clearance for a conversational AI delivering suicide risk assessment in emergency departments. HIPAA/HITECH rebuild; NIH and SAMHSA funded clinical trials."
+    },
+    {
+      "slug": "03-the-ancestral-detour",
+      "category": "personal",
+      "title": "The Ancestral Detour",
+      "date": "Aug 2022",
+      "location": "Glenfarne, Ireland",
+      "pin": "GLENFARNE, IRELAND",
+      "lat": 54.28,
+      "lon": -7.99,
+      "org": null,
+      "url": null,
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Chasing family history up the coast — a ruined ballroom, a pub session, and rain that arrived horizontally."
+    },
+    {
+      "slug": "04-island-hopping",
+      "category": "personal",
+      "title": "Island Hopping",
+      "date": "Mar 2018",
+      "location": "Bali, Indonesia",
+      "pin": "BALI, INDONESIA",
+      "lat": -8.41,
+      "lon": 115.19,
+      "org": null,
+      "url": null,
+      "photos": [
+        "https://picsum.photos/seed/bali18a/900/500",
+        "https://picsum.photos/seed/bali18b/900/500",
+        "https://picsum.photos/seed/bali18c/900/500"
+      ],
+      "photo": "https://picsum.photos/seed/bali18a/900/500",
+      "tag": null,
+      "excerpt": "Scooters, rice terraces, and a ferry to Lombok for empty surf breaks."
+    },
+    {
+      "slug": "04-remarkably",
+      "category": "professional",
+      "title": "Chief Technology Officer",
+      "date": "Jan 2019 — Mar 2020",
+      "location": "Seattle, WA",
+      "pin": "SEATTLE, WA",
+      "lat": 47.61,
+      "lon": -122.33,
+      "org": "Remarkably",
+      "url": "https://www.remarkably.com",
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Built v1 of a multifamily real estate marketing analytics SaaS and grew it from zero to $1.2M ARR in nine months through data-driven product strategy."
+    },
+    {
+      "slug": "05-reef-and-ruins",
+      "category": "personal",
+      "title": "Reef & Ruins",
+      "date": "Jan 2021",
+      "location": "Belmopan, Belize",
+      "pin": "BELMOPAN, BELIZE",
+      "lat": 17.25,
+      "lon": -88.77,
+      "org": null,
+      "url": null,
+      "photos": [
+        "https://picsum.photos/seed/belize21a/900/500"
+      ],
+      "photo": "https://picsum.photos/seed/belize21a/900/500",
+      "tag": null,
+      "excerpt": "Snorkeling the barrier reef by day, jungle lodges by night."
+    },
+    {
+      "slug": "05-stormx",
+      "category": "professional",
+      "title": "AdTech Consultant",
+      "date": "Jan 2018 — Dec 2018",
+      "location": "Seattle, WA",
+      "pin": "SEATTLE, WA",
+      "lat": 47.61,
+      "lon": -122.33,
+      "org": "StormX, Inc.",
+      "url": "https://stormx.io",
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Architected the Microtask API on Node.js, AWS Lambda, and Elastic Beanstalk for a blockchain rewards platform; launched to 100K+ users in its first quarter."
+    },
+    {
+      "slug": "06-thoughtleadr",
+      "category": "professional",
+      "title": "Founder / Chief Product Officer",
+      "date": "May 2011 — Nov 2018",
+      "location": "San Francisco, CA",
+      "pin": "SAN FRANCISCO, CA",
+      "lat": 37.77,
+      "lon": -122.42,
+      "org": "ThoughtLeadr",
+      "url": "https://www.crunchbase.com/organization/thoughtleadr",
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Founded a native advertising platform serving Reddit, Imgur, and 9GAG — 10B+ requests a month on a Haskell core, ad serving 30% faster than Google DFP. Acquired by Chaotic Moon in 2013."
+    },
+    {
+      "slug": "06-when-in-rome",
+      "category": "personal",
+      "title": "When in Rome",
+      "date": "Sep 2015",
+      "location": "Rome, Italy",
+      "pin": "ROME, ITALY",
+      "lat": 41.9,
+      "lon": 12.5,
+      "org": null,
+      "url": null,
+      "photos": [
+        "https://picsum.photos/seed/rome15a/900/500",
+        "https://picsum.photos/seed/rome15b/900/500"
+      ],
+      "photo": "https://picsum.photos/seed/rome15a/900/500",
+      "tag": null,
+      "excerpt": "Caravaggio hunting by day, cacio e pepe by night."
+    },
+    {
+      "slug": "07-reigndesign",
+      "category": "professional",
+      "title": "Founder / Head of Technology",
+      "date": "Feb 2009 — Mar 2011",
+      "location": "Shanghai, China",
+      "pin": "SHANGHAI, CN",
+      "lat": 31.23,
+      "lon": 121.47,
+      "org": "ReignDesign",
+      "url": "https://www.reigndesign.com",
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Co-founded a mobile creative studio serving luxury brands across Asia Pacific. Sold the first $1M in services and built one of the first enterprise iOS apps, for Standard Chartered Bank."
+    },
+    {
+      "slug": "07-street-food-diplomacy",
+      "category": "personal",
+      "title": "Street Food Diplomacy",
+      "date": "Nov 2017",
+      "location": "Hanoi, Vietnam",
+      "pin": "HANOI, VIETNAM",
+      "lat": 21.03,
+      "lon": 105.85,
+      "org": null,
+      "url": null,
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Tiny plastic stools, endless phở, and a train street that lived up to the name."
+    },
+    {
+      "slug": "08-ibm",
+      "category": "professional",
+      "title": "Software Engineer",
+      "date": "Jun 2007 — Feb 2009",
+      "location": "Shanghai, China",
+      "pin": "SHANGHAI, CN",
+      "lat": 31.23,
+      "lon": 121.47,
+      "org": "IBM",
+      "url": "https://www.ibm.com",
+      "photos": [],
+      "photo": null,
+      "tag": null,
+      "excerpt": "Ran product engineering for BizSphere, a sales enablement platform used by 50,000 IBM sellers. Architected its SPA and client-side state management years before those patterns were standard."
+    },
+    {
+      "slug": "08-volcano-coffee-run",
+      "category": "personal",
+      "title": "Volcano Coffee Run",
+      "date": "Apr 2023",
+      "location": "Kona, Big Island, HI",
+      "pin": "KONA, BIG ISLAND, HI",
+      "lat": 19.64,
+      "lon": -156,
+      "org": null,
+      "url": null,
+      "photos": [
+        "https://picsum.photos/seed/kona23a/900/500",
+        "https://picsum.photos/seed/kona23b/900/500"
+      ],
+      "photo": "https://picsum.photos/seed/kona23a/900/500",
+      "tag": null,
+      "excerpt": "Coffee farms on the volcano slope, manta rays after dark."
+    },
+    {
+      "slug": "09-wake-forest",
+      "category": "professional",
+      "title": "B.A. Biology & Economics",
+      "date": "Class of 2005",
+      "location": "Winston-Salem, NC",
+      "pin": "WINSTON-SALEM, NC",
+      "lat": 36.1,
+      "lon": -80.24,
+      "org": "Wake Forest University",
+      "url": "https://www.wfu.edu",
+      "photos": [],
+      "photo": null,
+      "tag": "EDUCATION",
+      "excerpt": "Computational biology concentration — where the biology and the code first collided."
+    }
+  ];
+  // __POSTS_DATA_END__
   // Natural Earth 110m land polygons, Douglas-Peucker simplified (0.45 deg)
   // each entry is a polyline of [lon, lat] pairs
   const LAND = [[[-59.57,-80.04],[-60.16,-81.0],[-66.29,-80.26],[-59.57,-80.04]],[[-159.21,-79.5],[-161.13,-79.63],[-163.71,-78.6],[-161.25,-78.38],[-159.21,-79.5]],[[-45.15,-78.05],[-43.92,-78.48],[-43.33,-80.03],[-50.48,-81.03],[-54.16,-80.63],[-48.66,-78.05],[-45.15,-78.05]],[[-121.21,-73.5],[-118.72,-73.48],[-120.23,-74.09],[-122.62,-73.66],[-121.21,-73.5]],[[-98.98,-71.93],[-96.2,-72.52],[-100.78,-72.5],[-102.33,-71.89],[-98.98,-71.93]],[[-68.45,-70.96],[-68.78,-72.17],[-71.08,-72.5],[-74.19,-72.37],[-75.01,-71.66],[-72.07,-71.19],[-71.74,-69.51],[-70.25,-68.88],[-68.45,-70.96]],[[-58.61,-64.15],[-62.02,-64.8],[-62.65,-65.48],[-62.12,-66.19],[-65.67,-67.95],[-61.81,-70.72],[-60.83,-73.7],[-64.35,-75.26],[-70.6,-76.63],[-77.24,-76.71],[-73.66,-77.91],[-77.93,-78.38],[-78.02,-79.18],[-75.36,-80.26],[-59.69,-82.38],[-58.22,-83.22],[-49.76,-81.73],[-42.81,-82.08],[-40.77,-81.36],[-28.55,-80.34],[-29.69,-79.26],[-35.64,-79.46],[-35.33,-78.12],[-17.52,-75.13],[-15.7,-74.5],[-15.41,-74.11],[-16.47,-73.87],[-15.45,-73.15],[-10.3,-71.27],[-7.42,-71.7],[-6.87,-70.93],[-0.23,-71.64],[7.74,-69.89],[10.82,-70.83],[13.42,-69.97],[27.09,-70.46],[31.99,-69.66],[33.87,-68.5],[38.65,-69.78],[54.53,-65.82],[61.43,-67.95],[64.05,-67.41],[68.89,-67.93],[69.67,-69.23],[67.81,-70.31],[69.07,-70.68],[67.95,-71.85],[69.87,-72.26],[73.86,-69.87],[77.64,-69.46],[82.78,-67.21],[86.75,-67.15],[87.99,-66.21],[89.67,-67.15],[95.78,-67.39],[99.72,-67.25],[102.83,-65.56],[106.18,-66.93],[113.6,-65.88],[119.83,-67.27],[123.22,-66.48],[134.76,-66.21],[135.07,-65.31],[137.46,-66.95],[145.49,-66.92],[148.84,-68.39],[154.28,-68.56],[161.57,-70.58],[171.21,-71.7],[169.29,-73.66],[166.09,-74.38],[163.57,-76.24],[163.49,-77.07],[164.74,-78.18],[167.0,-78.75],[161.77,-79.16],[159.79,-80.95],[169.4,-83.83],[180,-84.71],[180,-90],[-180,-90],[-180,-84.71],[-179.06,-84.14],[-174.38,-84.53],[-169.95,-83.88],[-158.07,-85.37],[-143.11,-85.04],[-142.89,-84.57],[-153.59,-83.69],[-152.86,-82.04],[-156.84,-81.1],[-150.65,-81.34],[-146.42,-80.34],[-149.53,-79.36],[-155.33,-79.06],[-158.05,-78.03],[-158.37,-76.89],[-151.33,-77.4],[-146.1,-76.48],[-146.2,-75.38],[-144.91,-75.2],[-135.21,-74.3],[-119.7,-74.48],[-113.94,-73.71],[-112.3,-74.71],[-100.65,-75.3],[-100.12,-74.87],[-102.55,-74.11],[-103.68,-72.62],[-96.34,-73.62],[-90.09,-73.32],[-89.23,-72.56],[-81.47,-73.85],[-80.3,-73.13],[-74.89,-73.87],[-67.37,-72.48],[-68.54,-69.72],[-67.43,-68.15],[-67.74,-67.33],[-63.0,-64.64],[-57.81,-63.27],[-57.22,-63.53],[-58.61,-64.15]],[[-67.75,-53.85],[-65.05,-54.7],[-69.23,-55.5],[-74.66,-52.84],[-71.11,-54.07],[-69.35,-52.52],[-67.75,-53.85]],[[-58.55,-51.1],[-58.05,-51.9],[-61.2,-51.85],[-58.55,-51.1]],[[70.28,-49.71],[68.75,-49.77],[68.94,-48.62],[70.53,-49.06],[70.28,-49.71]],[[145.4,-40.79],[148.29,-40.88],[147.91,-43.21],[146.05,-43.55],[144.72,-41.16],[145.4,-40.79]],[[173.02,-40.92],[174.25,-41.35],[172.71,-43.37],[173.08,-43.85],[171.45,-44.24],[170.62,-45.91],[169.33,-46.64],[166.68,-46.22],[167.05,-45.11],[170.52,-43.03],[172.1,-40.96],[173.02,-40.92]],[[174.61,-36.16],[176.76,-37.88],[178.52,-37.7],[177.97,-39.17],[177.21,-39.15],[175.24,-41.69],[174.65,-41.28],[174.9,-39.91],[173.82,-39.51],[174.7,-37.38],[172.64,-34.53],[174.33,-35.27],[174.61,-36.16]],[[167.12,-22.16],[165.47,-21.68],[164.03,-20.11],[167.12,-22.16]],[[178.37,-17.34],[178.55,-18.15],[177.38,-18.16],[178.37,-17.34]],[[179.36,-16.8],[178.6,-16.64],[180,-16.07],[179.36,-16.8]],[[50.06,-13.56],[50.38,-15.71],[49.67,-15.71],[47.1,-24.94],[45.41,-25.6],[44.04,-24.99],[43.25,-22.06],[44.37,-20.07],[43.96,-17.41],[44.45,-16.22],[47.71,-14.59],[49.19,-12.04],[50.06,-13.56]],[[143.56,-13.76],[145.37,-14.98],[146.39,-18.96],[148.85,-20.39],[149.68,-22.34],[150.73,-22.4],[153.14,-26.07],[153.57,-28.11],[152.89,-31.64],[150.33,-35.67],[150.0,-37.43],[146.32,-39.04],[144.88,-38.42],[145.03,-37.9],[143.61,-38.81],[140.64,-38.02],[139.57,-36.14],[138.12,-35.61],[138.21,-34.38],[136.83,-35.26],[137.81,-32.9],[135.99,-34.89],[134.27,-32.62],[131.33,-31.5],[126.15,-32.22],[124.22,-32.96],[123.66,-33.89],[119.89,-33.98],[118.02,-35.06],[115.03,-34.2],[115.69,-31.61],[113.34,-26.12],[113.78,-26.55],[113.44,-25.62],[114.23,-26.3],[113.39,-24.38],[114.15,-21.76],[114.23,-22.52],[116.71,-20.7],[120.86,-19.68],[123.01,-16.41],[123.86,-17.07],[123.5,-16.6],[125.69,-14.23],[127.07,-13.82],[129.62,-14.97],[130.62,-12.54],[132.58,-12.11],[131.82,-11.27],[132.36,-11.13],[135.3,-12.25],[136.49,-11.86],[136.95,-12.35],[135.5,-15.0],[140.22,-17.71],[141.7,-15.04],[142.14,-11.04],[142.8,-11.16],[143.56,-13.76]],[[124.44,-10.14],[123.46,-10.24],[123.98,-9.29],[127.34,-8.4],[124.44,-10.14]],[[117.9,-8.1],[119.13,-8.71],[116.74,-9.03],[117.9,-8.1]],[[122.9,-8.09],[122.76,-8.65],[119.92,-8.81],[122.9,-8.09]],[[108.62,-6.78],[110.76,-6.47],[115.71,-8.37],[114.56,-8.75],[108.28,-7.77],[105.37,-6.85],[106.05,-5.9],[108.62,-6.78]],[[151.98,-5.48],[150.24,-6.32],[148.32,-5.75],[150.14,-5.0],[150.81,-5.46],[151.54,-4.17],[152.34,-4.31],[151.98,-5.48]],[[130.47,-3.09],[130.83,-3.86],[127.9,-3.39],[128.14,-2.84],[130.47,-3.09]],[[153.14,-4.5],[150.66,-2.74],[152.24,-3.24],[153.14,-4.5]],[[134.14,-1.15],[134.42,-2.77],[135.46,-3.37],[136.29,-2.31],[138.33,-1.7],[144.58,-3.86],[145.98,-5.47],[147.65,-6.08],[147.19,-7.39],[150.69,-10.58],[147.91,-10.13],[146.05,-8.07],[144.74,-7.63],[142.63,-9.33],[139.13,-8.1],[137.61,-8.41],[138.67,-7.32],[137.93,-5.39],[133.66,-3.54],[132.98,-4.11],[131.99,-2.82],[133.7,-2.21],[132.23,-2.21],[130.52,-0.94],[132.38,-0.37],[134.14,-1.15]],[[125.24,1.42],[123.69,0.24],[120.18,0.24],[120.94,-1.41],[123.34,-0.62],[121.51,-1.9],[123.16,-5.34],[122.24,-5.28],[122.72,-4.46],[121.49,-4.57],[120.97,-2.63],[120.31,-2.93],[120.43,-5.53],[119.37,-5.38],[119.5,-3.49],[118.77,-2.8],[120.04,0.57],[120.89,1.31],[122.93,0.88],[125.24,1.42]],[[128.69,1.13],[128.1,-0.9],[127.6,1.81],[127.93,2.17],[128.69,1.13]],[[105.82,-5.85],[104.71,-5.87],[102.58,-4.22],[95.29,5.48],[97.48,5.25],[100.64,2.1],[101.66,2.08],[103.84,0.1],[103.44,-0.71],[106.11,-3.06],[105.82,-5.85]],[[117.88,1.83],[119.0,0.9],[117.81,0.78],[116.15,-4.01],[110.22,-2.93],[109.09,-0.46],[109.66,2.01],[111.17,1.85],[111.37,2.7],[113.0,3.1],[116.73,6.92],[119.18,5.41],[117.31,3.23],[117.88,1.83]],[[126.38,8.41],[126.54,7.19],[126.2,6.27],[125.83,7.29],[125.36,6.79],[125.4,5.58],[124.22,6.16],[123.61,7.83],[121.92,7.19],[123.49,8.69],[123.84,8.24],[125.47,8.99],[125.41,9.76],[126.38,8.41]],[[81.22,6.2],[80.35,5.97],[79.87,6.76],[80.15,9.82],[81.79,7.52],[81.22,6.2]],[[-60.94,10.11],[-61.95,10.09],[-61.1,10.89],[-60.94,10.11]],[[123.98,10.28],[123.0,9.02],[122.38,9.71],[122.95,10.88],[123.5,10.94],[123.34,10.27],[124.08,11.23],[123.98,10.28]],[[118.5,9.32],[117.17,8.37],[119.51,11.37],[119.69,10.55],[118.5,9.32]],[[121.88,11.89],[123.12,11.58],[122.0,10.44],[121.88,11.89]],[[125.5,12.16],[125.78,11.05],[125.01,11.31],[124.8,10.13],[124.27,12.56],[125.5,12.16]],[[121.32,18.5],[122.25,18.48],[122.52,17.09],[121.66,15.93],[121.73,14.33],[123.95,13.78],[124.08,12.54],[122.93,13.55],[120.63,13.86],[120.99,14.53],[120.07,14.97],[119.88,16.36],[120.29,16.03],[120.72,18.51],[121.32,18.5]],[[-76.9,17.87],[-78.34,18.23],[-76.9,18.4],[-76.2,17.89],[-76.9,17.87]],[[-72.58,19.87],[-69.95,19.65],[-68.32,18.61],[-70.67,18.43],[-71.4,17.6],[-73.92,18.03],[-74.37,18.66],[-72.33,18.67],[-73.42,19.64],[-72.58,19.87]],[[110.34,18.68],[108.66,18.51],[108.63,19.37],[110.79,20.08],[110.34,18.68]],[[-155.54,19.08],[-155.86,20.27],[-154.81,19.51],[-155.54,19.08]],[[-79.68,22.77],[-74.18,20.28],[-77.76,19.86],[-77.09,20.41],[-78.72,21.6],[-81.8,22.64],[-84.97,21.9],[-82.27,23.19],[-79.68,22.77]],[[-77.53,23.76],[-78.41,24.58],[-78.19,25.21],[-77.53,23.76]],[[121.18,22.79],[120.75,21.97],[120.11,23.56],[121.5,25.3],[121.95,25.0],[121.18,22.79]],[[134.64,34.15],[134.2,33.2],[132.36,32.99],[132.92,34.06],[134.64,34.15]],[[34.58,35.67],[32.98,34.57],[32.26,35.1],[34.58,35.67]],[[23.7,35.71],[26.29,35.3],[24.72,34.92],[23.7,35.71]],[[15.52,38.23],[15.1,36.62],[12.43,37.61],[12.57,38.13],[15.52,38.23]],[[9.21,41.21],[9.67,39.18],[8.81,38.91],[8.16,40.95],[9.21,41.21]],[[140.98,37.14],[140.25,35.14],[137.22,34.61],[135.79,33.46],[135.08,34.6],[130.99,33.89],[132.0,33.15],[131.33,31.45],[130.2,31.42],[130.45,32.32],[129.41,33.3],[132.62,35.43],[135.68,35.53],[136.72,37.3],[137.39,36.83],[139.43,38.22],[140.31,41.2],[141.37,41.38],[141.91,39.99],[140.98,37.14]],[[143.91,44.17],[145.32,44.38],[145.54,43.26],[144.06,42.99],[143.18,42.0],[141.61,42.68],[141.07,41.58],[139.96,41.57],[139.82,42.56],[141.38,43.39],[141.97,45.55],[143.91,44.17]],[[-63.66,46.55],[-62.01,46.44],[-62.87,45.97],[-63.66,46.55]],[[-123.51,48.51],[-125.66,48.83],[-128.06,49.99],[-128.36,50.77],[-125.76,50.3],[-123.51,48.51]],[[-56.13,50.69],[-56.8,49.81],[-53.48,49.25],[-53.79,48.52],[-53.09,48.69],[-52.65,47.54],[-53.07,46.66],[-54.18,46.81],[-54.24,47.75],[-55.4,46.88],[-56.0,46.92],[-55.29,47.39],[-56.25,47.63],[-59.27,47.6],[-59.23,48.52],[-57.36,50.72],[-55.87,51.63],[-55.41,51.59],[-56.13,50.69]],[[-132.71,54.04],[-131.75,54.12],[-132.05,52.98],[-131.18,52.18],[-133.05,53.41],[-133.18,54.17],[-132.71,54.04]],[[143.65,50.75],[144.65,48.98],[143.17,49.31],[142.56,47.86],[143.51,46.14],[142.75,46.74],[142.09,45.97],[141.68,53.3],[142.65,54.37],[143.65,50.75]],[[-6.79,52.26],[-9.98,51.82],[-9.17,52.86],[-9.69,53.88],[-6.73,55.17],[-5.66,54.55],[-6.79,52.26]],[[-153.01,57.12],[-154.01,56.73],[-154.67,57.46],[-152.56,57.9],[-152.14,57.59],[-153.01,57.12]],[[-3.01,58.63],[-4.07,57.55],[-1.96,57.68],[-3.12,55.97],[-2.09,55.91],[0.47,52.93],[1.68,52.74],[1.05,51.81],[1.45,51.29],[-5.25,49.96],[-5.78,50.16],[-3.41,51.43],[-5.27,51.99],[-4.22,52.3],[-4.58,53.5],[-3.09,53.4],[-2.95,53.98],[-4.84,54.79],[-5.05,55.78],[-5.59,55.31],[-6.15,56.79],[-5.01,58.63],[-3.01,58.63]],[[-79.27,62.16],[-79.66,61.63],[-80.36,62.02],[-79.27,62.16]],[[-85.16,65.66],[-80.1,63.73],[-83.11,64.1],[-85.52,63.05],[-85.87,63.64],[-87.22,63.54],[-86.35,64.04],[-85.88,65.74],[-85.16,65.66]],[[-14.51,66.46],[-14.74,65.81],[-13.61,65.13],[-18.66,63.5],[-22.76,63.96],[-21.78,64.4],[-23.96,64.89],[-22.23,65.38],[-24.33,65.61],[-22.13,66.41],[-20.58,65.73],[-14.51,66.46]],[[-75.87,67.15],[-77.24,67.59],[-75.9,68.29],[-75.1,67.58],[-75.87,67.15]],[[-175.01,66.58],[-171.86,66.91],[-169.9,65.98],[-172.53,65.44],[-172.96,64.25],[-178.36,65.39],[-178.69,66.11],[-179.88,65.87],[-179.43,65.4],[-180,64.98],[-180,68.96],[-174.93,67.21],[-175.01,66.58]],[[-95.65,69.11],[-99.8,69.4],[-98.22,70.14],[-95.65,69.11]],[[-178.69,70.89],[-180,70.83],[-180,71.52],[-177.58,71.27],[-178.69,70.89]],[[-90.55,69.5],[-90.55,68.48],[-89.22,69.26],[-88.02,68.62],[-88.32,67.87],[-87.35,67.2],[-85.58,68.78],[-85.52,69.88],[-82.62,69.66],[-81.28,69.16],[-81.96,68.13],[-81.26,67.6],[-83.34,66.41],[-85.77,66.56],[-87.32,64.78],[-93.16,62.02],[-94.24,60.9],[-94.68,58.95],[-93.22,58.78],[-92.3,57.09],[-90.9,57.28],[-85.01,55.3],[-82.27,55.15],[-82.12,53.28],[-79.91,51.21],[-78.6,52.56],[-79.83,54.67],[-76.54,56.53],[-78.52,58.8],[-77.34,59.85],[-78.11,62.32],[-73.84,62.44],[-71.37,61.14],[-69.59,61.06],[-69.29,58.96],[-67.65,58.21],[-64.58,60.34],[-61.4,56.97],[-61.8,56.34],[-57.33,54.63],[-55.76,53.27],[-55.68,52.15],[-60.03,50.24],[-66.4,50.23],[-71.1,46.82],[-68.65,48.3],[-65.06,49.23],[-64.17,48.74],[-65.12,48.07],[-64.47,46.24],[-61.52,45.88],[-60.52,47.01],[-59.8,45.92],[-65.36,43.55],[-66.12,43.62],[-66.16,44.47],[-64.43,45.29],[-67.14,45.14],[-70.69,43.03],[-69.97,41.64],[-73.71,40.93],[-71.95,40.93],[-73.95,40.75],[-74.91,38.94],[-75.53,39.5],[-75.06,38.4],[-75.94,37.22],[-76.35,39.15],[-76.33,38.08],[-76.96,38.23],[-76.3,37.92],[-75.73,35.55],[-81.34,31.44],[-80.06,26.88],[-80.38,25.21],[-81.71,25.87],[-82.93,29.1],[-84.1,30.09],[-85.11,29.64],[-86.4,30.4],[-89.18,30.32],[-89.22,29.29],[-90.15,29.12],[-93.85,29.71],[-96.59,28.31],[-97.37,27.38],[-97.87,22.44],[-96.29,19.32],[-94.43,18.14],[-92.04,18.7],[-90.77,19.28],[-90.28,21.0],[-87.05,21.54],[-88.93,15.89],[-84.98,16.0],[-83.41,15.27],[-83.81,11.1],[-81.44,8.79],[-79.57,9.61],[-76.84,8.64],[-74.91,11.08],[-73.41,11.23],[-71.75,12.44],[-71.14,12.11],[-71.95,11.42],[-71.7,9.07],[-71.04,9.86],[-71.4,10.97],[-70.16,11.38],[-69.94,12.16],[-68.19,10.55],[-64.89,10.08],[-61.88,10.72],[-62.73,10.42],[-62.39,9.95],[-60.83,9.38],[-60.67,8.58],[-59.1,8.0],[-57.15,5.97],[-53.96,5.76],[-51.32,4.2],[-49.97,1.74],[-50.39,-0.08],[-48.62,-0.24],[-48.58,-1.24],[-47.82,-0.58],[-44.91,-1.55],[-44.58,-2.69],[-39.98,-2.87],[-37.22,-4.82],[-35.6,-5.15],[-34.73,-7.34],[-35.13,-9.0],[-38.67,-13.06],[-39.27,-17.87],[-40.94,-21.94],[-41.99,-22.97],[-44.65,-23.35],[-47.65,-24.89],[-48.5,-25.88],[-48.89,-28.67],[-53.81,-34.4],[-56.22,-34.86],[-58.43,-33.91],[-56.79,-36.9],[-57.75,-38.18],[-59.23,-38.72],[-62.34,-38.83],[-62.15,-40.68],[-62.75,-41.03],[-65.12,-41.06],[-64.98,-42.06],[-63.46,-42.56],[-65.18,-43.5],[-65.57,-45.04],[-67.29,-45.55],[-67.58,-46.3],[-65.64,-47.24],[-65.99,-48.13],[-69.14,-50.73],[-68.15,-52.35],[-70.85,-52.9],[-71.01,-53.83],[-74.95,-52.26],[-75.61,-48.67],[-74.13,-46.94],[-75.64,-46.65],[-74.35,-44.1],[-73.24,-44.45],[-72.72,-42.38],[-73.39,-42.12],[-73.7,-43.37],[-74.33,-43.22],[-73.22,-39.26],[-73.59,-37.16],[-71.44,-32.42],[-70.16,-19.76],[-70.37,-18.35],[-71.46,-17.36],[-76.01,-14.65],[-79.76,-7.19],[-81.25,-6.14],[-81.41,-4.74],[-79.77,-2.66],[-80.97,-2.25],[-80.93,-1.06],[-80.09,0.77],[-78.86,1.38],[-77.13,3.85],[-78.18,8.32],[-79.56,8.93],[-80.48,8.09],[-80.0,7.55],[-80.89,7.22],[-81.06,7.82],[-83.51,8.45],[-84.98,10.09],[-85.11,9.56],[-85.66,9.93],[-85.71,11.09],[-87.49,13.3],[-91.23,13.93],[-94.69,16.2],[-96.56,15.65],[-103.5,18.29],[-105.49,19.95],[-105.27,21.42],[-106.03,22.77],[-109.26,25.58],[-109.29,26.44],[-112.23,28.95],[-113.87,31.57],[-114.78,31.8],[-114.67,30.16],[-109.41,23.36],[-110.03,22.82],[-112.18,24.74],[-112.3,26.01],[-115.06,27.72],[-114.16,28.57],[-115.52,29.56],[-117.3,33.05],[-120.62,34.61],[-124.4,40.31],[-123.9,45.52],[-124.69,48.18],[-123.12,48.04],[-122.59,47.1],[-122.84,49.0],[-127.44,50.83],[-127.85,52.33],[-129.13,52.76],[-134.08,58.12],[-147.11,60.88],[-148.22,60.67],[-148.02,59.98],[-151.72,59.16],[-150.62,61.28],[-154.02,59.35],[-153.29,58.86],[-154.23,58.15],[-158.43,55.99],[-164.79,54.4],[-157.72,57.57],[-157.04,58.92],[-161.97,58.67],[-161.87,59.63],[-163.82,59.8],[-166.12,61.5],[-164.56,63.15],[-160.77,63.77],[-161.52,64.4],[-160.78,64.79],[-164.96,64.45],[-168.11,65.67],[-164.47,66.58],[-161.68,66.12],[-166.76,68.36],[-161.91,70.33],[-156.58,71.36],[-136.5,68.9],[-129.79,70.19],[-129.11,69.78],[-128.14,70.48],[-125.76,69.48],[-124.42,70.16],[-124.29,69.4],[-121.47,69.8],[-115.25,68.91],[-113.9,68.4],[-115.3,67.9],[-109.95,67.98],[-108.88,67.38],[-107.79,67.89],[-108.81,68.31],[-108.17,68.65],[-106.15,68.8],[-101.45,67.65],[-98.44,67.78],[-98.56,68.4],[-97.67,68.58],[-96.12,68.24],[-96.13,67.29],[-94.23,69.07],[-96.47,70.09],[-96.39,71.19],[-95.21,71.92],[-92.88,71.32],[-91.52,70.19],[-92.41,69.7],[-90.55,69.5]],[[-114.17,73.12],[-114.67,72.65],[-111.05,72.45],[-109.92,72.96],[-108.19,71.65],[-107.69,72.07],[-108.4,73.09],[-106.52,73.08],[-105.4,72.67],[-104.46,70.99],[-101.09,69.58],[-102.73,69.5],[-102.43,68.75],[-105.96,69.18],[-113.31,68.54],[-116.11,69.17],[-117.34,69.96],[-112.42,70.37],[-117.9,70.54],[-118.43,70.91],[-116.11,71.31],[-119.4,71.56],[-117.87,72.71],[-114.17,73.12]],[[-76.34,73.1],[-79.49,72.74],[-80.88,73.33],[-78.06,73.65],[-76.34,73.1]],[[-86.56,73.16],[-85.77,72.53],[-84.85,73.34],[-82.32,73.75],[-80.6,72.72],[-80.75,72.06],[-77.82,72.75],[-74.1,71.33],[-72.24,71.56],[-67.91,70.12],[-66.97,69.19],[-68.81,68.72],[-61.85,66.86],[-63.92,65.0],[-66.72,66.39],[-68.02,66.26],[-68.14,65.69],[-65.32,64.38],[-64.67,63.39],[-65.01,62.67],[-68.78,63.75],[-66.17,61.93],[-71.02,62.91],[-74.83,64.68],[-77.71,64.23],[-78.56,64.57],[-77.9,65.31],[-73.96,65.45],[-74.29,65.81],[-72.65,67.28],[-72.93,67.73],[-78.96,70.17],[-81.31,69.74],[-88.68,70.41],[-89.51,70.76],[-88.47,71.22],[-89.89,71.22],[-90.21,72.24],[-88.41,73.54],[-85.83,73.8],[-86.56,73.16]],[[-100.36,73.84],[-97.38,73.76],[-98.05,72.99],[-96.54,72.56],[-96.72,71.66],[-99.32,71.36],[-102.5,72.51],[-100.44,72.71],[-101.54,73.36],[-100.36,73.84]],[[143.6,73.21],[139.86,73.37],[142.06,73.86],[143.6,73.21]],[[-93.2,72.77],[-95.41,72.06],[-96.02,73.44],[-94.5,74.13],[-90.51,73.86],[-93.2,72.77]],[[-120.46,71.4],[-123.09,70.9],[-125.93,71.87],[-123.94,73.68],[-124.92,74.29],[-117.56,74.19],[-115.51,73.48],[-119.22,72.52],[-120.46,71.4]],[[-93.61,74.98],[-96.82,74.93],[-94.85,75.65],[-93.61,74.98]],[[145.09,75.56],[144.3,74.82],[138.96,74.61],[136.97,75.26],[138.83,76.14],[145.09,75.56]],[[-98.5,76.72],[-97.74,76.26],[-98.16,75],[-102.5,75.56],[-102.57,76.34],[-98.5,76.72]],[[-108.21,76.2],[-105.88,75.97],[-106.31,75.01],[-113.74,74.39],[-111.79,75.16],[-117.71,75.22],[-115.4,76.48],[-109.07,75.47],[-110.5,76.43],[-109.58,76.79],[-108.21,76.2]],[[57.54,70.72],[51.6,71.47],[52.44,72.77],[54.43,73.63],[53.51,73.75],[55.9,74.63],[55.63,75.08],[61.17,76.25],[68.85,76.54],[58.48,74.31],[55.42,72.37],[55.62,71.54],[57.54,70.72]],[[-94.68,77.1],[-91.61,76.78],[-89.19,75.61],[-81.13,75.71],[-79.83,74.92],[-88.15,74.39],[-92.42,74.84],[-93.89,76.32],[-97.12,76.75],[-94.68,77.1]],[[-116.2,77.65],[-117.11,76.53],[-122.85,76.12],[-119.1,77.51],[-116.2,77.65]],[[106.97,76.97],[114.13,75.85],[109.4,74.18],[113.02,73.98],[113.53,73.34],[115.57,73.75],[123.2,72.97],[123.26,73.74],[126.98,73.57],[128.59,73.04],[129.05,72.4],[128.46,71.98],[131.29,70.79],[132.25,71.84],[139.87,71.49],[139.15,72.42],[140.47,72.85],[149.5,72.2],[152.97,70.84],[159.0,70.87],[159.83,70.45],[159.71,69.72],[160.94,69.44],[167.84,69.58],[169.58,68.69],[170.82,69.01],[170.01,69.65],[170.45,70.1],[178.6,69.4],[180,68.96],[180,64.98],[177.41,64.61],[179.49,62.57],[173.68,61.65],[170.33,59.88],[168.9,60.57],[163.54,59.87],[162.02,58.24],[163.19,57.62],[163.06,56.16],[162.13,56.12],[161.7,55.29],[162.12,54.86],[160.37,54.34],[160.02,53.2],[158.53,52.96],[158.23,51.94],[156.79,51.01],[155.43,55.38],[155.91,56.77],[156.81,57.83],[158.36,58.06],[163.67,61.14],[164.47,62.55],[160.12,60.54],[159.3,61.77],[156.72,61.43],[154.22,59.76],[155.04,59.15],[151.27,58.78],[151.34,59.5],[149.78,59.66],[142.2,59.04],[135.13,54.73],[138.16,53.76],[139.9,54.19],[141.35,53.09],[141.38,52.24],[140.06,48.45],[138.22,46.31],[134.87,43.4],[133.54,42.81],[132.28,43.28],[127.53,39.76],[129.46,36.78],[129.09,35.08],[126.49,34.39],[126.12,36.73],[126.86,36.89],[124.71,38.11],[125.32,39.55],[124.27,39.93],[121.05,38.9],[122.17,40.42],[121.64,40.95],[118.04,39.2],[117.53,38.74],[118.91,37.45],[122.36,37.45],[122.52,36.93],[121.1,36.65],[119.15,34.91],[120.23,34.36],[121.91,31.69],[121.26,30.68],[122.09,29.83],[121.68,28.23],[118.66,24.55],[115.89,22.78],[110.79,21.4],[110.44,20.34],[109.89,20.28],[109.86,21.4],[108.52,21.72],[105.88,19.75],[105.66,19.06],[108.88,15.28],[109.34,13.43],[109.2,11.67],[105.16,8.6],[105.08,9.92],[103.5,10.63],[102.59,12.19],[100.83,12.63],[100.98,13.41],[100.1,13.41],[99.22,9.24],[102.96,5.52],[104.23,1.29],[101.39,2.76],[100.09,6.46],[98.5,8.38],[98.34,7.79],[98.76,11.44],[97.16,16.93],[95.37,15.71],[94.19,16.04],[94.32,18.21],[91.42,22.77],[90.5,22.81],[90.27,21.84],[86.98,21.5],[86.5,20.15],[82.19,16.56],[80.32,15.9],[79.86,10.36],[77.54,7.97],[73.53,15.99],[72.63,21.36],[70.47,20.88],[69.16,22.09],[69.35,22.84],[66.37,25.43],[61.5,25.08],[57.4,25.74],[56.49,27.14],[54.72,26.48],[51.52,27.87],[50.12,30.15],[47.97,29.98],[50.81,24.75],[51.01,26.01],[51.59,25.8],[51.79,24.02],[54.01,24.12],[56.36,26.4],[56.85,24.24],[58.73,23.57],[59.81,22.31],[57.83,20.24],[57.69,18.94],[55.27,17.23],[52.39,16.38],[52.17,15.6],[48.68,14.0],[43.48,12.64],[42.65,16.77],[39.14,21.29],[38.49,23.69],[34.63,28.06],[34.92,29.5],[33.92,27.65],[32.42,29.85],[35.69,23.93],[35.53,23.1],[36.87,22.0],[37.48,18.61],[39.27,15.92],[43.32,12.39],[42.72,11.74],[44.61,10.44],[51.11,12.02],[51.05,10.64],[47.74,4.22],[40.26,-2.57],[39.2,-4.68],[38.8,-6.48],[39.44,-6.84],[39.19,-8.49],[40.48,-10.77],[40.78,-14.69],[39.45,-16.72],[34.79,-19.78],[35.61,-23.71],[32.57,-25.73],[32.2,-28.75],[28.22,-32.77],[25.78,-33.94],[22.57,-33.86],[19.62,-34.82],[18.38,-34.14],[18.22,-31.66],[15.21,-27.09],[14.26,-22.11],[11.79,-18.07],[11.78,-15.79],[13.69,-10.73],[11.92,-5.04],[8.8,-1.11],[9.8,3.07],[9.4,3.73],[8.5,4.77],[5.9,4.26],[4.33,6.27],[1.87,6.14],[-1.96,4.71],[-4.65,5.17],[-7.52,4.34],[-9.0,4.83],[-12.43,7.26],[-14.84,10.88],[-16.61,12.17],[-17.62,14.73],[-16.46,16.14],[-16.15,18.11],[-16.97,21.89],[-14.44,26.25],[-9.56,29.93],[-9.3,32.56],[-6.91,34.11],[-5.93,35.76],[-2.17,35.17],[1.47,36.61],[9.51,37.35],[11.1,36.9],[10.34,33.79],[19.09,30.27],[20.05,30.99],[20.13,32.24],[21.54,32.84],[28.91,30.87],[30.98,31.56],[33.77,30.97],[36.0,34.64],[36.16,36.65],[32.51,36.11],[27.64,36.66],[26.32,38.21],[26.8,38.99],[26.17,39.46],[27.28,40.42],[28.82,40.46],[29.24,41.22],[31.15,41.09],[33.51,42.02],[38.35,40.95],[40.37,41.01],[41.7,41.96],[36.68,45.24],[39.12,47.26],[34.96,46.27],[36.33,45.11],[33.88,44.36],[32.45,45.33],[33.3,46.08],[30.75,46.58],[28.84,44.91],[27.67,42.58],[28.81,41.05],[26.36,40.15],[24.93,40.95],[23.71,40.69],[24.41,40.13],[23.9,39.96],[22.63,40.26],[24.04,37.66],[23.12,37.92],[23.15,36.42],[22.49,36.41],[19.41,40.25],[19.54,41.72],[13.14,45.74],[12.33,45.38],[12.59,44.09],[18.48,40.17],[16.87,40.44],[16.45,39.8],[17.05,38.9],[16.1,37.99],[15.41,40.05],[8.89,44.37],[6.53,43.13],[3.1,43.08],[3.04,41.89],[0.81,41.01],[-0.28,39.31],[0.11,38.74],[-2.15,36.67],[-4.37,36.68],[-5.38,35.95],[-6.52,36.94],[-8.9,36.87],[-8.84,38.27],[-9.53,38.74],[-8.77,40.76],[-9.39,43.03],[-7.98,43.75],[-1.9,43.42],[-1.38,44.02],[-1.19,46.01],[-4.49,47.96],[-4.59,48.68],[-1.62,48.64],[-1.93,49.78],[-0.99,49.35],[1.34,50.13],[1.64,50.95],[3.83,51.62],[4.71,53.09],[8.12,53.53],[8.8,54.02],[8.12,55.52],[8.54,57.11],[10.58,57.73],[10.25,56.89],[10.91,56.46],[9.65,55.47],[10.94,54.01],[12.52,54.47],[14.12,53.76],[17.62,54.85],[19.66,54.43],[21.27,55.19],[21.58,57.41],[22.52,57.75],[24.12,57.03],[24.43,58.38],[23.34,59.19],[29.12,60.03],[28.07,60.5],[22.87,59.85],[21.32,60.72],[21.54,63.19],[25.4,65.11],[23.9,66.01],[22.18,65.72],[21.21,65.03],[21.37,64.41],[17.85,62.75],[17.12,61.34],[18.79,60.08],[16.83,58.72],[15.88,56.1],[12.94,55.36],[10.36,59.47],[8.38,58.31],[5.67,58.59],[4.99,61.97],[10.53,64.49],[14.76,67.81],[19.18,69.82],[23.02,70.2],[24.55,71.03],[28.17,71.19],[31.29,70.45],[30.01,70.19],[31.1,69.56],[32.13,69.91],[40.29,67.93],[41.13,66.79],[40.02,66.27],[33.18,66.63],[34.81,65.9],[34.94,64.41],[37.01,63.85],[36.52,64.78],[37.18,65.14],[39.59,64.52],[40.44,64.76],[39.76,65.5],[42.09,66.48],[43.95,66.07],[44.53,66.76],[43.45,68.57],[46.25,68.25],[46.82,67.69],[45.56,67.57],[45.56,67.01],[46.35,66.67],[53.72,68.86],[54.47,68.81],[53.49,68.2],[58.8,68.88],[59.94,68.28],[61.08,68.94],[60.03,69.52],[60.55,69.85],[68.51,68.09],[69.18,68.62],[66.93,69.45],[66.69,71.03],[69.2,72.84],[72.59,72.78],[71.85,71.41],[72.79,70.39],[72.56,69.02],[73.67,68.41],[71.28,66.32],[72.42,66.17],[75.05,67.76],[74.47,68.33],[74.94,68.99],[73.6,69.63],[74.4,70.63],[73.1,71.45],[74.89,72.12],[74.66,72.83],[75.68,72.3],[75.29,71.34],[76.36,71.15],[75.9,71.87],[77.58,72.27],[81.5,71.75],[80.51,73.65],[86.82,73.94],[86.01,74.46],[87.17,75.12],[100.76,76.43],[104.35,77.7],[106.07,77.37],[104.71,77.13],[106.97,76.97]],[[49.11,41.28],[50.39,40.26],[49.57,40.18],[48.86,38.82],[49.2,37.58],[50.84,36.87],[53.83,36.97],[53.88,38.95],[52.69,40.03],[52.92,40.88],[54.74,40.95],[53.72,42.12],[52.81,41.14],[52.5,42.79],[51.34,43.13],[50.31,44.61],[53.04,45.26],[53.04,46.85],[49.1,46.4],[46.68,44.61],[49.11,41.28]],[[24.72,77.85],[20.73,77.68],[21.42,77.94],[20.81,78.25],[22.88,78.45],[24.72,77.85]],[[-95.83,78.06],[-98.12,78.08],[-98.63,78.87],[-95.83,78.06]],[[-100.06,78.32],[-105.18,78.38],[-104.21,78.68],[-105.49,79.3],[-100.06,78.32]],[[18.25,79.7],[21.54,78.96],[19.03,78.56],[17.12,76.81],[15.91,76.77],[13.76,77.38],[14.67,77.74],[10.44,79.65],[18.25,79.7]],[[25.45,80.41],[27.41,80.06],[23.02,79.4],[17.37,80.32],[25.45,80.41]],[[51.14,80.55],[47.59,80.01],[44.85,80.59],[51.14,80.55]],[[99.94,78.88],[94.97,79.04],[91.18,80.34],[95.94,81.25],[100.19,79.78],[99.94,78.88]],[[-87.02,79.66],[-85.81,79.34],[-90.8,78.22],[-92.88,78.34],[-93.95,78.75],[-93.15,79.38],[-96.71,80.16],[-94.74,81.21],[-92.41,81.26],[-87.02,79.66]],[[-68.5,83.11],[-61.89,82.36],[-67.66,81.5],[-65.48,81.51],[-71.18,79.8],[-76.91,79.32],[-75.53,79.2],[-76.22,79.02],[-75.39,78.53],[-79.76,77.21],[-77.89,76.78],[-80.56,76.18],[-89.49,76.47],[-89.62,76.95],[-87.77,77.18],[-88.26,77.9],[-84.98,77.54],[-87.96,78.37],[-85.09,79.35],[-86.93,80.25],[-81.85,80.46],[-87.6,80.52],[-91.59,81.89],[-79.31,83.13],[-68.5,83.11]],[[-27.1,83.52],[-20.85,82.73],[-31.4,82.02],[-22.9,82.09],[-22.07,81.73],[-23.17,81.15],[-15.77,81.91],[-12.21,81.29],[-20.05,80.18],[-17.73,80.13],[-19.7,78.75],[-19.67,77.64],[-18.47,76.99],[-21.68,76.63],[-19.83,76.1],[-19.6,75.25],[-20.67,75.16],[-19.37,74.3],[-21.59,74.22],[-20.43,73.82],[-20.76,73.46],[-23.57,73.31],[-22.3,72.18],[-24.79,72.33],[-22.13,71.47],[-21.75,70.66],[-23.54,70.47],[-25.54,71.43],[-25.2,70.75],[-26.36,70.23],[-22.35,70.13],[-27.75,68.47],[-31.78,68.12],[-34.2,66.68],[-39.81,65.46],[-41.19,63.48],[-42.82,62.68],[-42.42,61.9],[-43.38,60.1],[-48.26,60.86],[-51.63,63.63],[-53.97,67.19],[-52.98,68.36],[-51.48,68.73],[-50.87,69.93],[-54.68,69.61],[-54.36,70.82],[-51.39,70.57],[-55.83,71.65],[-54.72,72.59],[-58.59,75.52],[-68.5,76.06],[-71.4,77.01],[-66.76,77.38],[-73.3,78.04],[-65.71,79.39],[-65.32,79.76],[-68.02,80.12],[-62.23,81.32],[-62.65,81.77],[-50.39,82.44],[-44.52,81.66],[-46.76,82.63],[-43.41,83.23],[-27.1,83.52]]];
@@ -344,11 +865,13 @@
   const VS_LINE = `
     attribute vec3 aPos; attribute float aAlpha; attribute float aFace;
     uniform mat4 uMVP; uniform mat4 uModel;
+    uniform float uReveal; uniform float uProgress;
     varying float vAlpha; varying float vFacing;
     void main() {
       vec4 w = uModel * vec4(aPos, 1.0);
       vFacing = aFace > 0.5 ? normalize(w.xyz).z : 1.0;
-      vAlpha = aAlpha;
+      float shown = smoothstep(aAlpha - 0.001, aAlpha + 0.06, uProgress);
+      vAlpha = mix(aAlpha, shown, uReveal);
       gl_Position = uMVP * vec4(aPos, 1.0);
     }`;
   const FS_LINE = `
@@ -437,7 +960,7 @@
 
   function loc(p, n) { return gl.getUniformLocation(p, n); }
   const U = {
-    line: { mvp: loc(progLine, 'uMVP'), model: loc(progLine, 'uModel'), color: loc(progLine, 'uColor') },
+    line: { mvp: loc(progLine, 'uMVP'), model: loc(progLine, 'uModel'), color: loc(progLine, 'uColor'), reveal: loc(progLine, 'uReveal'), progress: loc(progLine, 'uProgress') },
     marker: { mvp: loc(progMarker, 'uMVP'), model: loc(progMarker, 'uModel'), time: loc(progMarker, 'uTime'), dpr: loc(progMarker, 'uDPR'), color: loc(progMarker, 'uColor'), size: loc(progMarker, 'uSize') },
     star: { vp: loc(progStar, 'uVP'), dpr: loc(progStar, 'uDPR') },
     blur: { tex: loc(progBlur, 'uTex'), dir: loc(progBlur, 'uDir') },
@@ -528,6 +1051,8 @@
   const bufVisited = buffer(visitPos);
   const bufStars = buffer(starData);
   const bufQuad = buffer(new Float32Array([-1, -1, 3, -1, -1, 3]));
+  const bufArc = gl.createBuffer();     // rebuilt per flight
+  const bufArcHead = gl.createBuffer(); // updated per frame during a flight
 
   const counts = { grid: 0, equator: 0, floor: 0, stalks: CITIES.length * 2, land: 0 };
   counts.land = LAND.reduce((n, p) => n + (p.length - 1) * 2, 0);
@@ -572,10 +1097,64 @@
   let paused = false, mouseX = -1e4, mouseY = -1e4, stickyName = null;
   let hoveredPin = null, calloutName = null;
   let downX = 0, downY = 0, downT = 0;
+
+  // ---------- flight state ----------
+  const HOME = { lat: 40.44, lon: -80.0 };
+  const flight = { active: false, t0: 0, dur: 1.7, fromRot: 0, toRot: 0, fromTilt: 0, toTilt: 0, from: null, to: null, om: 0, color: [1, 1, 1], progress: 0, arrivedAt: 0, pinName: null };
+  let arcCount = 0, arcAlpha = 0;
+
+  function slerpLL(a, b, t) {
+    const va = ll2v(a.lat, a.lon, 1), vb = ll2v(b.lat, b.lon, 1);
+    const om = Math.acos(Math.max(-1, Math.min(1, va[0] * vb[0] + va[1] * vb[1] + va[2] * vb[2])));
+    if (om < 1e-4) return va;
+    const so = Math.sin(om), k0 = Math.sin((1 - t) * om) / so, k1 = Math.sin(t * om) / so;
+    return [va[0] * k0 + vb[0] * k1, va[1] * k0 + vb[1] * k1, va[2] * k0 + vb[2] * k1];
+  }
+  function arcRadius(om, t) { return 1.006 + (0.1 + 0.3 * om / Math.PI) * Math.sin(Math.PI * t); }
+
+  function flyTo(place, color, pinName) {
+    const D2R = Math.PI / 180;
+    let toRot = -place.lon * D2R;
+    while (toRot - rot > Math.PI) toRot -= Math.PI * 2;
+    while (rot - toRot > Math.PI) toRot += Math.PI * 2;
+    flight.fromRot = rot; flight.toRot = toRot;
+    flight.fromTilt = tilt;
+    flight.toTilt = Math.max(-0.6, Math.min(1.0, place.lat * D2R));
+    flight.from = flight.to ? { lat: flight.to.lat, lon: flight.to.lon } : HOME;
+    flight.to = { lat: place.lat, lon: place.lon };
+    flight.color = color;
+    flight.pinName = pinName || null;
+    flight.progress = 0;
+    flight.arrivedAt = 0;
+    flight.t0 = performance.now() * 0.001;
+    flight.active = true;
+    stickyName = null;
+    // great-circle arc from the previous destination, arcing above the surface
+    const va = ll2v(flight.from.lat, flight.from.lon, 1), vb = ll2v(place.lat, place.lon, 1);
+    flight.om = Math.acos(Math.max(-1, Math.min(1, va[0] * vb[0] + va[1] * vb[1] + va[2] * vb[2])));
+    if (flight.om < 0.02) { arcCount = 0; return; }
+    const N = 72;
+    const verts = new Float32Array(N * 2 * 5);
+    let o = 0;
+    for (let i = 0; i < N; i++) {
+      for (const t of [i / N, (i + 1) / N]) {
+        const v = slerpLL(flight.from, flight.to, t), r = arcRadius(flight.om, t);
+        verts[o++] = v[0] * r; verts[o++] = v[1] * r; verts[o++] = v[2] * r; verts[o++] = t; verts[o++] = 1;
+      }
+    }
+    gl.bindBuffer(gl.ARRAY_BUFFER, bufArc);
+    gl.bufferData(gl.ARRAY_BUFFER, verts, gl.DYNAMIC_DRAW);
+    arcCount = N * 2;
+    arcAlpha = 0;
+  }
   const hint = document.getElementById('hint');
   canvas.addEventListener('pointerdown', e => {
     dragging = true; lastX = downX = e.clientX; lastY = downY = e.clientY;
     downT = performance.now();
+    // grabbing the globe cancels any flight in progress
+    flight.active = false; flight.arrivedAt = 0; arcAlpha = 0; stickyName = null;
+    pendingDetail = null;
+    closeDetail();
     canvas.classList.add('dragging');
     canvas.setPointerCapture(e.pointerId);
     hint.style.opacity = '0';
@@ -598,7 +1177,13 @@
         const dx = p.x - e.clientX, dy = p.y - e.clientY, d2 = dx * dx + dy * dy;
         if (d2 < best) { best = d2; found = p; }
       }
-      stickyName = found ? found.name : null;
+      if (found) {
+        // pins with posts fly there and open the first post; the detail
+        // panel's nav arrows cycle any other posts sharing the pin
+        const atPin = POSTS.filter(p => p.pin === found.name);
+        if (atPin.length) openPost(atPin[0]);
+        else stickyName = found.name;
+      } else stickyName = null;
     }
     dragging = false; canvas.classList.remove('dragging');
   });
@@ -635,6 +1220,7 @@
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     bindLineAttribs();
     gl.uniform4fv(U.line.color, color);
+    gl.uniform1f(U.line.reveal, 0);
     gl.drawArrays(gl.LINES, 0, count);
   }
   function drawQuad(prog) {
@@ -654,7 +1240,25 @@
     prev = time;
     resize();
 
-    if (!dragging && !paused && !hoveredPin) rot += (BASE_SPEED + vel) * dt;
+    // flight: ease the globe to face the selected place, then hold briefly
+    if (flight.active) {
+      const ft = Math.min(1, (time - flight.t0) / flight.dur);
+      const e = ft < 0.5 ? 4 * ft * ft * ft : 1 - Math.pow(-2 * ft + 2, 3) / 2;
+      rot = flight.fromRot + (flight.toRot - flight.fromRot) * e;
+      tilt = flight.fromTilt + (flight.toTilt - flight.fromTilt) * e;
+      vel = 0;
+      flight.progress = ft;
+      if (ft >= 1) {
+        flight.active = false;
+        flight.arrivedAt = time;
+        if (flight.pinName) stickyName = flight.pinName;
+        if (pendingDetail) { const p = pendingDetail; pendingDetail = null; showDetail(p); }
+      }
+    }
+    if (flight.active) arcAlpha = Math.min(1, arcAlpha + dt * 4);
+    else if (flight.arrivedAt) arcAlpha = Math.max(0, 1 - Math.max(0, time - flight.arrivedAt - 1.8) / 1.4);
+    const holding = flight.active || detailOpenFlag || (flight.arrivedAt && time - flight.arrivedAt < 3.5);
+    if (!dragging && !paused && !hoveredPin && !holding) rot += (BASE_SPEED + vel) * dt;
     if (!dragging) vel *= 0.96;
 
     const model = mul(rotX(tilt), rotY(rot));
@@ -705,6 +1309,18 @@
     drawLines(bufLand, counts.land, COL_LAND);
     drawLines(bufStalks, counts.stalks, COL_STALK);
 
+    // flight arc: revealed progressively by uProgress, fades after arrival
+    if (arcCount > 0 && arcAlpha > 0.01) {
+      const c = flight.color;
+      gl.bindBuffer(gl.ARRAY_BUFFER, bufArc);
+      bindLineAttribs();
+      gl.uniform4f(U.line.color, c[0], c[1], c[2], 0.9 * arcAlpha);
+      gl.uniform1f(U.line.reveal, 1);
+      gl.uniform1f(U.line.progress, flight.active ? Math.min(1, flight.progress * 1.15) : 1);
+      gl.drawArrays(gl.LINES, 0, arcCount);
+      gl.uniform1f(U.line.reveal, 0);
+    }
+
     // markers
     gl.useProgram(progMarker);
     gl.uniformMatrix4fv(U.marker.mvp, false, mvp);
@@ -729,6 +1345,18 @@
     gl.vertexAttribPointer(mPos, 3, gl.FLOAT, false, 16, 0);
     gl.vertexAttribPointer(mPh, 1, gl.FLOAT, false, 16, 12);
     gl.drawArrays(gl.POINTS, 0, CITIES.length);
+    // flight head: a bright point riding the leading edge of the arc
+    if (flight.active && flight.om > 0.02) {
+      const th = Math.min(1, flight.progress * 1.15);
+      const v = slerpLL(flight.from, flight.to, th), r = arcRadius(flight.om, th);
+      gl.uniform3fv(U.marker.color, flight.color);
+      gl.uniform1f(U.marker.size, 1.25);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bufArcHead);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([v[0] * r, v[1] * r, v[2] * r, 0]), gl.DYNAMIC_DRAW);
+      gl.vertexAttribPointer(mPos, 3, gl.FLOAT, false, 16, 0);
+      gl.vertexAttribPointer(mPh, 1, gl.FLOAT, false, 16, 12);
+      gl.drawArrays(gl.POINTS, 0, 1);
+    }
 
     // 2. bloom: scene -> A (H) -> B (V)
     // blending must be OFF for the post-processing passes: with additive
@@ -821,12 +1449,234 @@
   resize();
   requestAnimationFrame(frame);
 
+  // ---------- explore panel ----------
+  const ACCENT = { professional: COL_MARKER, personal: COL_VISIT };
+  const panel = document.getElementById('panel');
+  const panelBtn = document.getElementById('panelBtn');
+  const panelList = document.getElementById('panelList');
+  let panelTab = 'professional', selected = null;
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+
+  function cardHTML(tab, it) {
+    const meta = esc(it.date) + ' &middot; ' + esc(it.location) + (it.tag ? ' &middot; ' + esc(it.tag) : '');
+    const org = it.org ? '<div class="org">' + esc(it.org) + '</div>' : '';
+    const link = it.url ? '<a class="link" href="' + esc(it.url) + '" target="_blank" rel="noopener">VISIT ' + esc((it.org || it.location).toUpperCase()) + ' &#8599;</a>' : '';
+    const photo = tab === 'personal'
+      ? (it.photo
+        ? '<div class="photo"><img src="' + esc(it.photo) + '" alt="" loading="lazy" onerror="this.parentNode.classList.add(\'empty\');this.parentNode.innerHTML=\'<span>PHOTO PENDING</span>\'"></div>'
+        : '<div class="photo empty"><span>PHOTO PENDING</span></div>')
+      : '';
+    return '<div class="role">' + esc(it.title) + '</div>' + org +
+      '<div class="meta">' + meta + '</div>' + photo +
+      '<div class="blurb">' + esc(it.excerpt) + '</div>' + link;
+  }
+
+  function renderList() {
+    panelList.innerHTML = '';
+    const items = POSTS.filter(p => p.category === panelTab);
+    items.forEach((it, i) => {
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.setAttribute('role', 'button');
+      el.tabIndex = 0;
+      if (selected && selected.tab === panelTab && selected.idx === i) el.classList.add('active');
+      el.innerHTML = cardHTML(panelTab, it);
+      el.addEventListener('click', e => { if (e.target.closest('a')) return; selectItem(panelTab, i); });
+      el.addEventListener('keydown', e => { if (e.key === 'Enter') selectItem(panelTab, i); });
+      panelList.appendChild(el);
+    });
+  }
+
+  function selectItem(tab, idx) {
+    selected = { tab, idx };
+    renderList();
+    openPost(POSTS.filter(p => p.category === tab)[idx]);
+  }
+
+  panel.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.tab === panelTab) return;
+      panelTab = btn.dataset.tab;
+      panel.dataset.tab = panelTab;
+      panel.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === panelTab));
+      renderList();
+    });
+  });
+  panelBtn.addEventListener('click', () => {
+    const open = panel.classList.toggle('open');
+    panel.setAttribute('aria-hidden', String(!open));
+    panelBtn.textContent = open ? 'CLOSE' : 'EXPLORE';
+  });
+  renderList();
+
+  // ---------- post detail panel ----------
+  const detail = document.getElementById('detail');
+  const dTitle = detail.querySelector('.d-title');
+  const dOrg = detail.querySelector('.d-org');
+  const dMeta = detail.querySelector('.d-meta');
+  const dPhoto = detail.querySelector('.d-photo');
+  const dBody = detail.querySelector('.d-body');
+  const dLink = detail.querySelector('.d-link');
+  const dTerm = detail.querySelector('.d-term');
+  const dNav = detail.querySelector('.d-nav');
+  const dCount = detail.querySelector('.d-count');
+  const postCache = new Map();
+  let pendingDetail = null, detailPost = null, detailSibs = [], detailOpenFlag = false;
+  let slideTimer = null, slideIdx = 0;
+
+  function stopSlideshow() { if (slideTimer) { clearInterval(slideTimer); slideTimer = null; } }
+
+  // 0 photos: no block. 1: static image. 2+: auto-advancing slideshow with
+  // pause + manual controls.
+  function buildSlideshow(container, photos) {
+    stopSlideshow();
+    slideIdx = 0;
+    let paused = false;
+    container.style.display = '';
+    container.innerHTML = '<img class="s-img" src="' + esc(photos[0]) + '" alt="">' +
+      (photos.length > 1
+        ? '<div class="s-controls">' +
+          '<button class="s-prev" aria-label="Previous photo">&#8249;</button>' +
+          '<button class="s-play" aria-label="Pause slideshow">&#10074;&#10074;</button>' +
+          '<button class="s-next" aria-label="Next photo">&#8250;</button>' +
+          '<span class="s-count">1 / ' + photos.length + '</span>' +
+          '</div>'
+        : '');
+    if (photos.length < 2) return;
+    const img = container.querySelector('.s-img');
+    const count = container.querySelector('.s-count');
+    const playBtn = container.querySelector('.s-play');
+    function go(n) {
+      slideIdx = (n + photos.length) % photos.length;
+      img.style.opacity = '0';
+      setTimeout(() => { img.src = photos[slideIdx]; img.style.opacity = '1'; }, 180);
+      count.textContent = (slideIdx + 1) + ' / ' + photos.length;
+    }
+    container.querySelector('.s-prev').addEventListener('click', () => go(slideIdx - 1));
+    container.querySelector('.s-next').addEventListener('click', () => go(slideIdx + 1));
+    playBtn.addEventListener('click', () => {
+      paused = !paused;
+      playBtn.innerHTML = paused ? '&#9654;' : '&#10074;&#10074;';
+      playBtn.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+      stopSlideshow();
+      if (!paused) slideTimer = setInterval(() => go(slideIdx + 1), 4000);
+    });
+    slideTimer = setInterval(() => go(slideIdx + 1), 4000);
+  }
+
+  function loadPost(slug) {
+    if (!postCache.has(slug)) {
+      postCache.set(slug, fetch('posts/data/' + slug + '.json')
+        .then(r => { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+        .then(d => d.html)
+        .catch(() => '<p class="loading">CONTENT UNAVAILABLE — RUN <code>mise run posts:build</code> AND SERVE OVER HTTP</p>'));
+    }
+    return postCache.get(slug);
+  }
+
+  function pinScreenPt(name) {
+    for (let i = 0; i < pinPts.length; i++) {
+      const p = pinPts[i];
+      if (p.name === name && p.facing > 0.1) return p;
+    }
+    return null;
+  }
+
+  function detailFinalTransform() {
+    return window.innerWidth <= 640 ? 'translateY(0) scale(1)' : 'translateY(-50%) scale(1)';
+  }
+  function detailCollapsedTransform(pt) {
+    if (window.innerWidth <= 640 || !pt) return 'translateY(24px) scale(.92)';
+    const fw = Math.min(560, window.innerWidth - 80);
+    const dx = pt.x - (40 + fw / 2), dy = pt.y - window.innerHeight / 2;
+    return 'translate(' + dx.toFixed(1) + 'px, calc(-50% + ' + dy.toFixed(1) + 'px)) scale(.05)';
+  }
+
+  function showDetail(post) {
+    detailPost = post;
+    detailOpenFlag = true;
+    detailSibs = POSTS.filter(p => p.pin === post.pin);
+    dTitle.textContent = post.title;
+    dOrg.textContent = post.org || '';
+    dOrg.style.display = post.org ? '' : 'none';
+    dMeta.textContent = post.date + '  \u00b7  ' + post.location + (post.tag ? '  \u00b7  ' + post.tag : '');
+    if (post.photos && post.photos.length) {
+      buildSlideshow(dPhoto, post.photos);
+    } else {
+      stopSlideshow();
+      dPhoto.style.display = 'none';
+      dPhoto.innerHTML = '';
+    }
+    dTerm.href = 'post.html?p=' + encodeURIComponent(post.slug);
+    if (post.url) {
+      dLink.style.display = '';
+      dLink.href = post.url;
+      dLink.innerHTML = 'VISIT ' + esc((post.org || post.location).toUpperCase()) + ' &#8599;';
+    } else dLink.style.display = 'none';
+    if (detailSibs.length > 1) {
+      dNav.style.display = '';
+      dCount.textContent = (detailSibs.indexOf(post) + 1) + ' / ' + detailSibs.length + ' AT THIS PIN';
+    } else dNav.style.display = 'none';
+    dBody.innerHTML = '<p class="loading">LOADING TRANSMISSION&#8230;</p>';
+    dBody.scrollTop = 0;
+    loadPost(post.slug).then(html => { if (detailPost === post) dBody.innerHTML = html; });
+
+    // expand out from the pin's screen position
+    const pt = pinScreenPt(post.pin);
+    const wasOpen = detail.classList.contains('open');
+    detail.classList.add('open');
+    detail.setAttribute('aria-hidden', 'false');
+    if (!wasOpen) {
+      detail.style.transition = 'none';
+      detail.style.transform = detailCollapsedTransform(pt);
+      detail.style.opacity = '0';
+      void detail.offsetWidth;
+      detail.style.transition = '';
+      detail.style.transform = detailFinalTransform();
+      detail.style.opacity = '1';
+    }
+  }
+
+  function closeDetail() {
+    if (!detail.classList.contains('open')) return;
+    detailOpenFlag = false;
+    stopSlideshow();
+    const pt = detailPost ? pinScreenPt(detailPost.pin) : null;
+    detailPost = null;
+    detail.style.transform = detailCollapsedTransform(pt);
+    detail.style.opacity = '0';
+    detail.setAttribute('aria-hidden', 'true');
+    setTimeout(() => { if (!detailOpenFlag) detail.classList.remove('open'); }, 500);
+  }
+
+  function navDetail(dir) {
+    if (!detailPost || detailSibs.length < 2) return;
+    const i = (detailSibs.indexOf(detailPost) + dir + detailSibs.length) % detailSibs.length;
+    showDetail(detailSibs[i]);
+  }
+  detail.querySelector('.d-prev').addEventListener('click', () => navDetail(-1));
+  detail.querySelector('.d-next').addEventListener('click', () => navDetail(1));
+  detail.querySelector('.d-close').addEventListener('click', closeDetail);
+
+  function openPost(post) {
+    if (!post) return;
+    pendingDetail = post;
+    if (detail.classList.contains('open')) closeDetail();
+    flyTo(post, ACCENT[post.category], post.pin);
+  }
+
   // ---------- contact modal ----------
   const modal = document.getElementById('modal');
   document.getElementById('contactBtn').addEventListener('click', () => modal.classList.add('open'));
   modal.querySelector('.close').addEventListener('click', () => modal.classList.remove('open'));
   modal.querySelector('.backdrop').addEventListener('click', () => modal.classList.remove('open'));
-  window.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('open'); });
+  window.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    modal.classList.remove('open');
+    closeDetail();
+    if (panel.classList.contains('open')) panelBtn.click();
+  });
   const emailLink = document.getElementById('emailLink');
   emailLink.addEventListener('click', e => {
     e.preventDefault();

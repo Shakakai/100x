@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100X TERMINAL</title>
+<meta name="description" content="Todd Cullen — content terminal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #01030a;
+    font-family: 'Share Tech Mono', ui-monospace, Menlo, monospace;
+    color: #bfefff;
+    min-height: 100vh;
+  }
+  /* tron atmosphere: scanlines + vignette over the whole page */
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 50;
+    background: repeating-linear-gradient(0deg, rgba(1,3,10,.22) 0 1px, transparent 1px 3px);
+  }
+  body::after {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 49;
+    background: radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(0,0,0,.55) 100%);
+  }
+  .corner { position: fixed; width: 26px; height: 26px; border: 1px solid rgba(0,229,255,.5); z-index: 51; }
+  .corner.tl { top: 16px; left: 16px; border-right: none; border-bottom: none; }
+  .corner.tr { top: 16px; right: 16px; border-left: none; border-bottom: none; }
+  .corner.bl { bottom: 16px; left: 16px; border-right: none; border-top: none; }
+  .corner.br { bottom: 16px; right: 16px; border-left: none; border-top: none; }
+
+  header {
+    max-width: 780px; margin: 0 auto; padding: 42px 28px 0;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  }
+  .brand {
+    font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 18px;
+    letter-spacing: 0.22em; color: #eafcff;
+    text-shadow: 0 0 8px rgba(0,229,255,.9), 0 0 24px rgba(0,229,255,.55);
+  }
+  .brand .sub {
+    display: block; margin-top: 6px;
+    font-family: 'Share Tech Mono', monospace; font-weight: 400;
+    font-size: 10px; letter-spacing: 0.5em; color: #35e0ff;
+  }
+  .back {
+    font-size: 11px; letter-spacing: 0.25em; color: #35e0ff; text-decoration: none;
+    border: 1px solid rgba(0,229,255,.5); padding: 8px 14px;
+    text-shadow: 0 0 8px rgba(0,229,255,.8);
+    box-shadow: 0 0 10px rgba(0,229,255,.25), inset 0 0 10px rgba(0,229,255,.1);
+    transition: all .15s ease; white-space: nowrap;
+  }
+  .back:hover { background: rgba(0,229,255,.12); box-shadow: 0 0 18px rgba(0,229,255,.5); }
+
+  main { max-width: 780px; margin: 0 auto; padding: 44px 28px 90px; }
+
+  .t-file { font-size: 10px; letter-spacing: 0.3em; color: rgba(53,224,255,.5); text-transform: uppercase; }
+  .t-file .cat { color: #ff9f1c; text-shadow: 0 0 8px rgba(255,159,28,.7); }
+  .t-file.personal .cat { color: #40ff66; text-shadow: 0 0 8px rgba(64,255,102,.7); }
+
+  h1 {
+    margin-top: 16px;
+    font-family: 'Orbitron', sans-serif; font-weight: 900;
+    font-size: clamp(28px, 5vw, 46px); letter-spacing: 0.1em; text-transform: uppercase;
+    color: #eafcff;
+    text-shadow: 0 0 10px rgba(0,229,255,.8), 0 0 40px rgba(0,229,255,.35);
+  }
+  .t-org { margin-top: 10px; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: #35e0ff; }
+  .t-meta {
+    margin-top: 10px; padding-bottom: 22px;
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(191,239,255,.5);
+    border-bottom: 1px solid rgba(0,229,255,.25);
+  }
+
+  /* slideshow: 1 photo = static, 2+ = controls + auto-advance */
+  .t-photo {
+    position: relative; margin-top: 30px; height: clamp(220px, 42vw, 380px);
+    overflow: hidden; border: 1px solid rgba(0,229,255,.3);
+    box-shadow: 0 0 24px rgba(0,229,255,.12);
+  }
+  .t-photo .s-img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: saturate(.85) contrast(1.05); transition: opacity .18s ease;
+  }
+  .s-controls {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+    background: linear-gradient(transparent, rgba(1,3,10,.88));
+  }
+  .s-controls button {
+    background: rgba(1,3,10,.6); border: 1px solid rgba(0,229,255,.4);
+    color: #35e0ff; cursor: pointer; padding: 4px 12px;
+    font-family: inherit; font-size: 13px; transition: all .15s ease;
+  }
+  .s-controls button:hover { background: rgba(0,229,255,.15); box-shadow: 0 0 8px rgba(0,229,255,.35); }
+  .s-count { margin-left: auto; font-size: 10px; letter-spacing: 0.3em; color: rgba(191,239,255,.6); }
+
+  .t-body { margin-top: 34px; }
+  .t-body p { font-size: 15px; line-height: 1.85; color: rgba(191,239,255,.85); margin: 0 0 20px; }
+  .t-body h2 {
+    font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: 700;
+    letter-spacing: 0.24em; text-transform: uppercase; color: #35e0ff;
+    text-shadow: 0 0 10px rgba(0,229,255,.6);
+    margin: 38px 0 14px; padding-left: 14px;
+    border-left: 3px solid rgba(0,229,255,.6);
+  }
+  .t-body h3 {
+    font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(53,224,255,.8); margin: 26px 0 10px;
+  }
+  .t-body ul { margin: 0 0 20px; padding-left: 22px; }
+  .t-body li { font-size: 15px; line-height: 1.8; color: rgba(191,239,255,.85); margin-bottom: 8px; }
+  .t-body li::marker { color: #35e0ff; }
+  .t-body strong { color: #eafcff; text-shadow: 0 0 8px rgba(0,229,255,.35); }
+  .t-body a { color: #35e0ff; }
+  .t-body code { color: #ff9f1c; font-size: 13px; }
+  .t-body blockquote {
+    margin: 26px 0; padding: 16px 20px;
+    border-left: 3px solid rgba(255,159,28,.6);
+    background: rgba(0,30,45,.25);
+    font-size: 15px; line-height: 1.7; color: rgba(255,217,160,.85);
+  }
+  .t-body img {
+    max-width: 100%; display: block; margin: 24px 0;
+    border: 1px solid rgba(0,229,255,.3); box-shadow: 0 0 24px rgba(0,229,255,.12);
+  }
+  .t-body > p:first-of-type::first-letter {
+    font-family: 'Orbitron', sans-serif; font-size: 2.6em; font-weight: 700;
+    float: left; line-height: 0.85; padding: 4px 10px 0 0; color: #35e0ff;
+    text-shadow: 0 0 14px rgba(0,229,255,.8);
+  }
+
+  .t-nav {
+    margin-top: 56px; padding-top: 24px;
+    border-top: 1px solid rgba(0,229,255,.25);
+    display: flex; justify-content: space-between; gap: 16px;
+  }
+  .t-nav a {
+    font-size: 11px; letter-spacing: 0.2em; color: #35e0ff; text-decoration: none;
+    text-transform: uppercase; transition: all .15s ease; max-width: 45%;
+  }
+  .t-nav a:hover { color: #fff; text-shadow: 0 0 10px rgba(0,229,255,.9); }
+  .t-nav a.next { text-align: right; margin-left: auto; }
+  .t-nav a .lbl { display: block; font-size: 8px; letter-spacing: 0.35em; color: rgba(191,239,255,.4); margin-bottom: 6px; }
+
+  .loading, .err { font-size: 11px; letter-spacing: 0.35em; color: rgba(53,224,255,.55); padding: 80px 0; text-align: center; }
+  .err { color: #ff9f1c; }
+
+  footer {
+    max-width: 780px; margin: 0 auto; padding: 0 28px 40px;
+    font-size: 9px; letter-spacing: 0.35em; color: rgba(53,224,255,.35);
+  }
+</style>
+</head>
+<body>
+<div class="corner tl"></div><div class="corner tr"></div>
+<div class="corner bl"></div><div class="corner br"></div>
+
+<header>
+  <div class="brand">100X<span class="sub">CONTENT TERMINAL</span></div>
+  <a class="back" href="index.html">&#8592; GLOBE</a>
+</header>
+
+<main id="post"><div class="loading">ESTABLISHING UPLINK&#8230;</div></main>
+
+<footer>100X TERMINAL &#183; SYS.ONLINE</footer>
+
+<script>
+(function () {
+  'use strict';
+  const main = document.getElementById('post');
+  const slug = new URLSearchParams(location.search).get('p');
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+
+  function buildSlideshow(container, photos) {
+    let idx = 0, paused = false, timer = null;
+    container.innerHTML = '<img class="s-img" src="' + esc(photos[0]) + '" alt="">' +
+      (photos.length > 1
+        ? '<div class="s-controls">' +
+          '<button class="s-prev" aria-label="Previous photo">&#8249;</button>' +
+          '<button class="s-play" aria-label="Pause slideshow">&#10074;&#10074;</button>' +
+          '<button class="s-next" aria-label="Next photo">&#8250;</button>' +
+          '<span class="s-count">1 / ' + photos.length + '</span>' +
+          '</div>'
+        : '');
+    if (photos.length < 2) return;
+    const img = container.querySelector('.s-img');
+    const count = container.querySelector('.s-count');
+    const playBtn = container.querySelector('.s-play');
+    function go(n) {
+      idx = (n + photos.length) % photos.length;
+      img.style.opacity = '0';
+      setTimeout(() => { img.src = photos[idx]; img.style.opacity = '1'; }, 180);
+      count.textContent = (idx + 1) + ' / ' + photos.length;
+    }
+    container.querySelector('.s-prev').addEventListener('click', () => go(idx - 1));
+    container.querySelector('.s-next').addEventListener('click', () => go(idx + 1));
+    playBtn.addEventListener('click', () => {
+      paused = !paused;
+      playBtn.innerHTML = paused ? '&#9654;' : '&#10074;&#10074;';
+      playBtn.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+      if (timer) { clearInterval(timer); timer = null; }
+      if (!paused) timer = setInterval(() => go(idx + 1), 4500);
+    });
+    timer = setInterval(() => go(idx + 1), 4500);
+  }
+
+  function fail(msg) {
+    main.innerHTML = '<div class="err">' + esc(msg) + '</div>';
+  }
+
+  if (!slug) { fail('NO FILE SPECIFIED — USE post.html?p=&lt;slug&gt;'); return; }
+
+  Promise.all([
+    fetch('posts/data/index.json').then(r => { if (!r.ok) throw new Error(); return r.json(); }),
+    fetch('posts/data/' + encodeURIComponent(slug) + '.json').then(r => { if (!r.ok) throw new Error(); return r.json(); })
+  ]).then(([index, post]) => {
+    document.title = post.title.toUpperCase() + ' — 100X TERMINAL';
+
+    // prev/next within the same category, following build order
+    const sibs = index.filter(p => p.category === post.category);
+    const i = sibs.findIndex(p => p.slug === post.slug);
+    const prev = i > 0 ? sibs[i - 1] : null;
+    const next = i >= 0 && i < sibs.length - 1 ? sibs[i + 1] : null;
+
+    main.innerHTML =
+      '<div class="t-file ' + esc(post.category) + '">FILE: ' + esc(post.slug) +
+        ' &middot; <span class="cat">' + esc(post.category) + '</span></div>' +
+      '<h1>' + esc(post.title) + '</h1>' +
+      (post.org ? '<div class="t-org">' + esc(post.org) + '</div>' : '') +
+      '<div class="t-meta">' + esc(post.date) + ' &middot; ' + esc(post.location) +
+        (post.tag ? ' &middot; ' + esc(post.tag) : '') + '</div>' +
+      (post.photos && post.photos.length ? '<div class="t-photo" id="tphoto"></div>' : '') +
+      '<div class="t-body">' + post.html + '</div>' +
+      '<nav class="t-nav">' +
+        (prev ? '<a href="post.html?p=' + encodeURIComponent(prev.slug) + '"><span class="lbl">&#8249; PREV</span>' + esc(prev.title) + '</a>' : '<span></span>') +
+        (next ? '<a class="next" href="post.html?p=' + encodeURIComponent(next.slug) + '"><span class="lbl">NEXT &#8250;</span>' + esc(next.title) + '</a>' : '') +
+      '</nav>';
+
+    if (post.photos && post.photos.length) buildSlideshow(document.getElementById('tphoto'), post.photos);
+  }).catch(() => fail('FILE NOT FOUND OR UNREADABLE: ' + slug));
+})();
+</script>
+</body>
+</html>

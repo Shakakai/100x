@@ -1,0 +1,17 @@
+{
+  "slug": "08-ibm",
+  "category": "professional",
+  "title": "Software Engineer",
+  "date": "Jun 2007 — Feb 2009",
+  "location": "Shanghai, China",
+  "pin": "SHANGHAI, CN",
+  "lat": 31.23,
+  "lon": 121.47,
+  "org": "IBM",
+  "url": "https://www.ibm.com",
+  "photos": [],
+  "photo": null,
+  "tag": null,
+  "excerpt": "Ran product engineering for BizSphere, a sales enablement platform used by 50,000 IBM sellers. Architected its SPA and client-side state management years before those patterns were standard.",
+  "html": "<p>Ran product engineering for <strong>BizSphere</strong>, a sales enablement platform used by <strong>50,000 IBM sales professionals</strong> worldwide.</p>\n<p>Architected the BizSphere single-page application and built a <strong>state management library for data loading and caching</strong> — roughly five years before comparable patterns became standard — plus a reusable UI and graphing component library that accelerated prototyping across teams.</p>"
+}

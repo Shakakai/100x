@@ -1,0 +1,17 @@
+{
+  "slug": "03-jaspr-health",
+  "category": "professional",
+  "title": "Chief Technology Officer",
+  "date": "May 2020 — Aug 2023",
+  "location": "Seattle, WA",
+  "pin": "SEATTLE, WA",
+  "lat": 47.61,
+  "lon": -122.33,
+  "org": "Jaspr Health",
+  "url": "https://jasprhealth.com",
+  "photos": [],
+  "photo": null,
+  "tag": null,
+  "excerpt": "Owned the technical and regulatory path to FDA clearance for a conversational AI delivering suicide risk assessment in emergency departments. HIPAA/HITECH rebuild; NIH and SAMHSA funded clinical trials.",
+  "html": "<p>Owned the technical and regulatory engineering work required for <strong>FDA clearance</strong> — the first cleared product in the company's history — for a digital therapeutic delivering rapid suicide risk assessment and brief intervention in emergency departments.</p>\n<h2>The work</h2>\n<ul><li>Led a clinical conversational AI built on a <strong>deterministic rules-based core</strong> for clinical safety, augmented with GPT-3.5 for message categorization and analysis</li><li>Managed a multidisciplinary team of 20+ engineers, researchers, designers, and clinical experts</li><li>Validated the product through user research and clinical trials funded by <strong>NIH and SAMHSA</strong> grants</li><li>Secured HIPAA and HITECH compliance by rebuilding access control, data integrity, transmission security, and traceability across the platform</li><li>Instrumented product development against clinical outcomes including PHQ-9, length of stay, discharge disposition, and NPS</li></ul>"
+}

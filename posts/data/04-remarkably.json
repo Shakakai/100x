@@ -1,0 +1,17 @@
+{
+  "slug": "04-remarkably",
+  "category": "professional",
+  "title": "Chief Technology Officer",
+  "date": "Jan 2019 — Mar 2020",
+  "location": "Seattle, WA",
+  "pin": "SEATTLE, WA",
+  "lat": 47.61,
+  "lon": -122.33,
+  "org": "Remarkably",
+  "url": "https://www.remarkably.com",
+  "photos": [],
+  "photo": null,
+  "tag": null,
+  "excerpt": "Built v1 of a multifamily real estate marketing analytics SaaS and grew it from zero to $1.2M ARR in nine months through data-driven product strategy.",
+  "html": "<p>Built the first version of a <strong>multifamily real estate marketing data and analytics platform</strong>, measuring net operating income gaps and marketing funnel performance.</p>\n<p>Grew the product from zero to <strong>$600K ARR at six months and $1.2M ARR at nine months</strong> through data-driven product strategy, while hiring and leading a hybrid onsite/remote design and engineering team of 10+.</p>\n<p>Implemented a progressive feature rollout strategy that balanced manual operations against automation — shipping customer value ahead of full automation.</p>"
+}

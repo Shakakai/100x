@@ -1,0 +1,47 @@
+[tools]
+node = "22"
+pnpm = "9"
+python = "3.11"
+uv = "latest"
+
+[settings]
+experimental = true
+python.uv_venv_auto = "create|source"
+
+[hooks]
+postinstall = { task = "setup" }
+
+[env]
+# Load local secrets and overrides from the gitignored `.env` file.
+# The setup task ensures `VERACITY_SERVER_TOKEN` is written there.
+_.file = ".env"
+
+[tasks.setup]
+description = "One-time repository setup: install Python/Node deps, pi agent, and dev config"
+run = "bash ./mise-postinstall.sh"
+env = { PI_VERSION = "0.80.2" }
+
+[tasks."posts:build"]
+description = "Parse posts/*.md, write posts/data/*.json, and inject the POSTS index into index.html"
+dir = "{{ config_root }}"
+run = "node scripts/build-posts.mjs"
+
+[tasks."posts:watch"]
+description = "Rebuild posts automatically when markdown files change"
+dir = "{{ config_root }}"
+run = "node scripts/build-posts.mjs --watch"
+
+[tasks.dev]
+description = "Rebuild posts and serve the site locally on http://localhost:8000"
+dir = "{{ config_root }}"
+depends = ["posts:build"]
+run = "python3 -m http.server 8000"
+
+[tasks.pi]
+description = "Run the pi coding agent with project environment loaded"
+dir = "{{ config_root }}"
+run = '''
+set -e
+source ./pi-env.sh
+pi
+'''

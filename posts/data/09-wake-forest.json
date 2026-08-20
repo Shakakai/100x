@@ -1,0 +1,17 @@
+{
+  "slug": "09-wake-forest",
+  "category": "professional",
+  "title": "B.A. Biology & Economics",
+  "date": "Class of 2005",
+  "location": "Winston-Salem, NC",
+  "pin": "WINSTON-SALEM, NC",
+  "lat": 36.1,
+  "lon": -80.24,
+  "org": "Wake Forest University",
+  "url": "https://www.wfu.edu",
+  "photos": [],
+  "photo": null,
+  "tag": "EDUCATION",
+  "excerpt": "Computational biology concentration — where the biology and the code first collided.",
+  "html": "<p><strong>B.A. in Biology and Economics</strong> with a concentration in <strong>Computational Biology</strong>.</p>\n<p>Where the biology and the code first collided — and where building things with computers stopped being a hobby and started being the plan.</p>"
+}

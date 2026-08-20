@@ -1,0 +1,17 @@
+{
+  "slug": "06-thoughtleadr",
+  "category": "professional",
+  "title": "Founder / Chief Product Officer",
+  "date": "May 2011 — Nov 2018",
+  "location": "San Francisco, CA",
+  "pin": "SAN FRANCISCO, CA",
+  "lat": 37.77,
+  "lon": -122.42,
+  "org": "ThoughtLeadr",
+  "url": "https://www.crunchbase.com/organization/thoughtleadr",
+  "photos": [],
+  "photo": null,
+  "tag": null,
+  "excerpt": "Founded a native advertising platform serving Reddit, Imgur, and 9GAG — 10B+ requests a month on a Haskell core, ad serving 30% faster than Google DFP. Acquired by Chaotic Moon in 2013.",
+  "html": "<p>Founded and led a <strong>native advertising platform</strong> that let publishers monetize websites and mobile applications, solving the monetization gap for user-generated content at social scale.</p>\n<h2>By the numbers</h2>\n<ul><li>Sold into roughly half a dozen of the largest social platforms of the era — <strong>Reddit, Imgur, and 9GAG</strong> — representing 20B+ monthly impressions</li><li>Engineered an architecture handling <strong>10B+ requests and 100B+ events monthly</strong></li><li>Delivered ad serving <strong>30% faster than Google DFP</strong>, improving ad effectiveness by 5–10%</li><li>Selected <strong>Haskell</strong> for the core platform, trading a harder hiring market for a codebase that let a small team iterate quickly with minimal production defects</li></ul>\n<p>Sold the company to Chaotic Moon in 2013 and continued as operator through the earnout.</p>"
+}
